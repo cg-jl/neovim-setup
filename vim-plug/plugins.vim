@@ -7,30 +7,39 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
-
-
-" Auto pairs for '(' '[' '{'
-Plug 'jiangmiao/auto-pairs'
-
 " tpope essentials
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 
-" theming
-Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
-Plug 'ryanoasis/vim-devicons'
+if exists('g:vscode')
+  Plug 'asvetliakov/vim-easymotion'
+else
+  Plug 'svermeulen/vimpeccable'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'jceb/vim-orgmode'
+  " Better syntax support
+  Plug 'sheerun/vim-polyglot'
+  Plug 'tpope/vim-fugitive'
 
-" FZF && vim-rooter
-Plug 'junegunn/fzf', { 'do' : { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-rooter'
+" Auto pairs for '(' '[' '{'
+  Plug 'jiangmiao/auto-pairs'
+  
+  
+  " theming
+  Plug 'itchyny/lightline.vim'
+  Plug 'morhetz/gruvbox'
+  Plug 'ryanoasis/vim-devicons'
+  
+  " FZF && vim-rooter
+  Plug 'junegunn/fzf', { 'do' : { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  Plug 'airblade/vim-rooter'
+  
+  " completions
+  Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
 
-" completions
-Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
-
+endif
 
 call plug#end()
 

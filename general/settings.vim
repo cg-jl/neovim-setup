@@ -34,7 +34,10 @@ set formatoptions-=cro                  " Stop newline continution of comments
 set clipboard=unnamedplus               " Copy paste between vim and everything else
 set number relativenumber
 set mouse=nicr
-set guicursor=
+set signcolumn=number
+set nohls
+set ignorecase smartcase
+" set guicursor=
 
 " au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vim alternatively you can run :source $MYVIMRC
 " You can't stop me
