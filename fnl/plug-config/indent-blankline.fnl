@@ -5,6 +5,9 @@
       :context_patterns [:declaration
                         :expression
                         :pattern
+                        :class
+                        :method
+                        :function
                         :primary_expression
                         :statement
                         :switch_body]
