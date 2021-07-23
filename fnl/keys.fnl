@@ -1,5 +1,5 @@
-(local map (. (require :utils) :map))
-(local mapcmd (. (require :utils) :map-command))
+(local map (. (require :fnl.utils) :map))
+(local mapcmd (. (require :fnl.utils) :map-command))
 
 ; better nav for omnicomplete
 (map :i :<c-j> "\\<c-n>" {:expr true

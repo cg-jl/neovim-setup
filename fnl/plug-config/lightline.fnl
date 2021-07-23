@@ -1,4 +1,4 @@
-(local utils (require :utils))
+(local utils (require :fnl.utils))
 
 ; add branch NF icon to branch name.
 (vim.cmd "

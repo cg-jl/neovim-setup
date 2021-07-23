@@ -4,8 +4,8 @@
 
 ; set python interpreter
 
-(require :plugins)
-(require :options)
-(require :keys)
+(require :fnl.plugins)
+(require :fnl.options)
+(require :fnl.keys)
 
 nil

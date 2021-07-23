@@ -1,4 +1,4 @@
-(local map (. (require :utils) :map))
+(local map (. (require :fnl.utils) :map))
 (map :n "<space>," "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
 (map :n "<space>;" "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
 (map :n :<space>a "<cmd>lua vim.lsp.buf.code_action()<CR>")

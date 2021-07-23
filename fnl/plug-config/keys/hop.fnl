@@ -1,4 +1,4 @@
-(local utils (require :utils))
+(local utils (require :fnl.utils))
 ;; my leader is ',' so these are right and left,
 ;; respectively
 (utils.map-command :n :<leader>. :HopWord)

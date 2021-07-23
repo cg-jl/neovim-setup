@@ -1,4 +1,4 @@
-(local utils (require :utils))
+(local utils (require :fnl.utils))
 (local mapcmd utils.map-command)
 
 (mapcmd :n :<leader>ll :LspTroubleToggle)

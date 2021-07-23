@@ -1,7 +1,7 @@
 (local nvim-lsp (require :lspconfig))
 (local completion (require :completion))
 (local lsp-status (require :lsp-status))
-(local utils (require :utils))
+(local utils (require :fnl.utils))
 (local lsp-util (require :lspconfig/util))
 
 (fn on-attach [client]

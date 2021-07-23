@@ -1,4 +1,4 @@
-(local utils (require :utils))
+(local utils (require :fnl.utils))
 
 (->> {:use_treesitter true
       :show_current_context true

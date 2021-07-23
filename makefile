@@ -1,5 +1,4 @@
 FNL_FILES := $(shell find fnl -name '*.fnl')
-LUA_FILES := $(patsubst fnl/%.fnl, lua/%.lua, $(FNL_FILES))
 FMT := $(patsubst %,format/%, $(FNL_FILES))
 
 
@@ -8,17 +7,19 @@ FMT := $(patsubst %,format/%, $(FNL_FILES))
 lua/%.lua: fnl/%.fnl
 	@echo "Compiling $^"
 	@mkdir -p $(dir $@) && \
-	fennel --compile $^ > $@
+	fennel --require-as-include --compile $^ > $@
 
 
 .PHONY: all_files
 .PHONY: clean
+.PHONY: main
+
+main:
+	fennel --require-as-include --compile fnl/main.fnl > init.lua
 
 
-
-all_files: $(LUA_FILES)
 
 clean:
 	@rm -rf lua
 
-all: all_files
+all: main

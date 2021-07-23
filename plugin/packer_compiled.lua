@@ -77,6 +77,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/completion-nvim"
   },
+  ["feline.nvim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/feline.nvim"
+  },
   fzf = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/fzf"
@@ -85,13 +89,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/fzf.vim"
   },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
+  },
   ["hop.nvim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/hop.nvim"
-  },
-  ["indent-blankline.nvim"] = {
-    loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
   },
   kommentary = {
     loaded = true,
@@ -108,10 +112,6 @@ _G.packer_plugins = {
   ["lsp-trouble.nvim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lsp-trouble.nvim"
-  },
-  ["lualine.nvim"] = {
-    loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
   ["nord-vim"] = {
     loaded = true,
@@ -136,6 +136,10 @@ _G.packer_plugins = {
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/packer.nvim"
+  },
+  ["plenary.nvim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/plenary.nvim"
   },
   undotree = {
     loaded = true,

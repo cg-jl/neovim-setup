@@ -8,34 +8,36 @@
                               install-path))
     (vim.api.nvim_command "packadd packer.nvim")))
 
+
 ; this giant macro removes
 ; the need to use { 1 name }
 ; when using `use` with a configuration
-(macro use-pkg [name config?]
+(macro pkg [name ?config]
   (fn merge-tables [a b]
-    (fn is-type [v type-name]
-      (= (type v) type-name))
-
-    (fn both-have-type [a b type-name]
-      (and (is-type a type-name) (is-type b type-name)))
+    (fn is-type [v type-name] (= (type v) type-name))
+    (fn both-have-type [a b type-name] (and (is-type a type-name) (is-type b type-name)))
     (var merged {})
 
-    (each [k v (pairs a)]
+    (each [ k v (pairs a) ]
       (tset merged k v))
-    (each [k v (pairs b)]
-      (let [other-value (. a k)]
-        (tset merged k (if (both-have-type v other-value :table)
-                           (merge-tables v other-value)
-                           v))))
-    merged)
 
-  (assert name "expected a name")
-  (if config?
-      (let [final-config (merge-tables {1 name
-                                        }
-                                       config?)]
-        `(use ,final-config))
-      `(use ,name)))
+    (each [ k v (pairs b) ]
+      (let [ other-value (. a k) ]
+        (tset merged k (if (both-have-type v other-value :table) 
+                            (merge-tables v other-value)
+                            v))))
+    merged)
+    
+    (assert name "expected a name to the package")
+    (if ?config 
+      (merge-tables { 1 name } ?config)
+      name)
+)
+
+
+; fusion (use) and (pkg)
+(macro use-pkg [name ?config]
+  `(use (pkg ,name ,?config)))
 
 (local packer (require :packer))
 
@@ -44,9 +46,8 @@
                   (use-pkg :arcticicestudio/nord-vim)
                   (use-pkg :phaazon/hop.nvim)
                   (use-pkg :nvim-treesitter/nvim-treesitter)
-                  (use-pkg :hoob3rt/lualine.nvim
-                           {:requires :kyazdani42/nvim-web-devicons
-                            })
+                  (use-pkg :famiu/feline.nvim { :requires [ :kyazdani42/nvim-web-devicons (pkg :lewis6991/gitsigns.nvim { :requires :nvim-lua/plenary.nvim }) ]
+                                                })
                   (use-pkg :kyazdani42/nvim-tree.lua
                            {:requires :kyazdani42/nvim-web-devicons
                             })
@@ -66,24 +67,26 @@
                            {:requires :kyazdani42/nvim-web-devicons
                             })
                   (use-pkg :folke/lsp-colors.nvim)
-                  (use-pkg :lukas-reineke/indent-blankline.nvim)
+;                  (use-pkg :lukas-reineke/indent-blankline.nvim) ; plugin is fine but tries to show on top when overscrolling horizontally
                   (use-pkg :mbbill/undotree)
                   nil))
 
 ; after startup
 (macro setup-config [name]
-  `(require ,(.. :plug-config/ name)))
+  `(require ,(.. :fnl.plug-config. name)))
 
 (macro setup-keys [name]
-  `(require ,(.. :plug-config/keys/ name)))
+  `(require ,(.. :fnl.plug-config.keys. name)))
 
 (setup-config :theme)
 (setup-config :kommentary)
-(setup-config :lualine)
+;(setup-config :lualine)
 (setup-config :nvim-lsp)
 (setup-config :hop)
 (setup-config :treesitter)
-(setup-config :indent-blankline)
+(setup-config :gitsigns)
+(setup-config :feline)
+;(setup-config :indent-blankline)
 
 (setup-keys :fzf)
 (setup-keys :lsp)

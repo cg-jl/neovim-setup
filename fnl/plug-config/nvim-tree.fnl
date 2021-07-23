@@ -1,4 +1,4 @@
-(local utils (require :utils))
+(local utils (require :fnl.utils))
 (fn nvim-tree-options [opts]
   (utils.set-globals (utils.prefix-options [:nvim :tree] opts)))
 

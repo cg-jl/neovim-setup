@@ -1,5 +1,5 @@
 ;(import-macros utils :fnl/macros)
-(local utils (require :utils))
+(local utils (require :fnl.utils))
 
 (utils.options :global {:hidden true
                         :encoding :utf-8
