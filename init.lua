@@ -74,37 +74,31 @@ package.preload["fnl.plug-config.keys.fzf"] = package.preload["fnl.plug-config.k
 end
 package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.feline"] or function(...)
   local feline = require("feline")
-  feline.setup()
-  local function get_diagnostic(str)
-    local count = vim.lsp.diagnostic.get_count(0, str)
-    return (((count > 0) and (" " .. count .. " ")) or "")
+  local feline_preset = require("feline.presets.default")
+  local default_bg = "#2e3440"
+  local function see(tbl)
+    for k, v in pairs(tbl) do
+      print(k, v)
+    end
+    return nil
+  end
+  do
+    local _0_0 = feline_preset.components
+    _0_0["left"]["active"][3]["right_sep"] = {{hl = {bg = __fnl_global__default_2dfg, fg = "oceanblue"}, str = "\238\130\176"}, " "}
+    _0_0["left"]["active"][3]["left_sep"] = {" ", {hl = {bg = "oceanblue", fg = default_bg}, str = "\238\130\176"}, {hl = {bg = "oceanblue", fg = "NONE"}, str = " "}}
+    _0_0["left"]["active"][4]["right_sep"] = {" ", {hl = {bg = default_bg, fg = "cyan"}, str = "\238\130\177"}}
+    _0_0["left"]["active"][5]["right_sep"] = {hl = {bg = default_bg, fg = "cyan"}, str = "\238\130\177"}
+    _0_0["left"]["active"][5]["left_sep"] = ""
+    _0_0["right"]["active"][1]["left_sep"] = {hl = {bg = default_bg, fg = "black"}, str = "\238\130\178"}
+    _0_0["right"]["active"][4]["right_sep"] = {{hl = {bg = "black", fg = "NONE"}, str = " "}, {hl = {bg = "black", fg = default_bg}, str = "\238\130\178"}}
   end
   local function vi_mode_provider()
     local mode_alias = {R = "REPLACE", Rv = "REPLACE", S = "SELECT", V = "V-LINE", ["\19"] = "SELECT", ["\22"] = "V-BLOCK", c = "COMMAND", ce = "COMMAND", cv = "COMMAND", i = "INSERT", n = "NORMAL", no = "NORMAL", s = "SELECT", t = "TERMINAL", v = "VISUAL"}
-    return (" " .. mode_alias[vim.fn.mode()] .. " \238\130\190")
-  end
-  local function percentage_provider()
-    local cursor = require("feline.providers.cursor")
-    return ("\238\130\188 " .. cursor.line_percentage() .. " ")
-  end
-  local function vi_mode_hl()
-    local vi_mode = require("feline.providers.vi_mode")
-    return {bg = vi_mode.get_mode_color(), fg = "bg", name = vi_mode.get_mode_highlight_name(), style = "bold"}
+    return ("\238\152\171 " .. mode_alias[vim.fn.mode()])
   end
   local colors = {black = "#434c5e", cyan = "#88c0d0", green = "#8fbcbb", magenta = "#b48ead", oceanblue = "#5e81ac", orange = "#d08770", red = "#ec5f67", skyblue = "#81a1c1", violet = "#b48ead", white = "#eceff4", yellow = "#ebcb8b"}
   local vi_mode_colors = {BLOCK = "green", COMMAND = "cyan", ENTER = "cyan", INSERT = "white", MORE = "cyan", NONE = "orange", NORMAL = "cyan", OP = "cyan", REPLACE = "yellow", SELECT = "magenta", SHELL = "skyblue", TERM = "skyblue", VISUAL = "green", ["V-REPLACE"] = "yellow"}
-  local components = {}
-  do
-    local _0_0 = components
-    _0_0["left"] = {}
-    _0_0["right"] = {}
-    _0_0["mid"] = {}
-  end
-  do
-    local _1_0 = components.left
-    _1_0["active"] = {}
-  end
-  return feline.setup({colors = colors, components = components, default_bg = "#2e3440", default_fg = "#8fbcbb", vi_mode_colors = vi_mode_colors})
+  return feline.setup({colors = colors, default_bg = default_bg, default_fg = "#8fbcbb", vi_mode_colors = vi_mode_colors})
 end
 package.preload["fnl.plug-config.gitsigns"] = package.preload["fnl.plug-config.gitsigns"] or function(...)
   local gs = require("gitsigns")
