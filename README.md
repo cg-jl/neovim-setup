@@ -4,16 +4,15 @@
 I've taken the opportunity to rewrite my config in Lua, therefore
 cleaning it up. Using this opportunity to learn a bit of fennel, a
 lisp-like lua, I've written all my configuration in this language, and
-all the config is under [`fnl/`](./fnl), the stuff in [`lua/`](./lua) has been compiled via the `fennel` tool
+all the config is under [`fnl/`](./fnl), the stuff in [`init.lua`](./init.lua) has been compiled via the `fennel` tool
 and the [`makefile`](./makefile) that you can see.
+
+Everything is compiled into the `init.lua` to avoid dangling files (configs from plugins I no longer use) and minimize the work needed
+to load everything, as no new files have to be open and parsed in order to load them.
 
 Fennel is very readable even if you don't really know how to write it, so if you want
 to take inspiration of my config, you will have no problem on reading it, just don't take the
 brackets into account.
-
-Also note that the `fnl/` directory is mirrored into the `lua/` directory, except for the `lua/<dir>/init.lua` files which are generated
-by the makefile automatically so I don't miss any `require`s. The only job of those files is to source everything under the directory.
-
 
 # Dependencies
 
