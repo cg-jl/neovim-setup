@@ -1,5 +1,6 @@
 # Neovim in Lua
 
+![screenshot](./screenshot.png)
 
 I've taken the opportunity to rewrite my config in Lua, therefore
 cleaning it up. Using this opportunity to learn a bit of fennel, a
