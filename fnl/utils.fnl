@@ -26,6 +26,21 @@
     (each [k v (pairs kvpairs)]
       (tset-fn k v))))
 
+(fn count-true [tbl filter]
+  (var count 0)
+  (each [ _ v (ipairs tbl) ]
+    (when (filter v) (set count (+ count 1))))
+  count)
+
+(fn reverse-inplace [tbl]
+  (for [ k 1 (length tbl) ]
+    (lua "tbl[i], tbl[#tbl - i + 1] = tbl[#tbl - i + 1], tbl[i]")))
+
+(fn shorten [maxlen str]
+  (if (> (length str) maxlen)
+    (.. (string.sub str 1 (- maxlen 3)) "...")
+    str))
+
 ; (fn options [scope kvpairs]
 ;   (print "scope:" scope)
 ;   (let [api-option-infix (match scope
@@ -99,4 +114,6 @@
  : merge-tables
  : make-command
  : prefix-options
+ : count-true
+ : shorten
  }

@@ -18,13 +18,7 @@
 ; register progress handler
 
 ; for lightline
-(vim.cmd "
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval(\"require('lsp-status').status()\")
-  endif
-return ''
-endfunction")
+
 
 (local default-options {:on_attach on-attach
                         :capabilities lsp-status.capabilities

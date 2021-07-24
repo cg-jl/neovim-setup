@@ -74,31 +74,77 @@ package.preload["fnl.plug-config.keys.fzf"] = package.preload["fnl.plug-config.k
 end
 package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.feline"] or function(...)
   local feline = require("feline")
-  local feline_preset = require("feline.presets.default")
-  local default_bg = "#2e3440"
-  local function see(tbl)
-    for k, v in pairs(tbl) do
-      print(k, v)
-    end
-    return nil
-  end
-  do
-    local _0_0 = feline_preset.components
-    _0_0["left"]["active"][3]["right_sep"] = {{hl = {bg = __fnl_global__default_2dfg, fg = "oceanblue"}, str = "\238\130\176"}, " "}
-    _0_0["left"]["active"][3]["left_sep"] = {" ", {hl = {bg = "oceanblue", fg = default_bg}, str = "\238\130\176"}, {hl = {bg = "oceanblue", fg = "NONE"}, str = " "}}
-    _0_0["left"]["active"][4]["right_sep"] = {" ", {hl = {bg = default_bg, fg = "cyan"}, str = "\238\130\177"}}
-    _0_0["left"]["active"][5]["right_sep"] = {hl = {bg = default_bg, fg = "cyan"}, str = "\238\130\177"}
-    _0_0["left"]["active"][5]["left_sep"] = ""
-    _0_0["right"]["active"][1]["left_sep"] = {hl = {bg = default_bg, fg = "black"}, str = "\238\130\178"}
-    _0_0["right"]["active"][4]["right_sep"] = {{hl = {bg = "black", fg = "NONE"}, str = " "}, {hl = {bg = "black", fg = default_bg}, str = "\238\130\178"}}
-  end
+  local vi_mode_utils = require("feline.providers.vi_mode")
+  local feline_lsp = require("feline.providers.lsp")
+  local utils = require("fnl.utils")
+  local default_bg = "#434c5e"
+  local dark_bg_1 = "#3b4252"
+  local dark_bg_2 = "#2e3440"
   local function vi_mode_provider()
     local mode_alias = {R = "REPLACE", Rv = "REPLACE", S = "SELECT", V = "V-LINE", ["\19"] = "SELECT", ["\22"] = "V-BLOCK", c = "COMMAND", ce = "COMMAND", cv = "COMMAND", i = "INSERT", n = "NORMAL", no = "NORMAL", s = "SELECT", t = "TERMINAL", v = "VISUAL"}
     return ("\238\152\171 " .. mode_alias[vim.fn.mode()])
   end
+  local components = {left = {active = {}, inactive = {}}, mid = {active = {}, inactive = {}}, right = {active = {}, inactive = {}}}
+  local lsp_status = require("lsp-status")
+  do
+    local _0_0 = components
+    do
+      local _1_0 = (_0_0).left.active
+      local function vi_mode_hl()
+        return {fg = vi_mode_utils.get_mode_color(), name = vi_mode_utils.get_mode_highlight_name(), style = "bold"}
+      end
+      table.insert(_1_0, {hl = vi_mode_hl, left_sep = " ", provider = "vi_mode", right_sep = " "})
+      table.insert(_1_0, {hl = {bg = dark_bg_1, fg = "skyblue", style = "bold"}, left_sep = {{hl = {fg = dark_bg_1}, str = "slant_left"}, {hl = {bg = dark_bg_1}, str = " "}}, provider = "file_info"})
+      local function _2_()
+        return (vim.fn.getfsize(vim.fn.expand("%:p")) > 0)
+      end
+      table.insert(_1_0, {enabled = _2_, hl = {bg = dark_bg_1, fg = "skyblue"}, left_sep = {{hl = {bg = dark_bg_1}, str = "slant_left_thin"}, {hl = {bg = dark_bg_1}, str = " "}}, provider = "position", right_sep = {{hl = {bg = dark_bg_1}, str = " "}, {hl = {bg = dark_bg_2, fg = dark_bg_1}, str = "slant_right_2"}}})
+      local function _3_()
+        return feline_lsp.diagnostics_exist("Information")
+      end
+      table.insert(_1_0, {enabled = _3_, hl = {bg = dark_bg_2, fg = "green"}, left_sep = {hl = {bg = dark_bg_1, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_info"})
+      local function _4_()
+        return feline_lsp.diagnostics_exist("Hint")
+      end
+      table.insert(_1_0, {enabled = _4_, hl = {bg = dark_bg_2, fg = "skyblue"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_hints"})
+      local function _5_()
+        return feline_lsp.diagnostics_exist("Warning")
+      end
+      table.insert(_1_0, {enabled = _5_, hl = {bg = dark_bg_2, fg = "yellow"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_warnings"})
+      local function _6_()
+        return feline_lsp.diagnostics_exist("Error")
+      end
+      table.insert(_1_0, {enabled = _6_, hl = {bg = dark_bg_2, fg = "red"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_errors"})
+    end
+    local _2_0 = (_0_0).right.active
+    local function _3_()
+      return (#vim.lsp.buf_get_clients() > 0)
+    end
+    local function _4_()
+      return utils.shorten(55, lsp_status.status())
+    end
+    table.insert(_2_0, {enabled = _3_, hl = {bg = dark_bg_2, fg = "skyblue"}, provider = _4_})
+    local function _5_()
+      return {hl = {bg = dark_bg_1, fg = "NONE"}, str = " "}
+    end
+    table.insert(_2_0, {hl = {bg = dark_bg_1, fg = "white"}, left_sep = {{hl = {bg = dark_bg_2, fg = dark_bg_1}, str = "slant_left_2"}}, provider = "git_branch", right_sep = _5_})
+    table.insert(_2_0, {hl = {bg = dark_bg_1, fg = "green"}, provider = "git_diff_added", right_sep = {hl = {bg = dark_bg_1}, str = " "}})
+    table.insert(_2_0, {hl = {bg = dark_bg_1, fg = "orange"}, provider = "git_diff_changed", right_sep = {hl = {bg = dark_bg_1}, str = " "}})
+    local function _6_()
+      local _7_
+      if vim.b.gitsigns_status_dict then
+        _7_ = " "
+      else
+        _7_ = ""
+      end
+      return {hl = {bg = dark_bg_1}, str = _7_}
+    end
+    table.insert(_2_0, {hl = {bg = dark_bg_1, fg = "red"}, provider = "git_diff_removed", right_sep = {_6_, {hl = {fg = dark_bg_1}, str = "slant_right_2"}}})
+    table.insert(_2_0, {hl = {style = "bold"}, left_sep = " ", provider = "line_percentage", right_sep = " "})
+  end
   local colors = {black = "#434c5e", cyan = "#88c0d0", green = "#8fbcbb", magenta = "#b48ead", oceanblue = "#5e81ac", orange = "#d08770", red = "#ec5f67", skyblue = "#81a1c1", violet = "#b48ead", white = "#eceff4", yellow = "#ebcb8b"}
-  local vi_mode_colors = {BLOCK = "green", COMMAND = "cyan", ENTER = "cyan", INSERT = "white", MORE = "cyan", NONE = "orange", NORMAL = "cyan", OP = "cyan", REPLACE = "yellow", SELECT = "magenta", SHELL = "skyblue", TERM = "skyblue", VISUAL = "green", ["V-REPLACE"] = "yellow"}
-  return feline.setup({colors = colors, default_bg = default_bg, default_fg = "#8fbcbb", vi_mode_colors = vi_mode_colors})
+  local vi_mode_colors = {BLOCK = "green", COMMAND = "cyan", ENTER = "cyan", INSERT = "white", MORE = "cyan", NONE = "orange", NORMAL = "skyblue", OP = "cyan", REPLACE = "yellow", SELECT = "magenta", SHELL = "skyblue", TERM = "skyblue", VISUAL = "green", ["V-REPLACE"] = "yellow"}
+  return feline.setup({colors = colors, components = components, default_bg = default_bg, default_fg = "#8fbcbb", vi_mode_colors = vi_mode_colors})
 end
 package.preload["fnl.plug-config.gitsigns"] = package.preload["fnl.plug-config.gitsigns"] or function(...)
   local gs = require("gitsigns")
@@ -129,7 +175,6 @@ package.preload["fnl.plug-config.nvim-lsp"] = package.preload["fnl.plug-config.n
   end
   lsp_status.config({current_function = true})
   lsp_status.register_progress()
-  vim.cmd("\nfunction! LspStatus() abort\n  if luaeval('#vim.lsp.buf_get_clients() > 0')\n    return luaeval(\"require('lsp-status').status()\")\n  endif\nreturn ''\nendfunction")
   local default_options = {capabilities = lsp_status.capabilities, on_attach = on_attach}
   nvim_lsp.rust_analyzer.setup(utils["merge-tables"](default_options, {settings = {["rust-analyzer"] = {checkOnSave = {command = "clippy"}}}}))
   nvim_lsp.ccls.setup(default_options)
@@ -193,6 +238,28 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
     end
     return nil
   end
+  local function count_true(tbl, filter)
+    local count = 0
+    for _, v in ipairs(tbl) do
+      if filter(v) then
+        count = (count + 1)
+      end
+    end
+    return count
+  end
+  local function reverse_inplace(tbl)
+    for k = 1, #tbl do
+      tbl[i], tbl[#tbl - i + 1] = tbl[#tbl - i + 1], tbl[i]
+    end
+    return nil
+  end
+  local function shorten(maxlen, str)
+    if (#str > maxlen) then
+      return (string.sub(str, 1, (maxlen - 3)) .. "...")
+    else
+      return str
+    end
+  end
   local function make_command(name)
     return (":" .. name .. "<cr>")
   end
@@ -247,7 +314,7 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
     end
     return merged
   end
-  return {["is-in-table"] = is_in_table, ["make-command"] = make_command, ["map-command"] = map_command, ["merge-tables"] = merge_tables, ["prefix-options"] = prefix_options, ["set-global"] = set_global, ["set-globals"] = set_globals, map = map, options = options}
+  return {["count-true"] = count_true, ["is-in-table"] = is_in_table, ["make-command"] = make_command, ["map-command"] = map_command, ["merge-tables"] = merge_tables, ["prefix-options"] = prefix_options, ["set-global"] = set_global, ["set-globals"] = set_globals, map = map, options = options, shorten = shorten}
 end
 package.preload["fnl.plug-config.theme"] = package.preload["fnl.plug-config.theme"] or function(...)
   local utils = require("fnl.utils")
