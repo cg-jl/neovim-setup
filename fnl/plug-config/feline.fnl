@@ -42,20 +42,18 @@
   :mid { :active [] :inactive [] }
  })
 
-        (macro lsp-card [typ ?is-first]
-          (assert typ "Need a type (errors, warnings, hints, info)")
-          (let [ fn-arg (match typ :errors :Error :warnings :Warning :hints :Hint :info :Information _ nil)
-                 color (match typ :errors :red :warnings :yellow :hints :skyblue :info :green) ]
-            (var all [ :Error :Warning :Hint :Information ])
-            (tset all fn-arg nil)
-            (assert fn-arg "Bad type")
-            (assert color "Bad type")
-           `{
-             :provider ,(.. :diagnostic_ typ)
-             :enabled #(feline-lsp.diagnostics_exist ,fn-arg)
-             :hl { :fg ,color :bg dark-bg-2 }
-             :left_sep { :str :slant_left :hl { :fg dark-bg-2 :bg ,(if ?is-first `dark-bg-1 `dark-bg-2) } }
-           }))
+(macro lsp-card [typ ?is-first]
+  (assert typ "Need a type (errors, warnings, hints, info)")
+  (let [ fn-arg (match typ :errors :Error :warnings :Warning :hints :Hint :info :Information _ nil)
+         color (match typ :errors :red :warnings :yellow :hints :skyblue :info :green) ]
+       (assert fn-arg "Bad type")
+       (assert color "Bad type")
+       `{
+          :provider ,(.. :diagnostic_ typ)
+          :enabled #(feline-lsp.diagnostics_exist ,fn-arg)
+          :hl { :fg ,color :bg dark-bg-2 }
+          :left_sep { :str :slant_left :hl { :fg dark-bg-2 :bg ,(if ?is-first `dark-bg-1 `dark-bg-2) } }
+         }))
 
 (local lsp-status (require :lsp-status))
 
@@ -89,7 +87,7 @@
   (-> (. :right :active)
       (doto
         ; TODO: get diagnostics to show
-        (table.insert { :provider #(->> (lsp-status.status) (utils.shorten 55)) :hl { :bg dark-bg-2 :fg :skyblue  } 
+        (table.insert { :provider #(->> (lsp-status.status) (utils.shorten 85)) :hl { :bg dark-bg-2 :fg :skyblue  } 
                         :enabled #(-> (vim.lsp.buf_get_clients) (length) (> 0))
                         })
         (table.insert { :provider :git_branch :hl { :fg :white :bg dark-bg-1 } 

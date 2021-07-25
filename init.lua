@@ -72,6 +72,10 @@ package.preload["fnl.plug-config.keys.fzf"] = package.preload["fnl.plug-config.k
   mapcmd("n", "<leader>fc", "Commits")
   return mapcmd("n", "<leader>fb", "Buffers")
 end
+package.preload["fnl.plug-config.indent-blankline"] = package.preload["fnl.plug-config.indent-blankline"] or function(...)
+  local utils = require("fnl.utils")
+  return utils["set-globals"](utils["prefix-options"]({"indent", "blankline"}, {char = "\226\148\130", context_patterns = {"declaration", "expression", "pattern", "class", "method", "function", "primary_expression", "statement", "switch_body"}, show_current_context = true, use_treesitter = true}))
+end
 package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.feline"] or function(...)
   local feline = require("feline")
   local vi_mode_utils = require("feline.providers.vi_mode")
@@ -121,7 +125,7 @@ package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.fel
       return (#vim.lsp.buf_get_clients() > 0)
     end
     local function _4_()
-      return utils.shorten(55, lsp_status.status())
+      return utils.shorten(85, lsp_status.status())
     end
     table.insert(_2_0, {enabled = _3_, hl = {bg = dark_bg_2, fg = "skyblue"}, provider = _4_})
     local function _5_()
@@ -354,6 +358,7 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("nvim-lua/completion-nvim")
     use({"folke/lsp-trouble.nvim", requires = "kyazdani42/nvim-web-devicons"})
     use("folke/lsp-colors.nvim")
+    use("lukas-reineke/indent-blankline.nvim")
     use("mbbill/undotree")
     return nil
   end
@@ -365,6 +370,7 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   require("fnl.plug-config.treesitter")
   require("fnl.plug-config.gitsigns")
   require("fnl.plug-config.feline")
+  require("fnl.plug-config.indent-blankline")
   require("fnl.plug-config.keys.fzf")
   require("fnl.plug-config.keys.lsp")
   require("fnl.plug-config.keys.vim-fugitive")
