@@ -23,7 +23,7 @@ end
 package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
   local utils = require("fnl.utils")
   utils.options("global", {backup = false, clipboard = "unnamedplus", cmdheight = 2, completeopt = "menuone,noinsert,noselect", encoding = "utf-8", guicursor = "", hidden = true, hlsearch = false, ignorecase = true, laststatus = 2, mouse = "nicr", pumheight = 10, ruler = true, showmode = false, showtabline = 2, smartcase = true, smarttab = true, splitbelow = true, termguicolors = true, timeoutlen = 500, updatetime = 300, wildmode = "list:longest", writebackup = false})
-  utils.options("window", {conceallevel = 0, cursorline = true, list = true, number = true, relativenumber = true, signcolumn = "number", wrap = false})
+  utils.options("window", {conceallevel = 0, cursorline = true, list = false, number = true, relativenumber = true, signcolumn = "yes", wrap = false})
   utils.options("buffer", {autoindent = true, expandtab = true, shiftwidth = 2, smartindent = true, tabstop = 2})
   return nil
 end
@@ -32,12 +32,6 @@ package.preload["fnl.plug-config.keys.nvim-tree"] = package.preload["fnl.plug-co
   mapcmd("n", "<leader>e", "NvimTreeToggle")
   mapcmd("n", "<leader>r", "NvimTreeRefresh")
   return nil
-end
-package.preload["fnl.plug-config.keys.hop"] = package.preload["fnl.plug-config.keys.hop"] or function(...)
-  local utils = require("fnl.utils")
-  utils["map-command"]("n", "<leader>.", "HopWord")
-  utils["map-command"]("n", "<leader>m", "HopLine")
-  return utils["map-command"]("n", "<leader>p", "HopPattern")
 end
 package.preload["fnl.plug-config.keys.lsp-trouble"] = package.preload["fnl.plug-config.keys.lsp-trouble"] or function(...)
   local utils = require("fnl.utils")
@@ -71,10 +65,6 @@ package.preload["fnl.plug-config.keys.fzf"] = package.preload["fnl.plug-config.k
   mapcmd("n", "<leader>fh", "History")
   mapcmd("n", "<leader>fc", "Commits")
   return mapcmd("n", "<leader>fb", "Buffers")
-end
-package.preload["fnl.plug-config.indent-blankline"] = package.preload["fnl.plug-config.indent-blankline"] or function(...)
-  local utils = require("fnl.utils")
-  return utils["set-globals"](utils["prefix-options"]({"indent", "blankline"}, {char = "\226\148\130", context_patterns = {"declaration", "expression", "pattern", "class", "method", "function", "primary_expression", "statement", "switch_body"}, show_current_context = true, use_treesitter = true}))
 end
 package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.feline"] or function(...)
   local feline = require("feline")
@@ -358,8 +348,6 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("nvim-lua/completion-nvim")
     use({"folke/lsp-trouble.nvim", requires = "kyazdani42/nvim-web-devicons"})
     use("folke/lsp-colors.nvim")
-    use("lukas-reineke/indent-blankline.nvim")
-    use("mbbill/undotree")
     return nil
   end
   packer.startup(packer_startup)
@@ -370,12 +358,10 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   require("fnl.plug-config.treesitter")
   require("fnl.plug-config.gitsigns")
   require("fnl.plug-config.feline")
-  require("fnl.plug-config.indent-blankline")
   require("fnl.plug-config.keys.fzf")
   require("fnl.plug-config.keys.lsp")
   require("fnl.plug-config.keys.vim-fugitive")
   require("fnl.plug-config.keys.lsp-trouble")
-  require("fnl.plug-config.keys.hop")
   require("fnl.plug-config.keys.nvim-tree")
   return nil
 end

@@ -67,8 +67,8 @@
                            {:requires :kyazdani42/nvim-web-devicons
                             })
                   (use-pkg :folke/lsp-colors.nvim)
-                  (use-pkg :lukas-reineke/indent-blankline.nvim) ; plugin is fine but tries to show on top when overscrolling horizontally
-                  (use-pkg :mbbill/undotree)
+;                  (use-pkg :lukas-reineke/indent-blankline.nvim) ; plugin is fine but tries to show on top when overscrolling horizontally
+;                  (use-pkg :mbbill/undotree)
                   nil))
 
 ; after startup
@@ -80,19 +80,18 @@
 
 (setup-config :theme)
 (setup-config :kommentary)
-;(setup-config :lualine)
 (setup-config :nvim-lsp)
 (setup-config :hop)
 (setup-config :treesitter)
 (setup-config :gitsigns)
 (setup-config :feline)
-(setup-config :indent-blankline)
+;(setup-config :indent-blankline)
 
 (setup-keys :fzf)
 (setup-keys :lsp)
 (setup-keys :vim-fugitive)
 (setup-keys :lsp-trouble)
-(setup-keys :hop)
+;(setup-keys :hop)
 (setup-keys :nvim-tree)
 
 nil

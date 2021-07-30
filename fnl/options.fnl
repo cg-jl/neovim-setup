@@ -34,8 +34,8 @@
                         :cursorline true
                         :number true
                         :relativenumber true
-                        :signcolumn :number
-                        :list true
+                        :signcolumn :yes ; always show numbers
+                        :list false
                         })
 
 (utils.options :buffer {:tabstop 2
