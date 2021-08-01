@@ -1,6 +1,7 @@
 .PHONY: main
 
 main:
-	fennel --require-as-include --compile fnl/main.fnl > init.lua
+	mkdir -p lua && \
+	fennel --require-as-include --compile fnl/main.fnl > lua/main.lua
 
 all: main

@@ -37,6 +37,6 @@
 (mapcmd :n :<leader>j :lprev)
 (mapcmd :n :<leader>k :lnext)
 
-(mapcmd :n :<leader>rc "lua require('init')")
+(mapcmd :n :<leader>rc "lua require('main')")
 
 nil
