@@ -54,6 +54,7 @@
                   (use-pkg :jiangmiao/auto-pairs)
                   (use-pkg :tpope/vim-repeat)
                   (use-pkg :tpope/vim-surround)
+                  (use-pkg :tpope/vim-repeat)
                   (use-pkg :tpope/vim-fugitive)
                   (use-pkg :b3nj5m1n/kommentary)
                   (use-pkg :junegunn/fzf

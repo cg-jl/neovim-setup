@@ -17,7 +17,7 @@ package.preload["fnl.keys"] = package.preload["fnl.keys"] or function(...)
   mapcmd("n", "<c-k>", "cnext")
   mapcmd("n", "<leader>j", "lprev")
   mapcmd("n", "<leader>k", "lnext")
-  mapcmd("n", "<leader>rc", "lua require('main')")
+  mapcmd("n", "<leader>rc", "lua require('init')")
   return nil
 end
 package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
@@ -42,7 +42,8 @@ package.preload["fnl.plug-config.keys.lsp-trouble"] = package.preload["fnl.plug-
 end
 package.preload["fnl.plug-config.keys.vim-fugitive"] = package.preload["fnl.plug-config.keys.vim-fugitive"] or function(...)
   local mapcmd = (require("fnl.utils"))["map-command"]
-  return mapcmd("n", "<leader>gs", "G")
+  mapcmd("n", "<leader>gs", "G")
+  return mapcmd("n", "<leader>gp", "Git push")
 end
 package.preload["fnl.plug-config.keys.lsp"] = package.preload["fnl.plug-config.keys.lsp"] or function(...)
   local map = (require("fnl.utils")).map
@@ -61,7 +62,7 @@ package.preload["fnl.plug-config.keys.fzf"] = package.preload["fnl.plug-config.k
   local utils = require("fnl.utils")
   local mapcmd = utils["map-command"]
   mapcmd("n", "<leader>ff", "Files")
-  mapcmd("n", "<leader>fg", "Rg")
+  mapcmd("n", "<leader>rg", "Rg")
   mapcmd("n", "<leader>fh", "History")
   mapcmd("n", "<leader>fc", "Commits")
   return mapcmd("n", "<leader>fb", "Buffers")
@@ -339,6 +340,7 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("jiangmiao/auto-pairs")
     use("tpope/vim-repeat")
     use("tpope/vim-surround")
+    use("tpope/vim-repeat")
     use("tpope/vim-fugitive")
     use("b3nj5m1n/kommentary")
     use({"junegunn/fzf", run = vim.fn["fzf#install"]})

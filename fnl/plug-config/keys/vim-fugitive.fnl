@@ -2,3 +2,5 @@
 
 ; git status
 (mapcmd :n :<leader>gs :G)
+; push
+(mapcmd :n :<leader>gp "Git push")
