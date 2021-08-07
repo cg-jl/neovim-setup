@@ -18,6 +18,8 @@ package.preload["fnl.keys"] = package.preload["fnl.keys"] or function(...)
   mapcmd("n", "<leader>j", "lprev")
   mapcmd("n", "<leader>k", "lnext")
   mapcmd("n", "<leader>rc", "lua require('main')")
+  map("n", "J", "}", {noremap = true})
+  map("n", "K", "{", {noremap = true})
   return nil
 end
 package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
@@ -26,6 +28,11 @@ package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
   utils.options("window", {conceallevel = 0, cursorline = true, list = false, number = true, relativenumber = true, signcolumn = "yes", wrap = false})
   utils.options("buffer", {autoindent = true, expandtab = true, shiftwidth = 2, smartindent = true, tabstop = 2})
   return nil
+end
+package.preload["fnl.plug-config.keys.lspsaga"] = package.preload["fnl.plug-config.keys.lspsaga"] or function(...)
+  local utils = require("fnl.utils")
+  utils["map-command"]("n", "<leader>ca", "Lspsaga code_action")
+  return utils["map-command"]("v", "<leader>ca", "Lspsaga range_code_action")
 end
 package.preload["fnl.plug-config.keys.nvim-tree"] = package.preload["fnl.plug-config.keys.nvim-tree"] or function(...)
   local mapcmd = (require("fnl.utils"))["map-command"]
@@ -147,7 +154,7 @@ package.preload["fnl.plug-config.gitsigns"] = package.preload["fnl.plug-config.g
 end
 package.preload["fnl.plug-config.treesitter"] = package.preload["fnl.plug-config.treesitter"] or function(...)
   local ts = require("nvim-treesitter.configs")
-  ts.setup({ensure_installed = {"c", "cpp", "rust", "fennel"}, highlight = {enable = true}})
+  ts.setup({autopairs = {enable = true}, ensure_installed = {"c", "cpp", "rust", "fennel"}, highlight = {enable = true}})
   return nil
 end
 package.preload["fnl.plug-config.hop"] = package.preload["fnl.plug-config.hop"] or function(...)
@@ -338,7 +345,6 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use({"famiu/feline.nvim", requires = {"kyazdani42/nvim-web-devicons", {"lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim"}}})
     use({"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"})
     use("jiangmiao/auto-pairs")
-    use("tpope/vim-repeat")
     use("tpope/vim-surround")
     use("tpope/vim-repeat")
     use("tpope/vim-fugitive")
@@ -350,6 +356,7 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("nvim-lua/completion-nvim")
     use({"folke/lsp-trouble.nvim", requires = "kyazdani42/nvim-web-devicons"})
     use("folke/lsp-colors.nvim")
+    use("glepnir/lspsaga.nvim")
     return nil
   end
   packer.startup(packer_startup)
@@ -365,6 +372,7 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   require("fnl.plug-config.keys.vim-fugitive")
   require("fnl.plug-config.keys.lsp-trouble")
   require("fnl.plug-config.keys.nvim-tree")
+  require("fnl.plug-config.keys.lspsaga")
   return nil
 end
 vim.g["mapleader"] = ","

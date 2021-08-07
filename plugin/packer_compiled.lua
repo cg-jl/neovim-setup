@@ -113,6 +113,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lsp-trouble.nvim"
   },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
+  },
   ["nord-vim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nord-vim"

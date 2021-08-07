@@ -39,4 +39,9 @@
 
 (mapcmd :n :<leader>rc "lua require('main')")
 
+; recommendation for easier navigation
+(map :n :J "}" { :noremap true })
+(map :n :K "{" { :noremap true })
+
+
 nil

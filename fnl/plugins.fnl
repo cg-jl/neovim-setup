@@ -52,7 +52,6 @@
                            {:requires :kyazdani42/nvim-web-devicons
                             })
                   (use-pkg :jiangmiao/auto-pairs)
-                  (use-pkg :tpope/vim-repeat)
                   (use-pkg :tpope/vim-surround)
                   (use-pkg :tpope/vim-repeat)
                   (use-pkg :tpope/vim-fugitive)
@@ -68,6 +67,7 @@
                            {:requires :kyazdani42/nvim-web-devicons
                             })
                   (use-pkg :folke/lsp-colors.nvim)
+                  (use-pkg :glepnir/lspsaga.nvim)
 ;                  (use-pkg :lukas-reineke/indent-blankline.nvim) ; plugin is fine but tries to show on top when overscrolling horizontally
 ;                  (use-pkg :mbbill/undotree)
                   nil))
@@ -94,5 +94,6 @@
 (setup-keys :lsp-trouble)
 ;(setup-keys :hop)
 (setup-keys :nvim-tree)
+(setup-keys :lspsaga)
 
 nil
