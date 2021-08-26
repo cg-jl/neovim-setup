@@ -69,6 +69,10 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["arm-syntax-vim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/arm-syntax-vim"
+  },
   ["auto-pairs"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/auto-pairs"

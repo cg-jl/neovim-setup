@@ -357,6 +357,7 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use({"folke/lsp-trouble.nvim", requires = "kyazdani42/nvim-web-devicons"})
     use("folke/lsp-colors.nvim")
     use("glepnir/lspsaga.nvim")
+    use("ARM9/arm-syntax-vim")
     return nil
   end
   packer.startup(packer_startup)
