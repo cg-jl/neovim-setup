@@ -1,6 +1,8 @@
-(local mapcmd (. (require :fnl.utils) :map-command))
+(import-macros utils :fnl.utils-macros)
+;(local mapcmd (. (require :fnl.utils) :map-command))
 
 ; git status
-(mapcmd :n :<leader>gs :G)
+(utils.nvim-mapcmd :n :<leader>gs :G)
 ; push
-(mapcmd :n :<leader>gp "Git push")
+(utils.nvim-mapcmd :n :<leader>gp "Git push")
+nil

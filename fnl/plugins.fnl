@@ -63,12 +63,14 @@
                   (use-pkg :nvim-lua/lsp-status.nvim)
                   (use-pkg :neovim/nvim-lspconfig)
                   (use-pkg :nvim-lua/completion-nvim)
+                  (use-pkg :hrsh7th/nvim-cmp { :active false :requires [ :hrsh7th/cmp-nvim-lsp :hrsh7th/cmp-buffer ] })
                   (use-pkg :folke/lsp-trouble.nvim
                            {:requires :kyazdani42/nvim-web-devicons
                             })
                   (use-pkg :folke/lsp-colors.nvim)
                   (use-pkg :glepnir/lspsaga.nvim)
                   (use-pkg :ARM9/arm-syntax-vim)
+                  (use-pkg :romgrk/barbar.nvim { :requires :kyazdani42/nvim-web-devicons })
 ;                  (use-pkg :lukas-reineke/indent-blankline.nvim) ; plugin is fine but tries to show on top when overscrolling horizontally
 ;                  (use-pkg :mbbill/undotree)
                   nil))
@@ -87,6 +89,7 @@
 (setup-config :treesitter)
 (setup-config :gitsigns)
 (setup-config :feline)
+(setup-config :nvim-cmp)
 ;(setup-config :indent-blankline)
 
 (setup-keys :fzf)
@@ -96,5 +99,6 @@
 ;(setup-keys :hop)
 (setup-keys :nvim-tree)
 (setup-keys :lspsaga)
+(setup-keys :barbar)
 
 nil

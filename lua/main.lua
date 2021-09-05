@@ -1,25 +1,21 @@
 package.preload["fnl.keys"] = package.preload["fnl.keys"] or function(...)
-  local map = (require("fnl.utils")).map
-  local mapcmd = (require("fnl.utils"))["map-command"]
-  map("i", "<c-j>", "\\<c-n>", {expr = true})
-  map("i", "<c-j>", "\\<c-p>", {expr = true})
-  map("n", "<m-j>", "<c-w>j")
-  map("n", "<m-k>", "<c-w>k")
-  map("n", "<m-h>", "<c-w>h")
-  map("n", "<m-l>", "<c-w>l")
-  map("i", "jk", "<esc>")
-  map("v", "jk", "<esc>")
-  map("i", "<tab>", "pumvisible() ? \"\\<c-n>\" : \"\\<tab>\"", {expr = true})
-  map("v", "<", "<gv")
-  map("v", ">", ">gv")
-  mapcmd("n", "<leader>w", "update")
-  mapcmd("n", "<c-j>", "cprev")
-  mapcmd("n", "<c-k>", "cnext")
-  mapcmd("n", "<leader>j", "lprev")
-  mapcmd("n", "<leader>k", "lnext")
-  mapcmd("n", "<leader>rc", "lua require('main')")
-  map("n", "J", "}", {noremap = true})
-  map("n", "K", "{", {noremap = true})
+  vim.api.nvim_set_keymap("i", "<c-j>", "\\<c-n>", {expr = true, noremap = true, silent = true})
+  vim.api.nvim_set_keymap("i", "<c-j>", "\\<c-p>", {expr = true, noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<m-j>", "<c-w>j", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<m-k>", "<c-w>k", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<m-h>", "<c-w>h", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<m-l>", "<c-w>l", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("i", "jk", "<esc>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("v", "jk", "<esc>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("i", "<tab>", "pumvisible() ? \"\\<c-n>\" : \"\\<tab>\"", {expr = true, noremap = true, silent = true})
+  vim.api.nvim_set_keymap("v", "<", "<gv", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("v", ">", ">gv", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>w", "<cmd>update<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<c-j>", "<cmd>cprev<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<c-k>", "<cmd>cnext<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>j", "<cmd>lprev<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>k", "<cmd>lnext<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>rc", "<cmd>lua require('main')<cr>", {noremap = true, silent = true})
   return nil
 end
 package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
@@ -29,50 +25,56 @@ package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
   utils.options("buffer", {autoindent = true, expandtab = true, shiftwidth = 2, smartindent = true, tabstop = 2})
   return nil
 end
+package.preload["fnl.plug-config.keys.barbar"] = package.preload["fnl.plug-config.keys.barbar"] or function(...)
+  vim.api.nvim_set_keymap("n", "<leader>bp", "<cmd>BufferPick<cr>", {noremap = true, silent = true})
+  return nil
+end
 package.preload["fnl.plug-config.keys.lspsaga"] = package.preload["fnl.plug-config.keys.lspsaga"] or function(...)
-  local utils = require("fnl.utils")
-  utils["map-command"]("n", "<leader>ca", "Lspsaga code_action")
-  return utils["map-command"]("v", "<leader>ca", "Lspsaga range_code_action")
+  vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("v", "<leader>ca", "<cmd>Lspsaga range_code_action<cr>", {noremap = true, silent = true})
+  return nil
 end
 package.preload["fnl.plug-config.keys.nvim-tree"] = package.preload["fnl.plug-config.keys.nvim-tree"] or function(...)
-  local mapcmd = (require("fnl.utils"))["map-command"]
-  mapcmd("n", "<leader>e", "NvimTreeToggle")
-  mapcmd("n", "<leader>r", "NvimTreeRefresh")
+  vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>NvimTreeRefresh<cr>", {noremap = true, silent = true})
   return nil
 end
 package.preload["fnl.plug-config.keys.lsp-trouble"] = package.preload["fnl.plug-config.keys.lsp-trouble"] or function(...)
-  local utils = require("fnl.utils")
-  local mapcmd = utils["map-command"]
-  mapcmd("n", "<leader>ll", "LspTroubleToggle")
-  mapcmd("n", "<leader>lw", "LspTroubleWorkspaceToggle")
-  return mapcmd("n", "<leader>ld", "LspTroubleDocumentToggle")
+  vim.api.nvim_set_keymap("n", "<leader>ll", "<cmd>LspTroubleToggle<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>lw", "<cmd>LspTroubleWorkspaceToggle<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>ld", "<cmd>LspTroubleDocumentToggle<cr>", {noremap = true, silent = true})
+  return nil
 end
 package.preload["fnl.plug-config.keys.vim-fugitive"] = package.preload["fnl.plug-config.keys.vim-fugitive"] or function(...)
-  local mapcmd = (require("fnl.utils"))["map-command"]
-  mapcmd("n", "<leader>gs", "G")
-  return mapcmd("n", "<leader>gp", "Git push")
+  vim.api.nvim_set_keymap("n", "<leader>gs", "<cmd>G<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>gp", "<cmd>Git push<cr>", {noremap = true, silent = true})
+  return nil
 end
 package.preload["fnl.plug-config.keys.lsp"] = package.preload["fnl.plug-config.keys.lsp"] or function(...)
-  local map = (require("fnl.utils")).map
-  map("n", "<space>,", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
-  map("n", "<space>;", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
-  map("n", "<space>a", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-  map("n", "<space>d", "<cmd>lua vim.lsp.buf.definition()<CR>")
-  map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-  map("n", "<space>h", "<cmd>lua vim.lsp.buf.hover()<CR>")
-  map("n", "<space>m", "<cmd>lua vim.lsp.buf.rename()<CR>")
-  map("n", "<space>r", "<cmd>lua vim.lsp.buf.references()<CR>")
-  map("n", "<space>s", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
+  vim.api.nvim_set_keymap("n", "<space>,", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR><cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>;", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR><cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>a", "<cmd>lua vim.lsp.buf.code_action()<CR><cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>d", "<cmd>lua vim.lsp.buf.definition()<CR><cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR><cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>h", "<cmd>lua vim.lsp.buf.hover()<CR><cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>m", "<cmd>lua vim.lsp.buf.rename()<CR><cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>r", "<cmd>lua vim.lsp.buf.references()<CR><cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>s", "<cmd>lua vim.lsp.buf.document_symbol()<CR><cr>", {noremap = true, silent = true})
   return nil
 end
 package.preload["fnl.plug-config.keys.fzf"] = package.preload["fnl.plug-config.keys.fzf"] or function(...)
-  local utils = require("fnl.utils")
-  local mapcmd = utils["map-command"]
-  mapcmd("n", "<leader>ff", "Files")
-  mapcmd("n", "<leader>rg", "Rg")
-  mapcmd("n", "<leader>fh", "History")
-  mapcmd("n", "<leader>fc", "Commits")
-  return mapcmd("n", "<leader>fb", "Buffers")
+  vim.api.nvim_set_keymap("n", "<leader>ff", "<cmd>Files<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>rg", "<cmd>Rg<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>History<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>fc", "<cmd>Commits<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>Buffers<cr>", {noremap = true, silent = true})
+  return nil
+end
+package.preload["fnl.plug-config.nvim-cmp"] = package.preload["fnl.plug-config.nvim-cmp"] or function(...)
+  (require("cmp_nvim_lsp")).setup()
+  local cmp = require("cmp")
+  cmp.setup({mapping = {["<c-e>"] = cmp.mapping.close(), ["<c-n>"] = cmp.mapping.select_next_item(), ["<c-p>"] = cmp.mapping.select_prev_item(), ["<c-space>"] = cmp.mapping.complete(), ["<s-tab>"] = cmp.mapping.select_prev_item(), ["<tab>"] = cmp.mapping.select_next_item()}, min_length = 0, sources = {name = "nvim_lsp"}})
+  return nil
 end
 package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.feline"] or function(...)
   local feline = require("feline")
@@ -163,9 +165,9 @@ package.preload["fnl.plug-config.hop"] = package.preload["fnl.plug-config.hop"] 
 end
 package.preload["fnl.plug-config.nvim-lsp"] = package.preload["fnl.plug-config.nvim-lsp"] or function(...)
   local nvim_lsp = require("lspconfig")
-  local completion = require("completion")
   local lsp_status = require("lsp-status")
   local utils = require("fnl.utils")
+  local completion = require("completion")
   local lsp_util = require("lspconfig/util")
   local function on_attach(client)
     do
@@ -177,7 +179,7 @@ package.preload["fnl.plug-config.nvim-lsp"] = package.preload["fnl.plug-config.n
   end
   lsp_status.config({current_function = true})
   lsp_status.register_progress()
-  local default_options = {capabilities = lsp_status.capabilities, on_attach = on_attach}
+  local default_options = {capabilities = utils["merge-tables"](lsp_status.capabilities, vim.lsp.protocol.make_client_capabilities()), on_attach = on_attach}
   nvim_lsp.rust_analyzer.setup(utils["merge-tables"](default_options, {settings = {["rust-analyzer"] = {checkOnSave = {command = "clippy"}}}}))
   nvim_lsp.ccls.setup(default_options)
   nvim_lsp.hls.setup(default_options)
@@ -316,13 +318,16 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
     end
     return merged
   end
-  return {["count-true"] = count_true, ["is-in-table"] = is_in_table, ["make-command"] = make_command, ["map-command"] = map_command, ["merge-tables"] = merge_tables, ["prefix-options"] = prefix_options, ["set-global"] = set_global, ["set-globals"] = set_globals, map = map, options = options, shorten = shorten}
+  local function _0_(...)
+    return map("i", ...)
+  end
+  return {["count-true"] = count_true, ["is-in-table"] = is_in_table, ["make-command"] = make_command, ["map-command"] = map_command, ["merge-tables"] = merge_tables, ["prefix-options"] = prefix_options, ["set-global"] = set_global, ["set-globals"] = set_globals, imap = _0_, map = map, options = options, shorten = shorten}
 end
 package.preload["fnl.plug-config.theme"] = package.preload["fnl.plug-config.theme"] or function(...)
   local utils = require("fnl.utils")
   vim.cmd("colorscheme nord")
   local options = {italic = 1}
-  utils["set-globals"](utils["prefix-options"]({"nord"}, options))
+  utils["set-globals"]({nord_italic = 1})
   return nil
 end
 package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
@@ -354,10 +359,12 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("nvim-lua/lsp-status.nvim")
     use("neovim/nvim-lspconfig")
     use("nvim-lua/completion-nvim")
+    use({"hrsh7th/nvim-cmp", active = false, requires = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer"}})
     use({"folke/lsp-trouble.nvim", requires = "kyazdani42/nvim-web-devicons"})
     use("folke/lsp-colors.nvim")
     use("glepnir/lspsaga.nvim")
     use("ARM9/arm-syntax-vim")
+    use({"romgrk/barbar.nvim", requires = "kyazdani42/nvim-web-devicons"})
     return nil
   end
   packer.startup(packer_startup)
@@ -368,12 +375,14 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   require("fnl.plug-config.treesitter")
   require("fnl.plug-config.gitsigns")
   require("fnl.plug-config.feline")
+  require("fnl.plug-config.nvim-cmp")
   require("fnl.plug-config.keys.fzf")
   require("fnl.plug-config.keys.lsp")
   require("fnl.plug-config.keys.vim-fugitive")
   require("fnl.plug-config.keys.lsp-trouble")
   require("fnl.plug-config.keys.nvim-tree")
   require("fnl.plug-config.keys.lspsaga")
+  require("fnl.plug-config.keys.barbar")
   return nil
 end
 vim.g["mapleader"] = ","

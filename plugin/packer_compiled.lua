@@ -77,6 +77,18 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/auto-pairs"
   },
+  ["barbar.nvim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/barbar.nvim"
+  },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+  },
+  ["cmp-nvim-lsp"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp"
+  },
   ["completion-nvim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/completion-nvim"
@@ -124,6 +136,10 @@ _G.packer_plugins = {
   ["nord-vim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nord-vim"
+  },
+  ["nvim-cmp"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     loaded = true,

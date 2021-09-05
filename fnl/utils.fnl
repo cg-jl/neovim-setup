@@ -116,4 +116,5 @@
  : prefix-options
  : count-true
  : shorten
+ :imap (partial map :i)
  }

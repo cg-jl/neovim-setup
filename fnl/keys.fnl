@@ -1,47 +1,41 @@
-(local map (. (require :fnl.utils) :map))
-(local mapcmd (. (require :fnl.utils) :map-command))
+(require-macros :fnl.utils-macros)
 
 ; better nav for omnicomplete
-(map :i :<c-j> "\\<c-n>" {:expr true
+(nvim-map :i :<c-j> "\\<c-n>" {:expr true
                           })
-(map :i :<c-j> "\\<c-p>" {:expr true
+(nvim-map :i :<c-j> "\\<c-p>" {:expr true
                           })
 
 ; make alt useful
-(map :n :<m-j> :<c-w>j)
-(map :n :<m-k> :<c-w>k)
-(map :n :<m-h> :<c-w>h)
-(map :n :<m-l> :<c-w>l)
+(nvim-map :n :<m-j> :<c-w>j)
+(nvim-map :n :<m-k> :<c-w>k)
+(nvim-map :n :<m-h> :<c-w>h)
+(nvim-map :n :<m-l> :<c-w>l)
 
 ; the classic
-(map :i :jk :<esc>)
-(map :v :jk :<esc>)
+(nvim-map :i :jk :<esc>)
+(nvim-map :v :jk :<esc>)
 
 ; tab completion
-(map :i :<tab> "pumvisible() ? \"\\<c-n>\" : \"\\<tab>\""
+(nvim-map :i :<tab> "pumvisible() ? \"\\<c-n>\" : \"\\<tab>\""
      {:expr true
       })
 
 ; better tabbing
-(map :v "<" :<gv)
-(map :v ">" :>gv)
+(nvim-map :v "<" :<gv)
+(nvim-map :v ">" :>gv)
 
 ; :help update
-(mapcmd :n :<leader>w :update)
+(nvim-mapcmd :n :<leader>w :update)
 
 ; quickfix list, from primeagen's video: https://www.youtube.com/watch?v=IoyW8XYGqjM
 ; global
-(mapcmd :n :<c-j> :cprev)
-(mapcmd :n :<c-k> :cnext)
+(nvim-mapcmd :n :<c-j> :cprev)
+(nvim-mapcmd :n :<c-k> :cnext)
 ; local
-(mapcmd :n :<leader>j :lprev)
-(mapcmd :n :<leader>k :lnext)
+(nvim-mapcmd :n :<leader>j :lprev)
+(nvim-mapcmd :n :<leader>k :lnext)
 
-(mapcmd :n :<leader>rc "lua require('main')")
-
-; recommendation for easier navigation
-(map :n :J "}" { :noremap true })
-(map :n :K "{" { :noremap true })
-
+(nvim-mapcmd :n :<leader>rc "lua require('main')")
 
 nil

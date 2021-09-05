@@ -1,7 +1,7 @@
 (local nvim-lsp (require :lspconfig))
-(local completion (require :completion))
 (local lsp-status (require :lsp-status))
 (local utils (require :fnl.utils))
+(local completion (require :completion))
 (local lsp-util (require :lspconfig/util))
 
 (fn on-attach [client]
@@ -21,7 +21,7 @@
 
 
 (local default-options {:on_attach on-attach
-                        :capabilities lsp-status.capabilities
+                        :capabilities (->> (vim.lsp.protocol.make_client_capabilities) (utils.merge-tables lsp-status.capabilities))
                         })
 
 ; don't ask.
