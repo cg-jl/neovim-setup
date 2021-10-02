@@ -1,8 +1,7 @@
 (local utils (require :fnl.utils))
-(fn nvim-tree-options [opts]
-  (utils.set-globals (utils.prefix-options [:nvim :tree] opts)))
+(local nvim-tree (require :nvim-tree))
 
-(nvim-tree-options {:side :left
+(nvim-tree.setup {:side :left
                     :width 30
                     :ignore [:.git :.node_modules :.cache]
                     :auto_open 1

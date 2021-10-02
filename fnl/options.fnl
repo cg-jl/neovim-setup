@@ -43,6 +43,7 @@
                         :smartindent true
                         :autoindent true
                         :expandtab true
+                        :swapfile false ;; disable swapfile
                         })
 
 nil

@@ -130,6 +130,8 @@
   :violet :#b48ead
   :white :#eceff4
   :yellow :#ebcb8b
+  :fg     :#8fbcbb
+  :bg      default-bg
  })
 
 (local vi_mode_colors {
@@ -153,8 +155,6 @@
 
 
   (->> {
-    :default_fg :#8fbcbb
-    :default_bg default-bg
     : colors
     : vi_mode_colors
     : components

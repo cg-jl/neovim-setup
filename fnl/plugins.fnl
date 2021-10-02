@@ -46,11 +46,12 @@
                   (use-pkg :arcticicestudio/nord-vim)
                   (use-pkg :phaazon/hop.nvim)
                   (use-pkg :nvim-treesitter/nvim-treesitter)
-                  (use-pkg :famiu/feline.nvim { :requires [ :kyazdani42/nvim-web-devicons (pkg :lewis6991/gitsigns.nvim { :requires :nvim-lua/plenary.nvim }) ]
+                  ; 
+                  (use-pkg :famiu/feline.nvim { :requires [ (pkg :lewis6991/gitsigns.nvim { :requires :nvim-lua/plenary.nvim }):kyazdani42/nvim-web-devicons  ]
                                                 })
                   (use-pkg :kyazdani42/nvim-tree.lua
                            {:requires :kyazdani42/nvim-web-devicons
-                            })
+                            :opt false})
                   (use-pkg :jiangmiao/auto-pairs)
                   (use-pkg :tpope/vim-surround)
                   (use-pkg :tpope/vim-repeat)
@@ -89,7 +90,8 @@
 (setup-config :treesitter)
 (setup-config :gitsigns)
 (setup-config :feline)
-(setup-config :nvim-cmp)
+(setup-config :nvim-tree)
+;(setup-config :nvim-cmp)
 ;(setup-config :indent-blankline)
 
 (setup-keys :fzf)

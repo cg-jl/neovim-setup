@@ -22,7 +22,7 @@ package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
   local utils = require("fnl.utils")
   utils.options("global", {backup = false, clipboard = "unnamedplus", cmdheight = 2, completeopt = "menuone,noinsert,noselect", encoding = "utf-8", guicursor = "", hidden = true, hlsearch = false, ignorecase = true, laststatus = 2, mouse = "nicr", pumheight = 10, ruler = true, showmode = false, showtabline = 2, smartcase = true, smarttab = true, splitbelow = true, termguicolors = true, timeoutlen = 500, updatetime = 300, wildmode = "list:longest", writebackup = false})
   utils.options("window", {conceallevel = 0, cursorline = true, list = false, number = true, relativenumber = true, signcolumn = "yes", wrap = false})
-  utils.options("buffer", {autoindent = true, expandtab = true, shiftwidth = 2, smartindent = true, tabstop = 2})
+  utils.options("buffer", {autoindent = true, expandtab = true, shiftwidth = 2, smartindent = true, swapfile = false, tabstop = 2})
   return nil
 end
 package.preload["fnl.plug-config.keys.barbar"] = package.preload["fnl.plug-config.keys.barbar"] or function(...)
@@ -51,15 +51,15 @@ package.preload["fnl.plug-config.keys.vim-fugitive"] = package.preload["fnl.plug
   return nil
 end
 package.preload["fnl.plug-config.keys.lsp"] = package.preload["fnl.plug-config.keys.lsp"] or function(...)
-  vim.api.nvim_set_keymap("n", "<space>,", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR><cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>;", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR><cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>a", "<cmd>lua vim.lsp.buf.code_action()<CR><cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>d", "<cmd>lua vim.lsp.buf.definition()<CR><cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR><cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>h", "<cmd>lua vim.lsp.buf.hover()<CR><cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>m", "<cmd>lua vim.lsp.buf.rename()<CR><cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>r", "<cmd>lua vim.lsp.buf.references()<CR><cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>s", "<cmd>lua vim.lsp.buf.document_symbol()<CR><cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>,", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>;", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>d", "<cmd>lua vim.lsp.buf.definition()<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>h", "<cmd>lua vim.lsp.buf.hover()<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>m", "<cmd>lua vim.lsp.buf.rename()<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>r", "<cmd>lua vim.lsp.buf.references()<cr>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<space>s", "<cmd>lua vim.lsp.buf.document_symbol()<cr>", {noremap = true, silent = true})
   return nil
 end
 package.preload["fnl.plug-config.keys.fzf"] = package.preload["fnl.plug-config.keys.fzf"] or function(...)
@@ -70,10 +70,10 @@ package.preload["fnl.plug-config.keys.fzf"] = package.preload["fnl.plug-config.k
   vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>Buffers<cr>", {noremap = true, silent = true})
   return nil
 end
-package.preload["fnl.plug-config.nvim-cmp"] = package.preload["fnl.plug-config.nvim-cmp"] or function(...)
-  (require("cmp_nvim_lsp")).setup()
-  local cmp = require("cmp")
-  cmp.setup({mapping = {["<c-e>"] = cmp.mapping.close(), ["<c-n>"] = cmp.mapping.select_next_item(), ["<c-p>"] = cmp.mapping.select_prev_item(), ["<c-space>"] = cmp.mapping.complete(), ["<s-tab>"] = cmp.mapping.select_prev_item(), ["<tab>"] = cmp.mapping.select_next_item()}, min_length = 0, sources = {name = "nvim_lsp"}})
+package.preload["fnl.plug-config.nvim-tree"] = package.preload["fnl.plug-config.nvim-tree"] or function(...)
+  local utils = require("fnl.utils")
+  local nvim_tree = require("nvim-tree")
+  nvim_tree.setup({add_trailing = 1, auto_close = 1, auto_open = 1, disable_netrw = 1, follow = 1, git_hl = 1, hide_dotfiles = 0, hijack_netrw = 1, ignore = {".git", ".node_modules", ".cache"}, indent_markers = 1, quit_on_open = 1, show_icons = {files = 0, folders = 0, git = 1}, side = "left", tree_icons = {default = "\238\152\146 ", folder = {default = "\238\151\191 ", empty = "\239\132\148 ", empty_open = "\239\132\149 ", open = "\238\151\190 ", symlink = "\239\146\130 ", symlink_open = "\238\151\190 "}, git = {renamed = "\226\158\156 ", staged = "\226\156\147 ", unmerged = "\238\156\167 ", unstaged = "\226\156\151 ", untracked = "\226\152\133 "}, symlink = "\239\146\129 "}, width = 30, width_allow_resize = 1})
   return nil
 end
 package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.feline"] or function(...)
@@ -146,9 +146,9 @@ package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.fel
     table.insert(_2_0, {hl = {bg = dark_bg_1, fg = "red"}, provider = "git_diff_removed", right_sep = {_6_, {hl = {fg = dark_bg_1}, str = "slant_right_2"}}})
     table.insert(_2_0, {hl = {style = "bold"}, left_sep = " ", provider = "line_percentage", right_sep = " "})
   end
-  local colors = {black = "#434c5e", cyan = "#88c0d0", green = "#8fbcbb", magenta = "#b48ead", oceanblue = "#5e81ac", orange = "#d08770", red = "#ec5f67", skyblue = "#81a1c1", violet = "#b48ead", white = "#eceff4", yellow = "#ebcb8b"}
+  local colors = {bg = default_bg, black = "#434c5e", cyan = "#88c0d0", fg = "#8fbcbb", green = "#8fbcbb", magenta = "#b48ead", oceanblue = "#5e81ac", orange = "#d08770", red = "#ec5f67", skyblue = "#81a1c1", violet = "#b48ead", white = "#eceff4", yellow = "#ebcb8b"}
   local vi_mode_colors = {BLOCK = "green", COMMAND = "cyan", ENTER = "cyan", INSERT = "white", MORE = "cyan", NONE = "orange", NORMAL = "skyblue", OP = "cyan", REPLACE = "yellow", SELECT = "magenta", SHELL = "skyblue", TERM = "skyblue", VISUAL = "green", ["V-REPLACE"] = "yellow"}
-  return feline.setup({colors = colors, components = components, default_bg = default_bg, default_fg = "#8fbcbb", vi_mode_colors = vi_mode_colors})
+  return feline.setup({colors = colors, components = components, vi_mode_colors = vi_mode_colors})
 end
 package.preload["fnl.plug-config.gitsigns"] = package.preload["fnl.plug-config.gitsigns"] or function(...)
   local gs = require("gitsigns")
@@ -156,7 +156,7 @@ package.preload["fnl.plug-config.gitsigns"] = package.preload["fnl.plug-config.g
 end
 package.preload["fnl.plug-config.treesitter"] = package.preload["fnl.plug-config.treesitter"] or function(...)
   local ts = require("nvim-treesitter.configs")
-  ts.setup({autopairs = {enable = true}, ensure_installed = {"c", "cpp", "rust", "fennel"}, highlight = {enable = true}})
+  ts.setup({autopairs = {enable = true}, highlight = {enable = true}})
   return nil
 end
 package.preload["fnl.plug-config.hop"] = package.preload["fnl.plug-config.hop"] or function(...)
@@ -347,8 +347,8 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("arcticicestudio/nord-vim")
     use("phaazon/hop.nvim")
     use("nvim-treesitter/nvim-treesitter")
-    use({"famiu/feline.nvim", requires = {"kyazdani42/nvim-web-devicons", {"lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim"}}})
-    use({"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"})
+    use({"famiu/feline.nvim", requires = {{"lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim"}, "kyazdani42/nvim-web-devicons"}})
+    use({"kyazdani42/nvim-tree.lua", opt = false, requires = "kyazdani42/nvim-web-devicons"})
     use("jiangmiao/auto-pairs")
     use("tpope/vim-surround")
     use("tpope/vim-repeat")
@@ -375,7 +375,7 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   require("fnl.plug-config.treesitter")
   require("fnl.plug-config.gitsigns")
   require("fnl.plug-config.feline")
-  require("fnl.plug-config.nvim-cmp")
+  require("fnl.plug-config.nvim-tree")
   require("fnl.plug-config.keys.fzf")
   require("fnl.plug-config.keys.lsp")
   require("fnl.plug-config.keys.vim-fugitive")
