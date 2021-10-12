@@ -165,6 +165,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/plenary.nvim"
   },
+  ["todo-comments.nvim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/todo-comments.nvim"
+  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-fugitive"

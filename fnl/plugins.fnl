@@ -72,6 +72,8 @@
                   (use-pkg :glepnir/lspsaga.nvim)
                   (use-pkg :ARM9/arm-syntax-vim)
                   (use-pkg :romgrk/barbar.nvim { :requires :kyazdani42/nvim-web-devicons })
+                  ;; todo comments
+                  (use-pkg :folke/todo-comments.nvim { :requires :nvim-lua/plenary.nvim })
 ;                  (use-pkg :lukas-reineke/indent-blankline.nvim) ; plugin is fine but tries to show on top when overscrolling horizontally
 ;                  (use-pkg :mbbill/undotree)
                   nil))

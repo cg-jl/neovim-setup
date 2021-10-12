@@ -18,13 +18,6 @@ package.preload["fnl.keys"] = package.preload["fnl.keys"] or function(...)
   vim.api.nvim_set_keymap("n", "<leader>rc", "<cmd>lua require('main')<cr>", {noremap = true, silent = true})
   return nil
 end
-package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
-  local utils = require("fnl.utils")
-  utils.options("global", {backup = false, clipboard = "unnamedplus", cmdheight = 2, completeopt = "menuone,noinsert,noselect", encoding = "utf-8", guicursor = "", hidden = true, hlsearch = false, ignorecase = true, laststatus = 2, mouse = "nicr", pumheight = 10, ruler = true, showmode = false, showtabline = 2, smartcase = true, smarttab = true, splitbelow = true, termguicolors = true, timeoutlen = 500, updatetime = 300, wildmode = "list:longest", writebackup = false})
-  utils.options("window", {conceallevel = 0, cursorline = true, list = false, number = true, relativenumber = true, signcolumn = "yes", wrap = false})
-  utils.options("buffer", {autoindent = true, expandtab = true, shiftwidth = 2, smartindent = true, swapfile = false, tabstop = 2})
-  return nil
-end
 package.preload["fnl.plug-config.keys.barbar"] = package.preload["fnl.plug-config.keys.barbar"] or function(...)
   vim.api.nvim_set_keymap("n", "<leader>bp", "<cmd>BufferPick<cr>", {noremap = true, silent = true})
   return nil
@@ -192,6 +185,69 @@ package.preload["fnl.plug-config.kommentary"] = package.preload["fnl.plug-config
   kommentary_config.configure_language("default", {prefer_single_line_comments = true})
   return kommentary_config.configure_language("rust", {multi_line_comment_strings = {"/*", "*/"}, single_line_comment_string = "//"})
 end
+package.preload["fnl.plug-config.theme"] = package.preload["fnl.plug-config.theme"] or function(...)
+  local utils = require("fnl.utils")
+  vim.cmd("colorscheme nord")
+  local options = {italic = 1}
+  utils["set-globals"]({nord_italic = 1})
+  return nil
+end
+package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
+  do
+    local data_path = vim.fn.stdpath("data")
+    local install_path = (data_path .. "/site/pack/packer/start/packer.nvim")
+    local expanded_path = vim.fn.glob(install_path)
+    if (vim.fn.empty(expanded_path) ~= 0) then
+      print("installing packer...")
+      vim.api.nvim_command(("!git clone https://github.com/wbthomason/packer.nvim " .. install_path))
+      vim.api.nvim_command("packadd packer.nvim")
+    end
+  end
+  local packer = require("packer")
+  local function packer_startup(use)
+    use("wbthomason/packer.nvim")
+    use("arcticicestudio/nord-vim")
+    use("phaazon/hop.nvim")
+    use("nvim-treesitter/nvim-treesitter")
+    use({"famiu/feline.nvim", requires = {{"lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim"}, "kyazdani42/nvim-web-devicons"}})
+    use({"kyazdani42/nvim-tree.lua", opt = false, requires = "kyazdani42/nvim-web-devicons"})
+    use("jiangmiao/auto-pairs")
+    use("tpope/vim-surround")
+    use("tpope/vim-repeat")
+    use("tpope/vim-fugitive")
+    use("b3nj5m1n/kommentary")
+    use({"junegunn/fzf", run = vim.fn["fzf#install"]})
+    use("junegunn/fzf.vim")
+    use("nvim-lua/lsp-status.nvim")
+    use("neovim/nvim-lspconfig")
+    use("nvim-lua/completion-nvim")
+    use({"hrsh7th/nvim-cmp", active = false, requires = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer"}})
+    use({"folke/lsp-trouble.nvim", requires = "kyazdani42/nvim-web-devicons"})
+    use("folke/lsp-colors.nvim")
+    use("glepnir/lspsaga.nvim")
+    use("ARM9/arm-syntax-vim")
+    use({"romgrk/barbar.nvim", requires = "kyazdani42/nvim-web-devicons"})
+    use({"folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim"})
+    return nil
+  end
+  packer.startup(packer_startup)
+  require("fnl.plug-config.theme")
+  require("fnl.plug-config.kommentary")
+  require("fnl.plug-config.nvim-lsp")
+  require("fnl.plug-config.hop")
+  require("fnl.plug-config.treesitter")
+  require("fnl.plug-config.gitsigns")
+  require("fnl.plug-config.feline")
+  require("fnl.plug-config.nvim-tree")
+  require("fnl.plug-config.keys.fzf")
+  require("fnl.plug-config.keys.lsp")
+  require("fnl.plug-config.keys.vim-fugitive")
+  require("fnl.plug-config.keys.lsp-trouble")
+  require("fnl.plug-config.keys.nvim-tree")
+  require("fnl.plug-config.keys.lspsaga")
+  require("fnl.plug-config.keys.barbar")
+  return nil
+end
 package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
   local function map(mode, lhs, rhs, more_options_3f)
     local options = {noremap = true, silent = true}
@@ -323,71 +379,16 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
   end
   return {["count-true"] = count_true, ["is-in-table"] = is_in_table, ["make-command"] = make_command, ["map-command"] = map_command, ["merge-tables"] = merge_tables, ["prefix-options"] = prefix_options, ["set-global"] = set_global, ["set-globals"] = set_globals, imap = _0_, map = map, options = options, shorten = shorten}
 end
-package.preload["fnl.plug-config.theme"] = package.preload["fnl.plug-config.theme"] or function(...)
+package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
   local utils = require("fnl.utils")
-  vim.cmd("colorscheme nord")
-  local options = {italic = 1}
-  utils["set-globals"]({nord_italic = 1})
-  return nil
-end
-package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
-  do
-    local data_path = vim.fn.stdpath("data")
-    local install_path = (data_path .. "/site/pack/packer/start/packer.nvim")
-    local expanded_path = vim.fn.glob(install_path)
-    if (vim.fn.empty(expanded_path) ~= 0) then
-      print("installing packer...")
-      vim.api.nvim_command(("!git clone https://github.com/wbthomason/packer.nvim " .. install_path))
-      vim.api.nvim_command("packadd packer.nvim")
-    end
-  end
-  local packer = require("packer")
-  local function packer_startup(use)
-    use("wbthomason/packer.nvim")
-    use("arcticicestudio/nord-vim")
-    use("phaazon/hop.nvim")
-    use("nvim-treesitter/nvim-treesitter")
-    use({"famiu/feline.nvim", requires = {{"lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim"}, "kyazdani42/nvim-web-devicons"}})
-    use({"kyazdani42/nvim-tree.lua", opt = false, requires = "kyazdani42/nvim-web-devicons"})
-    use("jiangmiao/auto-pairs")
-    use("tpope/vim-surround")
-    use("tpope/vim-repeat")
-    use("tpope/vim-fugitive")
-    use("b3nj5m1n/kommentary")
-    use({"junegunn/fzf", run = vim.fn["fzf#install"]})
-    use("junegunn/fzf.vim")
-    use("nvim-lua/lsp-status.nvim")
-    use("neovim/nvim-lspconfig")
-    use("nvim-lua/completion-nvim")
-    use({"hrsh7th/nvim-cmp", active = false, requires = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer"}})
-    use({"folke/lsp-trouble.nvim", requires = "kyazdani42/nvim-web-devicons"})
-    use("folke/lsp-colors.nvim")
-    use("glepnir/lspsaga.nvim")
-    use("ARM9/arm-syntax-vim")
-    use({"romgrk/barbar.nvim", requires = "kyazdani42/nvim-web-devicons"})
-    return nil
-  end
-  packer.startup(packer_startup)
-  require("fnl.plug-config.theme")
-  require("fnl.plug-config.kommentary")
-  require("fnl.plug-config.nvim-lsp")
-  require("fnl.plug-config.hop")
-  require("fnl.plug-config.treesitter")
-  require("fnl.plug-config.gitsigns")
-  require("fnl.plug-config.feline")
-  require("fnl.plug-config.nvim-tree")
-  require("fnl.plug-config.keys.fzf")
-  require("fnl.plug-config.keys.lsp")
-  require("fnl.plug-config.keys.vim-fugitive")
-  require("fnl.plug-config.keys.lsp-trouble")
-  require("fnl.plug-config.keys.nvim-tree")
-  require("fnl.plug-config.keys.lspsaga")
-  require("fnl.plug-config.keys.barbar")
+  utils.options("global", {backup = false, clipboard = "unnamedplus", cmdheight = 2, completeopt = "menuone,noinsert,noselect", encoding = "utf-8", guicursor = "", hidden = true, hlsearch = false, ignorecase = true, laststatus = 2, mouse = "nicr", pumheight = 10, ruler = true, showmode = false, showtabline = 2, smartcase = true, smarttab = true, splitbelow = true, termguicolors = true, timeoutlen = 500, updatetime = 300, wildmode = "list:longest", writebackup = false})
+  utils.options("window", {conceallevel = 0, cursorline = true, list = false, number = true, relativenumber = true, signcolumn = "yes", wrap = false})
+  utils.options("buffer", {autoindent = true, expandtab = true, shiftwidth = 2, smartindent = true, swapfile = false, tabstop = 2})
   return nil
 end
 vim.g["mapleader"] = ","
 vim.g["python3_host_prog"] = "/usr/bin/python3"
-require("fnl.plugins")
 require("fnl.options")
+require("fnl.plugins")
 require("fnl.keys")
 return nil
