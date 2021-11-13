@@ -166,12 +166,17 @@ _G.packer_plugins = {
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/plenary.nvim"
   },
   ["todo-comments.nvim"] = {
+    config = { "\27LJ\2\n9\0\0\3\0\2\0\0036\0\0\0'\2\1\0D\0\2\0\"fnl.plug-config.todo-comments\frequire\0" },
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/todo-comments.nvim"
   },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-fugitive"
+  },
+  ["vim-glsl"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-glsl"
   },
   ["vim-repeat"] = {
     loaded = true,
@@ -184,6 +189,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: todo-comments.nvim
+time([[Config for todo-comments.nvim]], true)
+try_loadstring("\27LJ\2\n9\0\0\3\0\2\0\0036\0\0\0'\2\1\0D\0\2\0\"fnl.plug-config.todo-comments\frequire\0", "config", "todo-comments.nvim")
+time([[Config for todo-comments.nvim]], false)
 if should_profile then save_profiles() end
 
 end)

@@ -81,16 +81,12 @@ package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.fel
     local mode_alias = {R = "REPLACE", Rv = "REPLACE", S = "SELECT", V = "V-LINE", ["\19"] = "SELECT", ["\22"] = "V-BLOCK", c = "COMMAND", ce = "COMMAND", cv = "COMMAND", i = "INSERT", n = "NORMAL", no = "NORMAL", s = "SELECT", t = "TERMINAL", v = "VISUAL"}
     return ("\238\152\171 " .. mode_alias[vim.fn.mode()])
   end
-  local components = {left = {active = {}, inactive = {}}, mid = {active = {}, inactive = {}}, right = {active = {}, inactive = {}}}
+  local components = {active = {{}, {}, {}}}
   local lsp_status = require("lsp-status")
   do
-    local _0_0 = components
+    local _0_0 = components.active
     do
-      local _1_0 = (_0_0).left.active
-      local function vi_mode_hl()
-        return {fg = vi_mode_utils.get_mode_color(), name = vi_mode_utils.get_mode_highlight_name(), style = "bold"}
-      end
-      table.insert(_1_0, {hl = vi_mode_hl, left_sep = " ", provider = "vi_mode", right_sep = " "})
+      local _1_0 = (_0_0)[1]
       table.insert(_1_0, {hl = {bg = dark_bg_1, fg = "skyblue", style = "bold"}, left_sep = {{hl = {fg = dark_bg_1}, str = "slant_left"}, {hl = {bg = dark_bg_1}, str = " "}}, provider = "file_info"})
       local function _2_()
         return (vim.fn.getfsize(vim.fn.expand("%:p")) > 0)
@@ -113,7 +109,7 @@ package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.fel
       end
       table.insert(_1_0, {enabled = _6_, hl = {bg = dark_bg_2, fg = "red"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_errors"})
     end
-    local _2_0 = (_0_0).right.active
+    local _2_0 = (_0_0)[3]
     local function _3_()
       return (#vim.lsp.buf_get_clients() > 0)
     end
@@ -192,6 +188,10 @@ package.preload["fnl.plug-config.theme"] = package.preload["fnl.plug-config.them
   utils["set-globals"]({nord_italic = 1})
   return nil
 end
+package.preload["fnl.plug-config.todo-comments"] = package.preload["fnl.plug-config.todo-comments"] or function(...)
+  local todo_comments = require("todo-comments")
+  return todo_comments.setup({})
+end
 package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   do
     local data_path = vim.fn.stdpath("data")
@@ -226,8 +226,12 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("folke/lsp-colors.nvim")
     use("glepnir/lspsaga.nvim")
     use("ARM9/arm-syntax-vim")
+    use("petrbroz/vim-glsl")
     use({"romgrk/barbar.nvim", requires = "kyazdani42/nvim-web-devicons"})
-    use({"folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim"})
+    local function _0_()
+      return require("fnl.plug-config.todo-comments")
+    end
+    use({"folke/todo-comments.nvim", config = _0_, requires = "nvim-lua/plenary.nvim"})
     return nil
   end
   packer.startup(packer_startup)

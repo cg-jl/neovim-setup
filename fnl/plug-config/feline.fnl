@@ -37,10 +37,8 @@
 ; " "
 
 (local components {
-  :left { :active {} :inactive [] }
-  :right { :active [] :inactive [] }
-  :mid { :active [] :inactive [] }
- })
+  :active [ [] [] [] ]
+})
 
 (macro lsp-card [typ ?is-first]
   (assert typ "Need a type (errors, warnings, hints, info)")
@@ -58,15 +56,8 @@
 (local lsp-status (require :lsp-status))
 
 
-(doto components
-  (-> (. :left :active)
-      (doto
-        (table.insert { :provider :vi_mode :hl (fn vi-mode-hl [] {
-          :name (vi-mode-utils.get_mode_highlight_name)
-          :style :bold
-          :fg (vi-mode-utils.get_mode_color)
-          
-                                   }) :right_sep " " :left_sep " " })
+(-> components (. :active) (doto
+    (-> (. 1) (doto
         (table.insert { :provider :file_info
                         :hl { :fg :skyblue :bg dark-bg-1 :style :bold }
                         :left_sep [ { :str :slant_left :hl { :fg dark-bg-1 } } { :str " " :hl { :bg dark-bg-1 } } ]})
@@ -82,10 +73,8 @@
         (table.insert (lsp-card :warnings))
         (table.insert (lsp-card :errors))
 
-        )
-  )
-  (-> (. :right :active)
-      (doto
+    ))
+    (-> (. 3) (doto
         ; TODO: get diagnostics to show
         (table.insert { :provider #(->> (lsp-status.status) (utils.shorten 85)) :hl { :bg dark-bg-2 :fg :skyblue  } 
                         :enabled #(-> (vim.lsp.buf_get_clients) (length) (> 0))
@@ -107,16 +96,12 @@
                         :left_sep " "
                         })
 ;        (table.insert { :provider lsp-status.status :enabled #(-> (vim.lsp.buf_get_clients) (length) (> 0)) :hl { :bg dark-bg-1 :fg :white } })
-      )
-  )
-)
 
-; (fn vi-mode-hl []
-;   (local vi-mode (require :feline.providers.vi_mode))
-;   { :name (vi-mode.get_mode_highlight_name)
-;     :fg :bg
-;     :bg (vi-mode.get_mode_color)
-;     :style :bold})
+    ))
+
+
+))
+
 
 (local colors {
   :black :#434c5e
