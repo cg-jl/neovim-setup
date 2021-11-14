@@ -87,27 +87,31 @@ package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.fel
     local _0_0 = components.active
     do
       local _1_0 = (_0_0)[1]
-      table.insert(_1_0, {hl = {bg = dark_bg_1, fg = "skyblue", style = "bold"}, left_sep = {{hl = {fg = dark_bg_1}, str = "slant_left"}, {hl = {bg = dark_bg_1}, str = " "}}, provider = "file_info"})
       local function _2_()
+        return {fg = vi_mode_utils.get_mode_color(), name = vi_mode_utils.get_mode_highlight_name(), style = "bold"}
+      end
+      table.insert(_1_0, {hl = _2_, left_sep = " ", provider = "vi_mode", right_sep = " "})
+      table.insert(_1_0, {hl = {bg = dark_bg_1, fg = "skyblue", style = "bold"}, left_sep = {{hl = {fg = dark_bg_1}, str = "slant_left"}, {hl = {bg = dark_bg_1}, str = " "}}, provider = "file_info"})
+      local function _3_()
         return (vim.fn.getfsize(vim.fn.expand("%:p")) > 0)
       end
-      table.insert(_1_0, {enabled = _2_, hl = {bg = dark_bg_1, fg = "skyblue"}, left_sep = {{hl = {bg = dark_bg_1}, str = "slant_left_thin"}, {hl = {bg = dark_bg_1}, str = " "}}, provider = "position", right_sep = {{hl = {bg = dark_bg_1}, str = " "}, {hl = {bg = dark_bg_2, fg = dark_bg_1}, str = "slant_right_2"}}})
-      local function _3_()
+      table.insert(_1_0, {enabled = _3_, hl = {bg = dark_bg_1, fg = "skyblue"}, left_sep = {{hl = {bg = dark_bg_1}, str = "slant_left_thin"}, {hl = {bg = dark_bg_1}, str = " "}}, provider = "position", right_sep = {{hl = {bg = dark_bg_1}, str = " "}, {hl = {bg = dark_bg_2, fg = dark_bg_1}, str = "slant_right_2"}}})
+      local function _4_()
         return feline_lsp.diagnostics_exist("Information")
       end
-      table.insert(_1_0, {enabled = _3_, hl = {bg = dark_bg_2, fg = "green"}, left_sep = {hl = {bg = dark_bg_1, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_info"})
-      local function _4_()
+      table.insert(_1_0, {enabled = _4_, hl = {bg = dark_bg_2, fg = "green"}, left_sep = {hl = {bg = dark_bg_1, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_info"})
+      local function _5_()
         return feline_lsp.diagnostics_exist("Hint")
       end
-      table.insert(_1_0, {enabled = _4_, hl = {bg = dark_bg_2, fg = "skyblue"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_hints"})
-      local function _5_()
+      table.insert(_1_0, {enabled = _5_, hl = {bg = dark_bg_2, fg = "skyblue"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_hints"})
+      local function _6_()
         return feline_lsp.diagnostics_exist("Warning")
       end
-      table.insert(_1_0, {enabled = _5_, hl = {bg = dark_bg_2, fg = "yellow"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_warnings"})
-      local function _6_()
+      table.insert(_1_0, {enabled = _6_, hl = {bg = dark_bg_2, fg = "yellow"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_warnings"})
+      local function _7_()
         return feline_lsp.diagnostics_exist("Error")
       end
-      table.insert(_1_0, {enabled = _6_, hl = {bg = dark_bg_2, fg = "red"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_errors"})
+      table.insert(_1_0, {enabled = _7_, hl = {bg = dark_bg_2, fg = "red"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_errors"})
     end
     local _2_0 = (_0_0)[3]
     local function _3_()

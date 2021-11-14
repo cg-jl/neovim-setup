@@ -58,6 +58,8 @@
 
 (-> components (. :active) (doto
     (-> (. 1) (doto
+        (table.insert { :provider :vi_mode :hl #{ :name (vi-mode-utils.get_mode_highlight_name) :style :bold :fg (vi-mode-utils.get_mode_color) } 
+                        :right_sep " " :left_sep " "})
         (table.insert { :provider :file_info
                         :hl { :fg :skyblue :bg dark-bg-1 :style :bold }
                         :left_sep [ { :str :slant_left :hl { :fg dark-bg-1 } } { :str " " :hl { :bg dark-bg-1 } } ]})
