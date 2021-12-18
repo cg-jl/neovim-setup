@@ -38,11 +38,9 @@
                                       }
                            })
 
-(setup-lsp :ccls)
 (setup-lsp :hls)
 (setup-lsp :gopls)
-(setup-lsp :clangd {:settings {:root_dir (lsp-util.root_pattern :build
-                                                                :compile_commands.json)
+(setup-lsp :clangd {:settings {
                                }
                     })
 

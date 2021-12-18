@@ -174,10 +174,9 @@ package.preload["fnl.plug-config.nvim-lsp"] = package.preload["fnl.plug-config.n
   lsp_status.register_progress()
   local default_options = {capabilities = utils["merge-tables"](lsp_status.capabilities, vim.lsp.protocol.make_client_capabilities()), on_attach = on_attach}
   nvim_lsp.rust_analyzer.setup(utils["merge-tables"](default_options, {settings = {["rust-analyzer"] = {checkOnSave = {command = "clippy"}}}}))
-  nvim_lsp.ccls.setup(default_options)
   nvim_lsp.hls.setup(default_options)
   nvim_lsp.gopls.setup(default_options)
-  return nvim_lsp.clangd.setup(utils["merge-tables"](default_options, {settings = {root_dir = lsp_util.root_pattern("build", "compile_commands.json")}}))
+  return nvim_lsp.clangd.setup(utils["merge-tables"](default_options, {settings = {}}))
 end
 package.preload["fnl.plug-config.kommentary"] = package.preload["fnl.plug-config.kommentary"] or function(...)
   local kommentary_config = require("kommentary.config")
@@ -192,9 +191,12 @@ package.preload["fnl.plug-config.theme"] = package.preload["fnl.plug-config.them
   utils["set-globals"]({nord_italic = 1})
   return nil
 end
+package.preload["fnl.plug-config.keys.todo-comments"] = package.preload["fnl.plug-config.keys.todo-comments"] or function(...)
+  return vim.api.nvim_set_keymap("n", "<leader>lt", "<cmd>TodoTrouble<cr>", {noremap = true, silent = true})
+end
 package.preload["fnl.plug-config.todo-comments"] = package.preload["fnl.plug-config.todo-comments"] or function(...)
   local todo_comments = require("todo-comments")
-  return todo_comments.setup({})
+  return todo_comments.setup({keywords = {NOTE = {alt = {"INFO", "UNSAFE"}, color = "hint"}}})
 end
 package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   do
@@ -233,9 +235,11 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("petrbroz/vim-glsl")
     use({"romgrk/barbar.nvim", requires = "kyazdani42/nvim-web-devicons"})
     local function _0_()
-      return require("fnl.plug-config.todo-comments")
+      require("fnl.plug-config.todo-comments")
+      return require("fnl.plug-config.keys.todo-comments")
     end
     use({"folke/todo-comments.nvim", config = _0_, requires = "nvim-lua/plenary.nvim"})
+    use("lervag/vimtex")
     return nil
   end
   packer.startup(packer_startup)
@@ -394,8 +398,12 @@ package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
   utils.options("buffer", {autoindent = true, expandtab = true, shiftwidth = 2, smartindent = true, swapfile = false, tabstop = 2})
   return nil
 end
+package.preload["fnl.langs"] = package.preload["fnl.langs"] or function(...)
+  return vim.cmd("\naugroup Porth\nau FileReadPost *.porth set ft=porth\naugroup end\n\naugroup LispyC\nau FileReadPost *.lc set ft=lispyc\naugroup end\n\n ")
+end
 vim.g["mapleader"] = ","
 vim.g["python3_host_prog"] = "/usr/bin/python3"
+require("fnl.langs")
 require("fnl.options")
 require("fnl.plugins")
 require("fnl.keys")
