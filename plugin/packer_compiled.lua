@@ -57,7 +57,7 @@ end
 time([[Luarocks path setup]], false)
 time([[try_loadstring definition]], true)
 local function try_loadstring(s, component, name)
-  local success, result = pcall(loadstring(s))
+  local success, result = pcall(loadstring(s), name, _G.packer_plugins[name])
   if not success then
     vim.schedule(function()
       vim.api.nvim_notify('packer.nvim: Error running ' .. component .. ' for ' .. name .. ': ' .. result, vim.log.levels.ERROR, {})
@@ -69,134 +69,189 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
   ["arm-syntax-vim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/arm-syntax-vim"
-  },
-  ["auto-pairs"] = {
-    loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/auto-pairs"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/arm-syntax-vim",
+    url = "https://github.com/ARM9/arm-syntax-vim"
   },
   ["barbar.nvim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/barbar.nvim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/barbar.nvim",
+    url = "https://github.com/romgrk/barbar.nvim"
   },
   ["cmp-buffer"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/cmp-buffer",
+    url = "https://github.com/hrsh7th/cmp-buffer"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
-  ["completion-nvim"] = {
+  ["cmp-vsnip"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/completion-nvim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
+    url = "https://github.com/hrsh7th/cmp-vsnip"
+  },
+  ["colorbuddy.nvim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/colorbuddy.nvim",
+    url = "https://github.com/tjdevries/colorbuddy.nvim"
   },
   ["feline.nvim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/feline.nvim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/feline.nvim",
+    url = "https://github.com/famiu/feline.nvim"
   },
   fzf = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/fzf"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/fzf",
+    url = "https://github.com/junegunn/fzf"
   },
   ["fzf.vim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/fzf.vim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/fzf.vim",
+    url = "https://github.com/junegunn/fzf.vim"
+  },
+  ["git-worktree.nvim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/git-worktree.nvim",
+    url = "https://github.com/ThePrimeagen/git-worktree.nvim"
   },
   ["gitsigns.nvim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+    url = "https://github.com/lewis6991/gitsigns.nvim"
   },
   ["hop.nvim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/hop.nvim"
-  },
-  kommentary = {
-    loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/kommentary"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/hop.nvim",
+    url = "https://github.com/phaazon/hop.nvim"
   },
   ["lsp-colors.nvim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lsp-colors.nvim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lsp-colors.nvim",
+    url = "https://github.com/folke/lsp-colors.nvim"
   },
   ["lsp-status.nvim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lsp-status.nvim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lsp-status.nvim",
+    url = "https://github.com/nvim-lua/lsp-status.nvim"
   },
-  ["lsp-trouble.nvim"] = {
+  ["lspkind-nvim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lsp-trouble.nvim"
-  },
-  ["lspsaga.nvim"] = {
-    loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
-  },
-  ["nord-vim"] = {
-    loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nord-vim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
+    url = "https://github.com/onsails/lspkind-nvim"
   },
   ["nvim-cmp"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-cmp"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+    url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+    url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/packer.nvim",
+    url = "https://github.com/wbthomason/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/plenary.nvim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    url = "https://github.com/nvim-lua/plenary.nvim"
+  },
+  sonokai = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/sonokai",
+    url = "https://github.com/sainnhe/sonokai"
   },
   ["todo-comments.nvim"] = {
-    config = { "\27LJ\2\n9\0\0\3\0\2\0\0036\0\0\0'\2\1\0D\0\2\0\"fnl.plug-config.todo-comments\frequire\0" },
+    config = { "\27LJ\2\nh\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0D\0\2\0'fnl.plug-config.keys.todo-comments\"fnl.plug-config.todo-comments\frequire\0" },
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/todo-comments.nvim"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/todo-comments.nvim",
+    url = "https://github.com/folke/todo-comments.nvim"
+  },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
   },
   ["vim-fugitive"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-fugitive"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
   },
   ["vim-glsl"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-glsl"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-glsl",
+    url = "https://github.com/petrbroz/vim-glsl"
+  },
+  ["vim-mipssyntax"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-mipssyntax",
+    url = "https://github.com/harenome/vim-mipssyntax"
+  },
+  ["vim-nix"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-nix",
+    url = "https://github.com/LnL7/vim-nix"
   },
   ["vim-repeat"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-repeat"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-repeat",
+    url = "https://github.com/tpope/vim-repeat"
   },
   ["vim-surround"] = {
     loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-surround"
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
+  },
+  ["vim-vsnip"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-vsnip",
+    url = "https://github.com/hrsh7th/vim-vsnip"
+  },
+  vimtex = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vimtex",
+    url = "https://github.com/lervag/vimtex"
   }
 }
 
 time([[Defining packer_plugins]], false)
 -- Config for: todo-comments.nvim
 time([[Config for todo-comments.nvim]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\2\0\0036\0\0\0'\2\1\0D\0\2\0\"fnl.plug-config.todo-comments\frequire\0", "config", "todo-comments.nvim")
+try_loadstring("\27LJ\2\nh\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0D\0\2\0'fnl.plug-config.keys.todo-comments\"fnl.plug-config.todo-comments\frequire\0", "config", "todo-comments.nvim")
 time([[Config for todo-comments.nvim]], false)
 if should_profile then save_profiles() end
 
 end)
 
 if not no_errors then
+  error_msg = error_msg:gsub('"', '\\"')
   vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
 end

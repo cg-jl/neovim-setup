@@ -1,40 +1,38 @@
 (local utils (require :fnl.utils))
 (local nvim-tree (require :nvim-tree))
 
-(nvim-tree.setup {:side :left
-                    :width 30
-                    :ignore [:.git :.node_modules :.cache]
-                    :auto_open 1
-                    :auto_close 1
-                    :quit_on_open 1
-                    :follow 1
-                    :indent_markers 1
-                    :hide_dotfiles 0
-                    :git_hl 1
-                    :width_allow_resize 1
-                    :disable_netrw 1
-                    :hijack_netrw 1
-                    :add_trailing 1
-                    :show_icons {:git 1
-                                 :folders 0
-                                 :files 0
-                                 }
-                    :tree_icons {:default " "
-                                 :symlink " "
-                                 :git {:unstaged "✗ "
-                                       :staged "✓ "
-                                       :unmerged " "
-                                       :renamed "➜ "
-                                       :untracked "★ "
-                                       }
-                                 :folder {:default " "
-                                          :open " "
-                                          :empty " "
-                                          :empty_open " "
-                                          :symlink " "
-                                          :symlink_open " "
-                                          }
-                                 }
+(nvim-tree.setup {;:side :left
+                    ;:auto_open true
+                    ;:auto_close true
+                    ;:quit_on_open true
+                    ;:follow true
+                    ;:indent_markers true
+                    ;:hide_dotfiles false
+                    ;:git_hl true
+                    ;:width_allow_resize true
+                    :disable_netrw true
+                    :hijack_netrw true
+                    ;:add_trailing true
+                    ; :show_icons {:git 1
+                    ;              :folders 0
+                    ;              :files 0
+                    ;              }
+                    ; :tree_icons {:default " "
+                    ;              :symlink " "
+                    ;              :git {:unstaged "✗ "
+                    ;                    :staged "✓ "
+                    ;                    :unmerged " "
+                    ;                    :renamed "➜ "
+                    ;                    :untracked "★ "
+                    ;                    }
+                    ;              :folder {:default " "
+                    ;                       :open " "
+                    ;                       :empty " "
+                    ;                       :empty_open " "
+                    ;                       :symlink " "
+                    ;                       :symlink_open " "
+                    ;                       }
+                    ;              }
                     })
 
 nil

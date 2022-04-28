@@ -1,0 +1,3 @@
+[submodule "fnlfmt"]
+	path = fnlfmt
+	url = https://git.sr.ht/~technomancy/fnlfmt

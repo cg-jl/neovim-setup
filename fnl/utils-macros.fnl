@@ -16,11 +16,14 @@
                          v))))
   merged)
 
+(fn theme-toggle [themes ?default] 
+  (let [ theme (os.getenv :NVIM_CONFIG_THEME) ]  
+      (or (-?> themes (. theme)) ?default)))
 
 (fn nvim-map [mode lhs rhs ?more-options]
   (let [ options { :noremap true :silent true }
          real-options (if ?more-options (merge-tables options ?more-options) options)]
-    `(vim.api.nvim_set_keymap ,mode ,lhs ,rhs ,real-options)
+    `(vim.keymap.set ,mode ,lhs ,rhs ,real-options)
   ))
 
 (fn nvim-mapcmd [mode lhs cmd ?more-options]
@@ -41,4 +44,5 @@
 { : nvim-map
   : nvim-mapcmd
   : merge-tables
+  : theme-toggle
   : prefix-options }

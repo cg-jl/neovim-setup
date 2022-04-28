@@ -1,12 +1,12 @@
 (local nvim-lsp (require :lspconfig))
 (local lsp-status (require :lsp-status))
 (local utils (require :fnl.utils))
-(local completion (require :completion))
+;(local completion (require :completion))
 (local lsp-util (require :lspconfig/util))
 
 (fn on-attach [client]
   (doto client
-    (completion.on_attach)
+;    (completion.on_attach)
     (lsp-status.on_attach))
   nil)
 
@@ -40,9 +40,7 @@
 
 (setup-lsp :hls)
 (setup-lsp :gopls)
-(setup-lsp :clangd {:settings {
-                               }
-                    })
+(setup-lsp :clangd)
 
 ;(nvim-lsp.rust_analyzer.setup default-options)
 

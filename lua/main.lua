@@ -1,72 +1,94 @@
 package.preload["fnl.keys"] = package.preload["fnl.keys"] or function(...)
-  vim.api.nvim_set_keymap("i", "<c-j>", "\\<c-n>", {expr = true, noremap = true, silent = true})
-  vim.api.nvim_set_keymap("i", "<c-j>", "\\<c-p>", {expr = true, noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<m-j>", "<c-w>j", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<m-k>", "<c-w>k", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<m-h>", "<c-w>h", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<m-l>", "<c-w>l", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("i", "jk", "<esc>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("v", "jk", "<esc>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("i", "<tab>", "pumvisible() ? \"\\<c-n>\" : \"\\<tab>\"", {expr = true, noremap = true, silent = true})
-  vim.api.nvim_set_keymap("v", "<", "<gv", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("v", ">", ">gv", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>w", "<cmd>update<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<c-j>", "<cmd>cprev<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<c-k>", "<cmd>cnext<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>j", "<cmd>lprev<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>k", "<cmd>lnext<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>rc", "<cmd>lua require('main')<cr>", {noremap = true, silent = true})
+  vim.keymap.set("i", "<c-j>", "\\<c-n>", {expr = true, noremap = true, silent = true})
+  vim.keymap.set("i", "<c-j>", "\\<c-p>", {expr = true, noremap = true, silent = true})
+  vim.keymap.set("n", "<m-j>", "<c-w>j", {noremap = true, silent = true})
+  vim.keymap.set("n", "<m-k>", "<c-w>k", {noremap = true, silent = true})
+  vim.keymap.set("n", "<m-h>", "<c-w>h", {noremap = true, silent = true})
+  vim.keymap.set("n", "<m-l>", "<c-w>l", {noremap = true, silent = true})
+  vim.keymap.set("i", "jk", "<esc>", {noremap = true, silent = true})
+  vim.keymap.set("v", "jk", "<esc>", {noremap = true, silent = true})
+  vim.keymap.set("i", "<tab>", "pumvisible() ? \"\\<c-n>\" : \"\\<tab>\"", {expr = true, noremap = true, silent = true})
+  vim.keymap.set("v", "<", "<gv", {noremap = true, silent = true})
+  vim.keymap.set("v", ">", ">gv", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>w", "<cmd>update<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<c-j>", "<cmd>cprev<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<c-k>", "<cmd>cnext<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>j", "<cmd>lprev<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>k", "<cmd>lnext<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>rc", "<cmd>lua require('main')<cr>", {noremap = true, silent = true})
   return nil
+end
+package.preload["fnl.plug-config.theme"] = package.preload["fnl.plug-config.theme"] or function(...)
+  local utils = require("fnl.utils")
+  utils["set-globals"]({sonokai_style = "espresso"})
+  vim.cmd("colorscheme sonokai")
+  vim.cmd("hi! Normal ctermbg=NONE guibg=NONE")
+  vim.cmd("hi! EndOfBuffer ctermbg=NONE guibg=NONE")
+  return nil
+end
+package.preload["fnl.plug-config.keys.git-worktree"] = package.preload["fnl.plug-config.keys.git-worktree"] or function(...)
+  vim.keymap.set("n", "<leader>gw", "<cmd>Telescope git_worktree git_worktrees<cr>", {noremap = true, silent = true})
+  return vim.keymap.set("n", "<leader>gwn", "<cmd>Telescope git_worktree create_git_worktree<cr>", {noremap = true, silent = true})
 end
 package.preload["fnl.plug-config.keys.barbar"] = package.preload["fnl.plug-config.keys.barbar"] or function(...)
-  vim.api.nvim_set_keymap("n", "<leader>bp", "<cmd>BufferPick<cr>", {noremap = true, silent = true})
-  return nil
-end
-package.preload["fnl.plug-config.keys.lspsaga"] = package.preload["fnl.plug-config.keys.lspsaga"] or function(...)
-  vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("v", "<leader>ca", "<cmd>Lspsaga range_code_action<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>bp", "<cmd>BufferPick<cr>", {noremap = true, silent = true})
   return nil
 end
 package.preload["fnl.plug-config.keys.nvim-tree"] = package.preload["fnl.plug-config.keys.nvim-tree"] or function(...)
-  vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>NvimTreeRefresh<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>r", "<cmd>NvimTreeRefresh<cr>", {noremap = true, silent = true})
   return nil
 end
 package.preload["fnl.plug-config.keys.lsp-trouble"] = package.preload["fnl.plug-config.keys.lsp-trouble"] or function(...)
-  vim.api.nvim_set_keymap("n", "<leader>ll", "<cmd>LspTroubleToggle<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>lw", "<cmd>LspTroubleWorkspaceToggle<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>ld", "<cmd>LspTroubleDocumentToggle<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>ll", "<cmd>TroubleToggle<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>lw", "<cmd>TroubleWorkspaceToggle<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>ld", "<cmd>TroubleDocumentToggle<cr>", {noremap = true, silent = true})
   return nil
 end
 package.preload["fnl.plug-config.keys.vim-fugitive"] = package.preload["fnl.plug-config.keys.vim-fugitive"] or function(...)
-  vim.api.nvim_set_keymap("n", "<leader>gs", "<cmd>G<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>gp", "<cmd>Git push<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>gs", "<cmd>G<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>gp", "<cmd>Git push<cr>", {noremap = true, silent = true})
   return nil
 end
 package.preload["fnl.plug-config.keys.lsp"] = package.preload["fnl.plug-config.keys.lsp"] or function(...)
-  vim.api.nvim_set_keymap("n", "<space>,", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>;", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>d", "<cmd>lua vim.lsp.buf.definition()<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>h", "<cmd>lua vim.lsp.buf.hover()<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>m", "<cmd>lua vim.lsp.buf.rename()<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>r", "<cmd>lua vim.lsp.buf.references()<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<space>s", "<cmd>lua vim.lsp.buf.document_symbol()<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<space>,", vim.diagnostic.goto_prev, {noremap = true, silent = true})
+  vim.keymap.set("n", "<space>;", vim.diagnostic.goto_next, {noremap = true, silent = true})
+  vim.keymap.set("n", "<space>a", vim.lsp.buf.code_action, {noremap = true, silent = true})
+  vim.keymap.set("n", "<space>d", vim.lsp.buf.definition, {noremap = true, silent = true})
+  vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting, {noremap = true, silent = true})
+  vim.keymap.set("n", "<space>h", vim.lsp.buf.hover, {noremap = true, silent = true})
+  vim.keymap.set("n", "<space>m", vim.lsp.buf.rename, {noremap = true, silent = true})
+  vim.keymap.set("n", "<space>r", vim.lsp.buf.references, {noremap = true, silent = true})
+  vim.keymap.set("n", "<space>s", vim.lsp.buf.document_symbol, {noremap = true, silent = true})
   return nil
 end
 package.preload["fnl.plug-config.keys.fzf"] = package.preload["fnl.plug-config.keys.fzf"] or function(...)
-  vim.api.nvim_set_keymap("n", "<leader>ff", "<cmd>Files<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>rg", "<cmd>Rg<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>History<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>fc", "<cmd>Commits<cr>", {noremap = true, silent = true})
-  vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>Buffers<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>ff", "<cmd>Files<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>rg", "<cmd>Rg<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>fh", "<cmd>History<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>fc", "<cmd>Commits<cr>", {noremap = true, silent = true})
+  vim.keymap.set("n", "<leader>fb", "<cmd>Buffers<cr>", {noremap = true, silent = true})
+  return nil
+end
+package.preload["fnl.plug-config.git-worktree"] = package.preload["fnl.plug-config.git-worktree"] or function(...)
+  local git_worktree = require("git-worktree")
+  return git_worktree.setup({})
+end
+package.preload["fnl.plug-config.nvim-cmp/main"] = package.preload["fnl.plug-config.nvim-cmp/main"] or function(...)
+  do end (require("cmp_nvim_lsp")).setup()
+  local cmp = require("cmp")
+  local lspkind = require("lspkind")
+  local function _31_(args)
+    return vim.fn["vsnip#anonymous"](args.body)
+  end
+  cmp.setup({min_length = 0, mapping = {["<c-n>"] = cmp.mapping.select_next_item(), ["<leader>c"] = cmp.mapping.complete(), ["<c-e>"] = cmp.mapping.close(), ["<c-p>"] = cmp.mapping.select_prev_item()}, snippet = {expand = _31_}, sources = cmp.config.sources({{name = "gh_source"}, {name = "nvim_lsp"}}), experimental = {ghost_text = true}, view = {entries = "native"}, formatting = {format = lspkind.cmp_format({with_text = false, maxwidth = 50})}})
+  do end (require("colorbuddy")).setup()
   return nil
 end
 package.preload["fnl.plug-config.nvim-tree"] = package.preload["fnl.plug-config.nvim-tree"] or function(...)
   local utils = require("fnl.utils")
   local nvim_tree = require("nvim-tree")
-  nvim_tree.setup({add_trailing = 1, auto_close = 1, auto_open = 1, disable_netrw = 1, follow = 1, git_hl = 1, hide_dotfiles = 0, hijack_netrw = 1, ignore = {".git", ".node_modules", ".cache"}, indent_markers = 1, quit_on_open = 1, show_icons = {files = 0, folders = 0, git = 1}, side = "left", tree_icons = {default = "\238\152\146 ", folder = {default = "\238\151\191 ", empty = "\239\132\148 ", empty_open = "\239\132\149 ", open = "\238\151\190 ", symlink = "\239\146\130 ", symlink_open = "\238\151\190 "}, git = {renamed = "\226\158\156 ", staged = "\226\156\147 ", unmerged = "\238\156\167 ", unstaged = "\226\156\151 ", untracked = "\226\152\133 "}, symlink = "\239\146\129 "}, width = 30, width_allow_resize = 1})
+  nvim_tree.setup({disable_netrw = true, hijack_netrw = true})
   return nil
 end
 package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.feline"] or function(...)
@@ -74,74 +96,69 @@ package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.fel
   local vi_mode_utils = require("feline.providers.vi_mode")
   local feline_lsp = require("feline.providers.lsp")
   local utils = require("fnl.utils")
-  local default_bg = "#434c5e"
-  local dark_bg_1 = "#3b4252"
-  local dark_bg_2 = "#2e3440"
   local function vi_mode_provider()
-    local mode_alias = {R = "REPLACE", Rv = "REPLACE", S = "SELECT", V = "V-LINE", ["\19"] = "SELECT", ["\22"] = "V-BLOCK", c = "COMMAND", ce = "COMMAND", cv = "COMMAND", i = "INSERT", n = "NORMAL", no = "NORMAL", s = "SELECT", t = "TERMINAL", v = "VISUAL"}
+    local mode_alias = {n = "NORMAL", no = "NORMAL", i = "INSERT", v = "VISUAL", V = "V-LINE", ["\22"] = "V-BLOCK", c = "COMMAND", cv = "COMMAND", ce = "COMMAND", R = "REPLACE", Rv = "REPLACE", s = "SELECT", S = "SELECT", ["\19"] = "SELECT", t = "TERMINAL"}
     return ("\238\152\171 " .. mode_alias[vim.fn.mode()])
   end
   local components = {active = {{}, {}, {}}}
   local lsp_status = require("lsp-status")
   do
-    local _0_0 = components.active
+    local _16_ = components.active
     do
-      local _1_0 = (_0_0)[1]
-      local function _2_()
-        return {fg = vi_mode_utils.get_mode_color(), name = vi_mode_utils.get_mode_highlight_name(), style = "bold"}
+      local _17_ = (_16_)[1]
+      local function _18_()
+        return {name = vi_mode_utils.get_mode_highlight_name(), style = "bold", fg = vi_mode_utils.get_mode_color()}
       end
-      table.insert(_1_0, {hl = _2_, left_sep = " ", provider = "vi_mode", right_sep = " "})
-      table.insert(_1_0, {hl = {bg = dark_bg_1, fg = "skyblue", style = "bold"}, left_sep = {{hl = {fg = dark_bg_1}, str = "slant_left"}, {hl = {bg = dark_bg_1}, str = " "}}, provider = "file_info"})
-      local function _3_()
+      table.insert(_17_, {provider = "vi_mode", hl = _18_, right_sep = "  ", left_sep = " "})
+      table.insert(_17_, {provider = "file_info", hl = {fg = "#ebdbb2", bg = "#3c3836", style = "bold"}, left_sep = {{str = "slant_left", hl = {fg = "#3c3836"}}, {str = " ", hl = {bg = "#3c3836"}}}})
+      local function _19_()
         return (vim.fn.getfsize(vim.fn.expand("%:p")) > 0)
       end
-      table.insert(_1_0, {enabled = _3_, hl = {bg = dark_bg_1, fg = "skyblue"}, left_sep = {{hl = {bg = dark_bg_1}, str = "slant_left_thin"}, {hl = {bg = dark_bg_1}, str = " "}}, provider = "position", right_sep = {{hl = {bg = dark_bg_1}, str = " "}, {hl = {bg = dark_bg_2, fg = dark_bg_1}, str = "slant_right_2"}}})
-      local function _4_()
-        return feline_lsp.diagnostics_exist("Information")
+      table.insert(_17_, {provider = "position", left_sep = {{str = "slant_left_thin", hl = {bg = "#3c3836"}}, {str = " ", hl = {bg = "#3c3836"}}}, right_sep = {{str = " ", hl = {bg = "#3c3836"}}, {str = "slant_right_2", hl = {bg = "#1d2021", fg = "#3c3836"}}}, hl = {fg = "white", bg = "#3c3836"}, enabled = _19_})
+      local function _20_()
+        return feline_lsp.diagnostics_exist("info")
       end
-      table.insert(_1_0, {enabled = _4_, hl = {bg = dark_bg_2, fg = "green"}, left_sep = {hl = {bg = dark_bg_1, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_info"})
-      local function _5_()
-        return feline_lsp.diagnostics_exist("Hint")
+      table.insert(_17_, {enabled = _20_, hl = {bg = "#1d2021", fg = "green"}, left_sep = {hl = {bg = "#3c3836", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_info"})
+      local function _21_()
+        return feline_lsp.diagnostics_exist("hint")
       end
-      table.insert(_1_0, {enabled = _5_, hl = {bg = dark_bg_2, fg = "skyblue"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_hints"})
-      local function _6_()
-        return feline_lsp.diagnostics_exist("Warning")
+      table.insert(_17_, {enabled = _21_, hl = {bg = "#1d2021", fg = "white"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_hints"})
+      local function _22_()
+        return feline_lsp.diagnostics_exist("warn")
       end
-      table.insert(_1_0, {enabled = _6_, hl = {bg = dark_bg_2, fg = "yellow"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_warnings"})
-      local function _7_()
-        return feline_lsp.diagnostics_exist("Error")
+      table.insert(_17_, {enabled = _22_, hl = {bg = "#1d2021", fg = "yellow"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_warnings"})
+      local function _23_()
+        return feline_lsp.diagnostics_exist("error")
       end
-      table.insert(_1_0, {enabled = _7_, hl = {bg = dark_bg_2, fg = "red"}, left_sep = {hl = {bg = dark_bg_2, fg = dark_bg_2}, str = "slant_left"}, provider = "diagnostic_errors"})
+      table.insert(_17_, {enabled = _23_, hl = {bg = "#1d2021", fg = "red"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_errors"})
     end
-    local _2_0 = (_0_0)[3]
-    local function _3_()
-      return (#vim.lsp.buf_get_clients() > 0)
-    end
-    local function _4_()
+    local _24_ = (_16_)[3]
+    local function _25_()
       return utils.shorten(85, lsp_status.status())
     end
-    table.insert(_2_0, {enabled = _3_, hl = {bg = dark_bg_2, fg = "skyblue"}, provider = _4_})
-    local function _5_()
-      return {hl = {bg = dark_bg_1, fg = "NONE"}, str = " "}
+    local function _26_()
+      return (#vim.lsp.buf_get_clients() > 0)
     end
-    table.insert(_2_0, {hl = {bg = dark_bg_1, fg = "white"}, left_sep = {{hl = {bg = dark_bg_2, fg = dark_bg_1}, str = "slant_left_2"}}, provider = "git_branch", right_sep = _5_})
-    table.insert(_2_0, {hl = {bg = dark_bg_1, fg = "green"}, provider = "git_diff_added", right_sep = {hl = {bg = dark_bg_1}, str = " "}})
-    table.insert(_2_0, {hl = {bg = dark_bg_1, fg = "orange"}, provider = "git_diff_changed", right_sep = {hl = {bg = dark_bg_1}, str = " "}})
-    local function _6_()
-      local _7_
+    table.insert(_24_, {provider = _25_, hl = {bg = "#1d2021", fg = "white"}, enabled = _26_})
+    local function _27_()
+      return {str = " ", hl = {bg = "#3c3836", fg = "NONE"}}
+    end
+    table.insert(_24_, {provider = "git_branch", hl = {fg = "white", bg = "#3c3836"}, right_sep = _27_, left_sep = {{str = "slant_left_2", hl = {bg = "#1d2021", fg = "#3c3836"}}}})
+    table.insert(_24_, {provider = "git_diff_added", hl = {fg = "green", bg = "#3c3836"}, right_sep = {str = " ", hl = {bg = "#3c3836"}}})
+    table.insert(_24_, {provider = "git_diff_changed", hl = {fg = "orange", bg = "#3c3836"}, right_sep = {str = " ", hl = {bg = "#3c3836"}}})
+    local function _28_()
+      local _29_
       if vim.b.gitsigns_status_dict then
-        _7_ = " "
+        _29_ = " "
       else
-        _7_ = ""
+        _29_ = ""
       end
-      return {hl = {bg = dark_bg_1}, str = _7_}
+      return {str = _29_, hl = {bg = "#3c3836"}}
     end
-    table.insert(_2_0, {hl = {bg = dark_bg_1, fg = "red"}, provider = "git_diff_removed", right_sep = {_6_, {hl = {fg = dark_bg_1}, str = "slant_right_2"}}})
-    table.insert(_2_0, {hl = {style = "bold"}, left_sep = " ", provider = "line_percentage", right_sep = " "})
+    table.insert(_24_, {provider = "git_diff_removed", hl = {fg = "red", bg = "#3c3836"}, right_sep = {_28_, {str = "slant_right_2", hl = {fg = "#3c3836"}}}})
+    table.insert(_24_, {provider = "line_percentage", hl = {style = "bold"}, right_sep = " ", left_sep = " "})
   end
-  local colors = {bg = default_bg, black = "#434c5e", cyan = "#88c0d0", fg = "#8fbcbb", green = "#8fbcbb", magenta = "#b48ead", oceanblue = "#5e81ac", orange = "#d08770", red = "#ec5f67", skyblue = "#81a1c1", violet = "#b48ead", white = "#eceff4", yellow = "#ebcb8b"}
-  local vi_mode_colors = {BLOCK = "green", COMMAND = "cyan", ENTER = "cyan", INSERT = "white", MORE = "cyan", NONE = "orange", NORMAL = "skyblue", OP = "cyan", REPLACE = "yellow", SELECT = "magenta", SHELL = "skyblue", TERM = "skyblue", VISUAL = "green", ["V-REPLACE"] = "yellow"}
-  return feline.setup({colors = colors, components = components, vi_mode_colors = vi_mode_colors})
+  return feline.setup({colors = {bg = "#504945", black = "#282828", cyan = "#8ec07c", fg = "#fabd2f", green = "#b8bb26", magenta = "#d3869b", oceanblue = "#458588", orange = "#fe8019", red = "#fb4934", skyblue = "#83a598", violet = "#b16286", white = "#ebdbb2", yellow = "#fabd2f"}, vi_mode_colors = {NORMAL = "#bcae93", OP = "cyan", INSERT = nil, VISUAL = "green", BLOCK = "green", REPLACE = "yellow", ["V-REPLACE"] = "yellow", ENTER = "cyan", MORE = "cyan", SELECT = "magenta", COMMAND = "cyan", SHELL = "skyblue", TERM = "skyblue", NONE = "orange"}, components = components})
 end
 package.preload["fnl.plug-config.gitsigns"] = package.preload["fnl.plug-config.gitsigns"] or function(...)
   local gs = require("gitsigns")
@@ -149,7 +166,7 @@ package.preload["fnl.plug-config.gitsigns"] = package.preload["fnl.plug-config.g
 end
 package.preload["fnl.plug-config.treesitter"] = package.preload["fnl.plug-config.treesitter"] or function(...)
   local ts = require("nvim-treesitter.configs")
-  ts.setup({autopairs = {enable = true}, highlight = {enable = true}})
+  ts.setup({highlight = {enable = true}, autopairs = {enable = true}})
   return nil
 end
 package.preload["fnl.plug-config.hop"] = package.preload["fnl.plug-config.hop"] or function(...)
@@ -160,43 +177,40 @@ package.preload["fnl.plug-config.nvim-lsp"] = package.preload["fnl.plug-config.n
   local nvim_lsp = require("lspconfig")
   local lsp_status = require("lsp-status")
   local utils = require("fnl.utils")
-  local completion = require("completion")
   local lsp_util = require("lspconfig/util")
   local function on_attach(client)
     do
-      local _0_0 = client
-      completion.on_attach(_0_0)
-      lsp_status.on_attach(_0_0)
+      local _15_ = client
+      lsp_status.on_attach(_15_)
     end
     return nil
   end
   lsp_status.config({current_function = true})
   lsp_status.register_progress()
-  local default_options = {capabilities = utils["merge-tables"](lsp_status.capabilities, vim.lsp.protocol.make_client_capabilities()), on_attach = on_attach}
+  local default_options = {on_attach = on_attach, capabilities = utils["merge-tables"](lsp_status.capabilities, vim.lsp.protocol.make_client_capabilities())}
   nvim_lsp.rust_analyzer.setup(utils["merge-tables"](default_options, {settings = {["rust-analyzer"] = {checkOnSave = {command = "clippy"}}}}))
   nvim_lsp.hls.setup(default_options)
   nvim_lsp.gopls.setup(default_options)
-  return nvim_lsp.clangd.setup(utils["merge-tables"](default_options, {settings = {}}))
+  return nvim_lsp.clangd.setup(default_options)
 end
-package.preload["fnl.plug-config.kommentary"] = package.preload["fnl.plug-config.kommentary"] or function(...)
-  local kommentary_config = require("kommentary.config")
-  kommentary_config.use_extended_mappings()
-  kommentary_config.configure_language("default", {prefer_single_line_comments = true})
-  return kommentary_config.configure_language("rust", {multi_line_comment_strings = {"/*", "*/"}, single_line_comment_string = "//"})
-end
-package.preload["fnl.plug-config.theme"] = package.preload["fnl.plug-config.theme"] or function(...)
-  local utils = require("fnl.utils")
-  vim.cmd("colorscheme nord")
-  local options = {italic = 1}
-  utils["set-globals"]({nord_italic = 1})
+package.preload["fnl.plug-config.Comment"] = package.preload["fnl.plug-config.Comment"] or function(...)
+  do
+    local Comment = require("Comment")
+    Comment.setup({optleader = {line = "gc", block = "gr"}, mappings = {basic = true, extra = true, extended = true}})
+  end
+  do
+    local ft = require("Comment.ft")
+    ft.set("fennel", ";%s")
+    ft.set("lua", {"--%s", "--[[%s]]"})
+  end
   return nil
 end
 package.preload["fnl.plug-config.keys.todo-comments"] = package.preload["fnl.plug-config.keys.todo-comments"] or function(...)
-  return vim.api.nvim_set_keymap("n", "<leader>lt", "<cmd>TodoTrouble<cr>", {noremap = true, silent = true})
+  return vim.keymap.set("n", "<leader>lt", "<cmd>TodoTrouble<cr>", {noremap = true, silent = true})
 end
 package.preload["fnl.plug-config.todo-comments"] = package.preload["fnl.plug-config.todo-comments"] or function(...)
   local todo_comments = require("todo-comments")
-  return todo_comments.setup({keywords = {NOTE = {alt = {"INFO", "UNSAFE"}, color = "hint"}}})
+  return todo_comments.setup({keywords = {NOTE = {color = "hint", alt = {"INFO", "UNSAFE"}}}})
 end
 package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   do
@@ -207,57 +221,66 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
       print("installing packer...")
       vim.api.nvim_command(("!git clone https://github.com/wbthomason/packer.nvim " .. install_path))
       vim.api.nvim_command("packadd packer.nvim")
+      vim.api.nvim_command("PackerSync")
+    else
     end
   end
   local packer = require("packer")
   local function packer_startup(use)
     use("wbthomason/packer.nvim")
-    use("arcticicestudio/nord-vim")
+    use("sainnhe/sonokai")
     use("phaazon/hop.nvim")
     use("nvim-treesitter/nvim-treesitter")
-    use({"famiu/feline.nvim", requires = {{"lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim"}, "kyazdani42/nvim-web-devicons"}})
-    use({"kyazdani42/nvim-tree.lua", opt = false, requires = "kyazdani42/nvim-web-devicons"})
-    use("jiangmiao/auto-pairs")
+    use("kyazdani42/nvim-web-devicons")
+    use({requires = {{requires = "nvim-lua/plenary.nvim", "lewis6991/gitsigns.nvim"}}, "famiu/feline.nvim"})
+    use({opt = false, requires = "kyazdani42/nvim-web-devicons", "kyazdani42/nvim-tree.lua"})
     use("tpope/vim-surround")
     use("tpope/vim-repeat")
     use("tpope/vim-fugitive")
-    use("b3nj5m1n/kommentary")
-    use({"junegunn/fzf", run = vim.fn["fzf#install"]})
+    use("numToStr/Comment.nvim")
+    use({run = vim.fn["fzf#install"], "junegunn/fzf"})
     use("junegunn/fzf.vim")
     use("nvim-lua/lsp-status.nvim")
     use("neovim/nvim-lspconfig")
-    use("nvim-lua/completion-nvim")
-    use({"hrsh7th/nvim-cmp", active = false, requires = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer"}})
-    use({"folke/lsp-trouble.nvim", requires = "kyazdani42/nvim-web-devicons"})
+    use("hrsh7th/vim-vsnip")
+    use("hrsh7th/cmp-vsnip")
+    use({requires = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "nvim-lua/plenary.nvim"}, "hrsh7th/nvim-cmp"})
+    use({requires = "kyazdani42/nvim-web-devicons", "folke/trouble.nvim"})
     use("folke/lsp-colors.nvim")
-    use("glepnir/lspsaga.nvim")
     use("ARM9/arm-syntax-vim")
+    use("harenome/vim-mipssyntax")
     use("petrbroz/vim-glsl")
-    use({"romgrk/barbar.nvim", requires = "kyazdani42/nvim-web-devicons"})
-    local function _0_()
+    use("LnL7/vim-nix")
+    use({requires = "kyazdani42/nvim-web-devicons", "romgrk/barbar.nvim"})
+    local function _14_()
       require("fnl.plug-config.todo-comments")
       return require("fnl.plug-config.keys.todo-comments")
     end
-    use({"folke/todo-comments.nvim", config = _0_, requires = "nvim-lua/plenary.nvim"})
+    use({config = _14_, requires = "nvim-lua/plenary.nvim", "folke/todo-comments.nvim"})
     use("lervag/vimtex")
+    use("onsails/lspkind-nvim")
+    use("tjdevries/colorbuddy.nvim")
+    use("ThePrimeagen/git-worktree.nvim")
     return nil
   end
   packer.startup(packer_startup)
-  require("fnl.plug-config.theme")
-  require("fnl.plug-config.kommentary")
+  require("fnl.plug-config.Comment")
   require("fnl.plug-config.nvim-lsp")
   require("fnl.plug-config.hop")
   require("fnl.plug-config.treesitter")
   require("fnl.plug-config.gitsigns")
   require("fnl.plug-config.feline")
   require("fnl.plug-config.nvim-tree")
+  require("fnl.plug-config.nvim-cmp/main")
+  require("fnl.plug-config.git-worktree")
   require("fnl.plug-config.keys.fzf")
   require("fnl.plug-config.keys.lsp")
   require("fnl.plug-config.keys.vim-fugitive")
   require("fnl.plug-config.keys.lsp-trouble")
   require("fnl.plug-config.keys.nvim-tree")
-  require("fnl.plug-config.keys.lspsaga")
   require("fnl.plug-config.keys.barbar")
+  require("fnl.plug-config.keys.git-worktree")
+  require("fnl.plug-config.theme")
   return nil
 end
 package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
@@ -265,6 +288,7 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
     local options = {noremap = true, silent = true}
     if more_options_3f then
       options = vim.tbl_extend("force", options, more_options_3f)
+    else
     end
     return vim.api.nvim_set_keymap(mode, lhs, rhs, options)
   end
@@ -272,6 +296,7 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
     for _, v in ipairs(tbl) do
       if (v == value) then
         return true
+      else
       end
     end
     return false
@@ -279,31 +304,31 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
   local function options(scope, kvpairs)
     local scope_index
     do
-      local _0_0 = scope
-      if (_0_0 == "global") then
+      local _3_ = scope
+      if (_3_ == "global") then
         scope_index = "o"
-      elseif (_0_0 == "buffer") then
+      elseif (_3_ == "buffer") then
         scope_index = "bo"
-      elseif (_0_0 == "window") then
+      elseif (_3_ == "window") then
         scope_index = "wo"
       else
-      scope_index = nil
+        scope_index = nil
       end
     end
     local tset_fn
     if (scope ~= "global") then
-      local function _1_(k, v)
+      local function _5_(k, v)
         vim[scope_index][k] = v
         vim.o[k] = v
         return nil
       end
-      tset_fn = _1_
+      tset_fn = _5_
     else
-      local function _1_(k, v)
+      local function _6_(k, v)
         vim[scope_index][k] = v
         return nil
       end
-      tset_fn = _1_
+      tset_fn = _6_
     end
     for k, v in pairs(kvpairs) do
       tset_fn(k, v)
@@ -315,6 +340,7 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
     for _, v in ipairs(tbl) do
       if filter(v) then
         count = (count + 1)
+      else
       end
     end
     return count
@@ -376,26 +402,26 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
     end
     for k, v in pairs(b) do
       local other_value = a[k]
-      local _0_
+      local _10_
       if both_have_type(v, other_value, "table") then
-        _0_ = merge_tables(v, other_value)
+        _10_ = merge_tables(v, other_value)
       else
-        _0_ = v
+        _10_ = v
       end
-      merged[k] = _0_
+      merged[k] = _10_
     end
     return merged
   end
-  local function _0_(...)
+  local function _12_(...)
     return map("i", ...)
   end
-  return {["count-true"] = count_true, ["is-in-table"] = is_in_table, ["make-command"] = make_command, ["map-command"] = map_command, ["merge-tables"] = merge_tables, ["prefix-options"] = prefix_options, ["set-global"] = set_global, ["set-globals"] = set_globals, imap = _0_, map = map, options = options, shorten = shorten}
+  return {["is-in-table"] = is_in_table, options = options, map = map, ["map-command"] = map_command, ["set-global"] = set_global, ["set-globals"] = set_globals, ["merge-tables"] = merge_tables, ["make-command"] = make_command, ["prefix-options"] = prefix_options, ["count-true"] = count_true, shorten = shorten, imap = _12_}
 end
 package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
   local utils = require("fnl.utils")
-  utils.options("global", {backup = false, clipboard = "unnamedplus", cmdheight = 2, completeopt = "menuone,noinsert,noselect", encoding = "utf-8", guicursor = "", hidden = true, hlsearch = false, ignorecase = true, laststatus = 2, mouse = "nicr", pumheight = 10, ruler = true, showmode = false, showtabline = 2, smartcase = true, smarttab = true, splitbelow = true, termguicolors = true, timeoutlen = 500, updatetime = 300, wildmode = "list:longest", writebackup = false})
-  utils.options("window", {conceallevel = 0, cursorline = true, list = false, number = true, relativenumber = true, signcolumn = "yes", wrap = false})
-  utils.options("buffer", {autoindent = true, expandtab = true, shiftwidth = 2, smartindent = true, swapfile = false, tabstop = 2})
+  utils.options("global", {hidden = true, encoding = "utf-8", ruler = true, pumheight = 10, cmdheight = 2, splitbelow = true, smarttab = true, wildmode = "list:longest", laststatus = 3, showtabline = 2, showmode = false, backup = false, writebackup = false, updatetime = 300, timeoutlen = 500, clipboard = "unnamedplus", mouse = "nicr", guicursor = "", hlsearch = false, ignorecase = true, smartcase = true, completeopt = "menuone,noinsert,noselect", termguicolors = true})
+  utils.options("window", {wrap = false, conceallevel = 0, cursorline = true, number = true, relativenumber = true, signcolumn = "yes", list = false})
+  utils.options("buffer", {tabstop = 2, shiftwidth = 2, smartindent = true, autoindent = true, expandtab = true, swapfile = false})
   return nil
 end
 package.preload["fnl.langs"] = package.preload["fnl.langs"] or function(...)

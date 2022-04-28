@@ -10,7 +10,7 @@
                         :smarttab true
                         :ignorecase true
                         :wildmode "list:longest"
-                        :laststatus 2
+                        :laststatus 3 ; show only one status bar
                         :showtabline 2
                         :showmode false
                         :backup false

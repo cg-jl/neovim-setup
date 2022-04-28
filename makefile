@@ -2,6 +2,6 @@
 
 main:
 	mkdir -p lua && \
-	fennel --require-as-include --compile fnl/main.fnl > lua/main.lua
+	NVIM_CONFIG_THEME=monokai fennel --require-as-include --no-compiler-sandbox --compile fnl/main.fnl > lua/main.lua
 
 all: main
