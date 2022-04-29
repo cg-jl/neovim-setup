@@ -104,6 +104,11 @@ _G.packer_plugins = {
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/colorbuddy.nvim",
     url = "https://github.com/tjdevries/colorbuddy.nvim"
   },
+  coq_nvim = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/coq_nvim",
+    url = "https://github.com/ms-jpq/coq_nvim"
+  },
   ["feline.nvim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/feline.nvim",
@@ -239,6 +244,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vimtex",
     url = "https://github.com/lervag/vimtex"
+  },
+  ["yuck.vim"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/yuck.vim",
+    url = "https://github.com/elkowar/yuck.vim"
   }
 }
 

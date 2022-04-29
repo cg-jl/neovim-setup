@@ -3,6 +3,7 @@
 (local utils (require :fnl.utils))
 ;(local completion (require :completion))
 (local lsp-util (require :lspconfig/util))
+(local coq (require :coq))
 
 (fn on-attach [client]
   (doto client
@@ -29,7 +30,7 @@
   (local options (if options-override?
                      `(utils.merge-tables default-options ,options-override?)
                      `default-options))
-  `((. nvim-lsp ,name :setup) ,options))
+  `(-> ,options (coq.lsp_ensure_capabilities) ((. nvim-lsp ,name :setup))))
 
 ;; use clippy
 (setup-lsp :rust_analyzer {:settings {:rust-analyzer {:checkOnSave {:command :clippy

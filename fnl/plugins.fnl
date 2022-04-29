@@ -73,6 +73,8 @@
                   (use-pkg :neovim/nvim-lspconfig)
                   (use-pkg :hrsh7th/vim-vsnip)
                   (use-pkg :hrsh7th/cmp-vsnip)
+                  ;; eww language
+                  (use-pkg :elkowar/yuck.vim)
 ;                  (use-pkg :nvim-lua/completion-nvim)
                   (use-pkg :hrsh7th/nvim-cmp { :requires [ :hrsh7th/cmp-nvim-lsp :hrsh7th/cmp-buffer :nvim-lua/plenary.nvim ] })
                   (use-pkg :folke/trouble.nvim
@@ -92,6 +94,7 @@
                   (use-pkg :lervag/vimtex)
 
                   ;; cool stuff for completion
+                  (use-pkg :ms-jpq/coq_nvim)
                   (use-pkg :onsails/lspkind-nvim)
                   (use-pkg :tjdevries/colorbuddy.nvim)
 

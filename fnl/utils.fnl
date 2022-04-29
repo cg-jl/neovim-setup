@@ -85,7 +85,7 @@
     (table.insert variables (string.format "%s=%s" k v)))
   variables)
 
-(fn merge-tables [a b]
+(fn merge-tables [a b ...]
   (fn is-type [v type-name]
     (= (type v) type-name))
 
@@ -101,6 +101,8 @@
       (tset merged k (if (both-have-type v other-value :table)
                          (merge-tables v other-value)
                          v))))
+  (each [i tbl (ipairs [...])]
+    (set merged (merge-tables merged tbl)))
   merged)
 
 ; Exports

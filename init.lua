@@ -178,6 +178,7 @@ package.preload["fnl.plug-config.nvim-lsp"] = package.preload["fnl.plug-config.n
   local lsp_status = require("lsp-status")
   local utils = require("fnl.utils")
   local lsp_util = require("lspconfig/util")
+  local coq = require("coq")
   local function on_attach(client)
     do
       local _15_ = client
@@ -188,10 +189,10 @@ package.preload["fnl.plug-config.nvim-lsp"] = package.preload["fnl.plug-config.n
   lsp_status.config({current_function = true})
   lsp_status.register_progress()
   local default_options = {on_attach = on_attach, capabilities = utils["merge-tables"](lsp_status.capabilities, vim.lsp.protocol.make_client_capabilities())}
-  nvim_lsp.rust_analyzer.setup(utils["merge-tables"](default_options, {settings = {["rust-analyzer"] = {checkOnSave = {command = "clippy"}}}}))
-  nvim_lsp.hls.setup(default_options)
-  nvim_lsp.gopls.setup(default_options)
-  return nvim_lsp.clangd.setup(default_options)
+  nvim_lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities(utils["merge-tables"](default_options, {settings = {["rust-analyzer"] = {checkOnSave = {command = "clippy"}}}})))
+  nvim_lsp.hls.setup(coq.lsp_ensure_capabilities(default_options))
+  nvim_lsp.gopls.setup(coq.lsp_ensure_capabilities(default_options))
+  return nvim_lsp.clangd.setup(coq.lsp_ensure_capabilities(default_options))
 end
 package.preload["fnl.plug-config.Comment"] = package.preload["fnl.plug-config.Comment"] or function(...)
   do
@@ -244,6 +245,7 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("neovim/nvim-lspconfig")
     use("hrsh7th/vim-vsnip")
     use("hrsh7th/cmp-vsnip")
+    use("elkowar/yuck.vim")
     use({requires = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "nvim-lua/plenary.nvim"}, "hrsh7th/nvim-cmp"})
     use({requires = "kyazdani42/nvim-web-devicons", "folke/trouble.nvim"})
     use("folke/lsp-colors.nvim")
@@ -258,6 +260,7 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     end
     use({config = _14_, requires = "nvim-lua/plenary.nvim", "folke/todo-comments.nvim"})
     use("lervag/vimtex")
+    use("ms-jpq/coq_nvim")
     use("onsails/lspkind-nvim")
     use("tjdevries/colorbuddy.nvim")
     use("ThePrimeagen/git-worktree.nvim")
@@ -389,7 +392,7 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
     end
     return variables
   end
-  local function merge_tables(a, b)
+  local function merge_tables(a, b, ...)
     local function is_type(v, type_name)
       return (type(v) == type_name)
     end
@@ -409,6 +412,9 @@ package.preload["fnl.utils"] = package.preload["fnl.utils"] or function(...)
         _10_ = v
       end
       merged[k] = _10_
+    end
+    for i, tbl in ipairs({...}) do
+      merged = merge_tables(merged, tbl)
     end
     return merged
   end
