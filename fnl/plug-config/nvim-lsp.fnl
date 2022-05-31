@@ -22,7 +22,8 @@
 
 
 (local default-options {:on_attach on-attach
-                        :capabilities (->> (vim.lsp.protocol.make_client_capabilities) (utils.merge-tables lsp-status.capabilities))
+                        :capabilities (->> (vim.lsp.protocol.make_client_capabilities) 
+                                           (utils.merge-tables lsp-status.capabilities))
                         })
 
 ; don't ask.
@@ -30,7 +31,9 @@
   (local options (if options-override?
                      `(utils.merge-tables default-options ,options-override?)
                      `default-options))
-  `(-> ,options (coq.lsp_ensure_capabilities) ((. nvim-lsp ,name :setup))))
+  `(-> ,options 
+       (coq.lsp_ensure_capabilities) 
+       ((. nvim-lsp ,name :setup))))
 
 ;; use clippy
 (setup-lsp :rust_analyzer {:settings {:rust-analyzer {:checkOnSave {:command :clippy
@@ -42,6 +45,7 @@
 (setup-lsp :hls)
 (setup-lsp :gopls)
 (setup-lsp :clangd)
+(setup-lsp :zls)
 
 ;(nvim-lsp.rust_analyzer.setup default-options)
 

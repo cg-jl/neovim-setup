@@ -139,6 +139,11 @@ _G.packer_plugins = {
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/hop.nvim",
     url = "https://github.com/phaazon/hop.nvim"
   },
+  jakt = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/jakt",
+    url = "/home/gsus/contrib/jakt/editors/vim"
+  },
   ["lsp-colors.nvim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lsp-colors.nvim",
@@ -158,6 +163,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-dap"] = {
+    config = { "\27LJ\2\nY\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0D\0\2\0\29fnl.plug-config.keys.dap\29fnl.plug-config.nvim-dap\frequire\0" },
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-dap",
+    url = "https://github.com/mfussenegger/nvim-dap"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -213,7 +224,7 @@ _G.packer_plugins = {
   ["vim-glsl"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-glsl",
-    url = "https://github.com/petrbroz/vim-glsl"
+    url = "https://github.com/tikhomirov/vim-glsl"
   },
   ["vim-mipssyntax"] = {
     loaded = true,
@@ -257,6 +268,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for todo-comments.nvim]], true)
 try_loadstring("\27LJ\2\nh\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0D\0\2\0'fnl.plug-config.keys.todo-comments\"fnl.plug-config.todo-comments\frequire\0", "config", "todo-comments.nvim")
 time([[Config for todo-comments.nvim]], false)
+-- Config for: nvim-dap
+time([[Config for nvim-dap]], true)
+try_loadstring("\27LJ\2\nY\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0D\0\2\0\29fnl.plug-config.keys.dap\29fnl.plug-config.nvim-dap\frequire\0", "config", "nvim-dap")
+time([[Config for nvim-dap]], false)
 if should_profile then save_profiles() end
 
 end)

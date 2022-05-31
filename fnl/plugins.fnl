@@ -41,6 +41,13 @@
 (macro use-pkg [name ?config]
   `(use (pkg ,name ,?config)))
 
+; after startup
+(macro setup-config [name]
+  `(require ,(.. :fnl.plug-config. name)))
+
+(macro setup-keys [name]
+  `(require ,(.. :fnl.plug-config.keys. name)))
+
 (local packer (require :packer))
 
 (packer.startup (fn packer-startup [use]
@@ -57,6 +64,7 @@
                   (use-pkg :kyazdani42/nvim-web-devicons)
                   (use-pkg :famiu/feline.nvim { :requires [ (pkg :lewis6991/gitsigns.nvim { :requires :nvim-lua/plenary.nvim })   ]
                                                 })
+                  (use-pkg "~/contrib/jakt/editors/vim" { :as :jakt })
                   (use-pkg :kyazdani42/nvim-tree.lua
                            {:requires :kyazdani42/nvim-web-devicons
                             :opt false})
@@ -84,6 +92,7 @@
                   ;; using clang-tidy
 ;                  (use-pkg :emilienlemaire/clang-tidy.nvim { :requires :nvim-lua/plenary.nvim})
                   (use-pkg :ARM9/arm-syntax-vim)
+                  (use-pkg :tikhomirov/vim-glsl)
                   (use-pkg :harenome/vim-mipssyntax)
                   (use-pkg :petrbroz/vim-glsl)
                   (use-pkg :LnL7/vim-nix)
@@ -102,18 +111,15 @@
                   (use-pkg :ThePrimeagen/git-worktree.nvim)
                   ; (use-pkg :nvim-telescope/telescope.nvim)
                   ; (use-pkg :nvim-telescope/telescope-fzy-native.nvim)
+                  (use-pkg :mfussenegger/nvim-dap {
+                      :config (fn [] (setup-config :nvim-dap) (setup-keys :dap))
+                    })
 
 
 ;                  (use-pkg :lukas-reineke/indent-blankline.nvim) ; plugin is fine but tries to show on top when overscrolling horizontally
 ;                  (use-pkg :mbbill/undotree)
                   nil))
 
-; after startup
-(macro setup-config [name]
-  `(require ,(.. :fnl.plug-config. name)))
-
-(macro setup-keys [name]
-  `(require ,(.. :fnl.plug-config.keys. name)))
 
 (setup-config :Comment)
 ;(setup-config :kommentary)

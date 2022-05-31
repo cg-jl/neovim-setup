@@ -1,24 +1,13 @@
-(local dap (require :dap))
 
-(fn dap-config [configs]
-  (each [name tbl (pairs configs)]
-    (tset dap.adapters name tbl)))
+(local dap (require :dap))
 
 ; using lldb vscode
 
 (tset dap.adapters :lldb {
-    :type :executable
-    :command :/usr/bin/lldb-vscode
-    :name :lldb
-  })
-
-(tset dap.adapters :rust-lldb {
-    :type :executable
-    :command :/usr/bin/
-    :name :lldb
-  })
-(fn set-args [name args]
-  (tset dap.configurations name 1 :args args))
+  :type :executable
+  :command :/usr/bin/lldb-vscode
+  :name :lldb
+})
 
 (let [ lldb-config {
   :name :Launch
@@ -40,5 +29,3 @@
   )
 
 )
-
-{ :set_args set-args }
