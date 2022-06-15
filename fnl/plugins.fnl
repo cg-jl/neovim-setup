@@ -96,10 +96,9 @@
                   (use-pkg :harenome/vim-mipssyntax)
                   (use-pkg :petrbroz/vim-glsl)
                   (use-pkg :LnL7/vim-nix)
+                  (use-pkg "~/contrib/jakt/editors/vim" { :as :jakt-syntax })
 ;                  (use-pkg :kylelaker/riscv.vim)
                   (use-pkg :romgrk/barbar.nvim { :requires :kyazdani42/nvim-web-devicons })
-                  ;; todo comments
-                  (use-pkg :folke/todo-comments.nvim { :requires :nvim-lua/plenary.nvim :config (fn [] (require :fnl.plug-config.todo-comments) (require :fnl.plug-config.keys.todo-comments) ) })
                   (use-pkg :lervag/vimtex)
 
                   ;; cool stuff for completion

@@ -144,6 +144,11 @@ _G.packer_plugins = {
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/jakt",
     url = "/home/gsus/contrib/jakt/editors/vim"
   },
+  ["jakt-syntax"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/jakt-syntax",
+    url = "/home/gsus/contrib/jakt/editors/vim"
+  },
   ["lsp-colors.nvim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lsp-colors.nvim",
@@ -205,12 +210,6 @@ _G.packer_plugins = {
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/sonokai",
     url = "https://github.com/sainnhe/sonokai"
   },
-  ["todo-comments.nvim"] = {
-    config = { "\27LJ\2\nh\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0D\0\2\0'fnl.plug-config.keys.todo-comments\"fnl.plug-config.todo-comments\frequire\0" },
-    loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/todo-comments.nvim",
-    url = "https://github.com/folke/todo-comments.nvim"
-  },
   ["trouble.nvim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/trouble.nvim",
@@ -264,10 +263,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: todo-comments.nvim
-time([[Config for todo-comments.nvim]], true)
-try_loadstring("\27LJ\2\nh\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0D\0\2\0'fnl.plug-config.keys.todo-comments\"fnl.plug-config.todo-comments\frequire\0", "config", "todo-comments.nvim")
-time([[Config for todo-comments.nvim]], false)
 -- Config for: nvim-dap
 time([[Config for nvim-dap]], true)
 try_loadstring("\27LJ\2\nY\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0D\0\2\0\29fnl.plug-config.keys.dap\29fnl.plug-config.nvim-dap\frequire\0", "config", "nvim-dap")

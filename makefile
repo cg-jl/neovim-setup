@@ -1,8 +1,8 @@
 .PHONY: main
 
-THEME ?= gruvbox
+THEME ?= monokai
 
 main:
 	mkdir -p lua && \
-	NVIM_CONFIG_THEME=monokai fennel --require-as-include --no-compiler-sandbox --compile fnl/main.fnl > init.lua
+	NVIM_CONFIG_THEME=$(THEME) fennel --require-as-include --no-compiler-sandbox --compile fnl/main.fnl > init.lua
 

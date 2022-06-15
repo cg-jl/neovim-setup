@@ -78,10 +78,10 @@ package.preload["fnl.plug-config.nvim-cmp/main"] = package.preload["fnl.plug-con
   do end (require("cmp_nvim_lsp")).setup()
   local cmp = require("cmp")
   local lspkind = require("lspkind")
-  local function _34_(args)
+  local function _32_(args)
     return vim.fn["vsnip#anonymous"](args.body)
   end
-  cmp.setup({min_length = 0, mapping = {["<c-n>"] = cmp.mapping.select_next_item(), ["<leader>c"] = cmp.mapping.complete(), ["<c-e>"] = cmp.mapping.close(), ["<c-p>"] = cmp.mapping.select_prev_item()}, snippet = {expand = _34_}, sources = cmp.config.sources({{name = "gh_source"}, {name = "nvim_lsp"}}), experimental = {ghost_text = true}, view = {entries = "native"}, formatting = {format = lspkind.cmp_format({with_text = false, maxwidth = 50})}})
+  cmp.setup({min_length = 0, mapping = {["<c-n>"] = cmp.mapping.select_next_item(), ["<leader>c"] = cmp.mapping.complete(), ["<c-e>"] = cmp.mapping.close(), ["<c-p>"] = cmp.mapping.select_prev_item()}, snippet = {expand = _32_}, sources = cmp.config.sources({{name = "gh_source"}, {name = "nvim_lsp"}}), experimental = {ghost_text = true}, view = {entries = "native"}, formatting = {format = lspkind.cmp_format({with_text = false, maxwidth = 50})}})
   do end (require("colorbuddy")).setup()
   return nil
 end
@@ -103,60 +103,60 @@ package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.fel
   local components = {active = {{}, {}, {}}}
   local lsp_status = require("lsp-status")
   do
-    local _19_ = components.active
+    local _17_ = components.active
     do
-      local _20_ = (_19_)[1]
-      local function _21_()
+      local _18_ = (_17_)[1]
+      local function _19_()
         return {name = vi_mode_utils.get_mode_highlight_name(), style = "bold", fg = vi_mode_utils.get_mode_color()}
       end
-      table.insert(_20_, {provider = "vi_mode", hl = _21_, right_sep = "  ", left_sep = " "})
-      table.insert(_20_, {provider = "file_info", hl = {fg = "#ebdbb2", bg = "#3c3836", style = "bold"}, left_sep = {{str = "slant_left", hl = {fg = "#3c3836"}}, {str = " ", hl = {bg = "#3c3836"}}}})
-      local function _22_()
+      table.insert(_18_, {provider = "vi_mode", hl = _19_, right_sep = "  ", left_sep = " "})
+      table.insert(_18_, {provider = "file_info", hl = {fg = "#ebdbb2", bg = "#3c3836", style = "bold"}, left_sep = {{str = "slant_left", hl = {fg = "#3c3836"}}, {str = " ", hl = {bg = "#3c3836"}}}})
+      local function _20_()
         return (vim.fn.getfsize(vim.fn.expand("%:p")) > 0)
       end
-      table.insert(_20_, {provider = "position", left_sep = {{str = "slant_left_thin", hl = {bg = "#3c3836"}}, {str = " ", hl = {bg = "#3c3836"}}}, right_sep = {{str = " ", hl = {bg = "#3c3836"}}, {str = "slant_right_2", hl = {bg = "#1d2021", fg = "#3c3836"}}}, hl = {fg = "white", bg = "#3c3836"}, enabled = _22_})
-      local function _23_()
+      table.insert(_18_, {provider = "position", left_sep = {{str = "slant_left_thin", hl = {bg = "#3c3836"}}, {str = " ", hl = {bg = "#3c3836"}}}, right_sep = {{str = " ", hl = {bg = "#3c3836"}}, {str = "slant_right_2", hl = {bg = "#1d2021", fg = "#3c3836"}}}, hl = {fg = "white", bg = "#3c3836"}, enabled = _20_})
+      local function _21_()
         return feline_lsp.diagnostics_exist("info")
       end
-      table.insert(_20_, {enabled = _23_, hl = {bg = "#1d2021", fg = "green"}, left_sep = {hl = {bg = "#3c3836", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_info"})
-      local function _24_()
+      table.insert(_18_, {enabled = _21_, hl = {bg = "#1d2021", fg = "green"}, left_sep = {hl = {bg = "#3c3836", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_info"})
+      local function _22_()
         return feline_lsp.diagnostics_exist("hint")
       end
-      table.insert(_20_, {enabled = _24_, hl = {bg = "#1d2021", fg = "white"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_hints"})
-      local function _25_()
+      table.insert(_18_, {enabled = _22_, hl = {bg = "#1d2021", fg = "white"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_hints"})
+      local function _23_()
         return feline_lsp.diagnostics_exist("warn")
       end
-      table.insert(_20_, {enabled = _25_, hl = {bg = "#1d2021", fg = "yellow"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_warnings"})
-      local function _26_()
+      table.insert(_18_, {enabled = _23_, hl = {bg = "#1d2021", fg = "yellow"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_warnings"})
+      local function _24_()
         return feline_lsp.diagnostics_exist("error")
       end
-      table.insert(_20_, {enabled = _26_, hl = {bg = "#1d2021", fg = "red"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_errors"})
+      table.insert(_18_, {enabled = _24_, hl = {bg = "#1d2021", fg = "red"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_errors"})
     end
-    local _27_ = (_19_)[3]
-    local function _28_()
+    local _25_ = (_17_)[3]
+    local function _26_()
       return utils.shorten(85, lsp_status.status())
     end
-    local function _29_()
+    local function _27_()
       return (#vim.lsp.buf_get_clients() > 0)
     end
-    table.insert(_27_, {provider = _28_, hl = {bg = "#1d2021", fg = "white"}, enabled = _29_})
-    local function _30_()
+    table.insert(_25_, {provider = _26_, hl = {bg = "#1d2021", fg = "white"}, enabled = _27_})
+    local function _28_()
       return {str = " ", hl = {bg = "#3c3836", fg = "NONE"}}
     end
-    table.insert(_27_, {provider = "git_branch", hl = {fg = "white", bg = "#3c3836"}, right_sep = _30_, left_sep = {{str = "slant_left_2", hl = {bg = "#1d2021", fg = "#3c3836"}}}})
-    table.insert(_27_, {provider = "git_diff_added", hl = {fg = "green", bg = "#3c3836"}, right_sep = {str = " ", hl = {bg = "#3c3836"}}})
-    table.insert(_27_, {provider = "git_diff_changed", hl = {fg = "orange", bg = "#3c3836"}, right_sep = {str = " ", hl = {bg = "#3c3836"}}})
-    local function _31_()
-      local _32_
+    table.insert(_25_, {provider = "git_branch", hl = {fg = "white", bg = "#3c3836"}, right_sep = _28_, left_sep = {{str = "slant_left_2", hl = {bg = "#1d2021", fg = "#3c3836"}}}})
+    table.insert(_25_, {provider = "git_diff_added", hl = {fg = "green", bg = "#3c3836"}, right_sep = {str = " ", hl = {bg = "#3c3836"}}})
+    table.insert(_25_, {provider = "git_diff_changed", hl = {fg = "orange", bg = "#3c3836"}, right_sep = {str = " ", hl = {bg = "#3c3836"}}})
+    local function _29_()
+      local _30_
       if vim.b.gitsigns_status_dict then
-        _32_ = " "
+        _30_ = " "
       else
-        _32_ = ""
+        _30_ = ""
       end
-      return {str = _32_, hl = {bg = "#3c3836"}}
+      return {str = _30_, hl = {bg = "#3c3836"}}
     end
-    table.insert(_27_, {provider = "git_diff_removed", hl = {fg = "red", bg = "#3c3836"}, right_sep = {_31_, {str = "slant_right_2", hl = {fg = "#3c3836"}}}})
-    table.insert(_27_, {provider = "line_percentage", hl = {style = "bold"}, right_sep = " ", left_sep = " "})
+    table.insert(_25_, {provider = "git_diff_removed", hl = {fg = "red", bg = "#3c3836"}, right_sep = {_29_, {str = "slant_right_2", hl = {fg = "#3c3836"}}}})
+    table.insert(_25_, {provider = "line_percentage", hl = {style = "bold"}, right_sep = " ", left_sep = " "})
   end
   return feline.setup({colors = {bg = "#504945", black = "#282828", cyan = "#8ec07c", fg = "#fabd2f", green = "#b8bb26", magenta = "#d3869b", oceanblue = "#458588", orange = "#fe8019", red = "#fb4934", skyblue = "#83a598", violet = "#b16286", white = "#ebdbb2", yellow = "#fabd2f"}, vi_mode_colors = {NORMAL = "#bcae93", OP = "cyan", INSERT = nil, VISUAL = "green", BLOCK = "green", REPLACE = "yellow", ["V-REPLACE"] = "yellow", ENTER = "cyan", MORE = "cyan", SELECT = "magenta", COMMAND = "cyan", SHELL = "skyblue", TERM = "skyblue", NONE = "orange"}, components = components})
 end
@@ -181,8 +181,8 @@ package.preload["fnl.plug-config.nvim-lsp"] = package.preload["fnl.plug-config.n
   local coq = require("coq")
   local function on_attach(client)
     do
-      local _18_ = client
-      lsp_status.on_attach(_18_)
+      local _16_ = client
+      lsp_status.on_attach(_16_)
     end
     return nil
   end
@@ -216,37 +216,24 @@ package.preload["fnl.plug-config.keys.dap"] = package.preload["fnl.plug-config.k
 end
 package.preload["fnl.plug-config.nvim-dap"] = package.preload["fnl.plug-config.nvim-dap"] or function(...)
   local dap = require("dap")
-  local function dap_config(configs)
-    for name, tbl in pairs(configs) do
-      dap.adapters[name] = tbl
-    end
-    return nil
+  do end (dap.adapters)["lldb"] = {type = "executable", command = "/usr/bin/lldb-vscode", name = "lldb"}
+  dap.adapters["rust-lldb"] = {type = "executable", command = "/home/gsus/.cargo/bin/rust-lldb", name = "rust-lldb"}
+  local function ask_executable()
+    return vim.fn.input("Path to executable: ", (vim.fn.getcwd() .. "/"), "file")
   end
-  dap.adapters["lldb"] = {type = "executable", command = "/usr/bin/lldb-vscode", name = "lldb"}
-  dap.adapters["rust-lldb"] = {type = "executable", command = "/usr/bin/", name = "lldb"}
   local function set_args(name, args)
     dap.configurations[name][1]["args"] = args
     return nil
   end
   do
-    local lldb_config
-    local function _16_()
-      return vim.fn.input("Path to executable: ", (vim.fn.getcwd() .. "/"), "file")
-    end
-    lldb_config = {name = "Launch", type = "lldb", request = "launch", program = _16_, cwd = "${workspaceFolder}", stopOnEntry = true, args = {}, runInTerminal = false}
-    local _17_ = dap.configurations
-    _17_["c"] = {lldb_config}
-    _17_["cpp"] = {lldb_config}
-    _17_["rust"] = {lldb_config}
+    local normal_config = {args = {}, cwd = "${workspaceFolder}", name = "Launch", program = ask_executable, request = "launch", runInTerminal = false, stopOnEntry = true, type = "lldb"}
+    local rust_config = {args = {}, cwd = "${workspaceFolder}", name = "Launch", program = ask_executable, request = "launch", runInTerminal = false, stopOnEntry = true, type = "rust-lldb"}
+    local _15_ = dap.configurations
+    _15_["c"] = {normal_config}
+    _15_["cpp"] = {normal_config}
+    _15_["rust"] = {rust_config}
   end
   return {set_args = set_args}
-end
-package.preload["fnl.plug-config.keys.todo-comments"] = package.preload["fnl.plug-config.keys.todo-comments"] or function(...)
-  return vim.keymap.set("n", "<leader>lt", "<cmd>TodoTrouble<cr>", {noremap = true, silent = true})
-end
-package.preload["fnl.plug-config.todo-comments"] = package.preload["fnl.plug-config.todo-comments"] or function(...)
-  local todo_comments = require("todo-comments")
-  return todo_comments.setup({keywords = {NOTE = {color = "hint", alt = {"INFO", "UNSAFE"}}}})
 end
 package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   do
@@ -290,22 +277,18 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("harenome/vim-mipssyntax")
     use("petrbroz/vim-glsl")
     use("LnL7/vim-nix")
+    use({as = "jakt-syntax", "~/contrib/jakt/editors/vim"})
     use({requires = "kyazdani42/nvim-web-devicons", "romgrk/barbar.nvim"})
-    local function _14_()
-      require("fnl.plug-config.todo-comments")
-      return require("fnl.plug-config.keys.todo-comments")
-    end
-    use({config = _14_, requires = "nvim-lua/plenary.nvim", "folke/todo-comments.nvim"})
     use("lervag/vimtex")
     use("ms-jpq/coq_nvim")
     use("onsails/lspkind-nvim")
     use("tjdevries/colorbuddy.nvim")
     use("ThePrimeagen/git-worktree.nvim")
-    local function _15_()
+    local function _14_()
       require("fnl.plug-config.nvim-dap")
       return require("fnl.plug-config.keys.dap")
     end
-    use({config = _15_, "mfussenegger/nvim-dap"})
+    use({config = _14_, "mfussenegger/nvim-dap"})
     return nil
   end
   packer.startup(packer_startup)

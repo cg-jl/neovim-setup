@@ -1,44 +1,47 @@
 (local dap (require :dap))
 
-(fn dap-config [configs]
-  (each [name tbl (pairs configs)]
-    (tset dap.adapters name tbl)))
+(macro add-adapter [name config]
+  `(tset dap.adapters ,name ,config))
 
 ; using lldb vscode
 
-(tset dap.adapters :lldb {
+(add-adapter :lldb {
     :type :executable
     :command :/usr/bin/lldb-vscode
     :name :lldb
   })
 
-(tset dap.adapters :rust-lldb {
+(add-adapter :rust-lldb {
     :type :executable
-    :command :/usr/bin/
-    :name :lldb
-  })
+    :command :/home/gsus/.cargo/bin/rust-lldb
+    :name :rust-lldb
+})
+(fn ask-executable []
+  (vim.fn.input "Path to executable: " (.. (vim.fn.getcwd) :/) :file))
 (fn set-args [name args]
   (tset dap.configurations name 1 :args args))
 
-(let [ lldb-config {
+(macro mkconf [override_type?]
+  (let [ ty (or override_type? :lldb) ]
+    `{
   :name :Launch
-  :type :lldb
+  :type ,ty
   :request :launch
-  :program (fn [] (vim.fn.input "Path to executable: " (.. (vim.fn.getcwd) :/) :file))
+  :program ask-executable
   :cwd "${workspaceFolder}"
   :stopOnEntry true
   :args []
   :runInTerminal false
-  ; if you use runInTerminal and resize the terminal window, lldb-vscode will receive
-  ; a SIGWINCH signal
-;  :postRunCommands ["process handle -p true -s false -n false SIGWINCH"]
-  } ]
-  (doto dap.configurations
-    (tset :c [lldb-config])
-    (tset :cpp [lldb-config])
-    (tset :rust [lldb-config])
-  )
+    }
+  ))
 
-)
+(let [ normal-config (mkconf)
+       rust-config (mkconf :rust-lldb) ]
+(doto dap.configurations
+    (tset :c [normal-config])
+    (tset :cpp [normal-config])
+    (tset :rust [rust-config])
+))
+
 
 { :set_args set-args }
