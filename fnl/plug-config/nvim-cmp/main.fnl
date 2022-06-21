@@ -11,7 +11,7 @@
     :min_length 0
     :mapping {
       :<c-n>      (cmp.mapping.select_next_item)
-      :<leader>c      (cmp.mapping.complete)
+      :<c-f>      (cmp.mapping.complete)
       :<c-e>      (cmp.mapping.close)
       :<c-p>      (cmp.mapping.select_prev_item)
     }

@@ -81,7 +81,7 @@ package.preload["fnl.plug-config.nvim-cmp/main"] = package.preload["fnl.plug-con
   local function _32_(args)
     return vim.fn["vsnip#anonymous"](args.body)
   end
-  cmp.setup({min_length = 0, mapping = {["<c-n>"] = cmp.mapping.select_next_item(), ["<leader>c"] = cmp.mapping.complete(), ["<c-e>"] = cmp.mapping.close(), ["<c-p>"] = cmp.mapping.select_prev_item()}, snippet = {expand = _32_}, sources = cmp.config.sources({{name = "gh_source"}, {name = "nvim_lsp"}}), experimental = {ghost_text = true}, view = {entries = "native"}, formatting = {format = lspkind.cmp_format({with_text = false, maxwidth = 50})}})
+  cmp.setup({min_length = 0, mapping = {["<c-n>"] = cmp.mapping.select_next_item(), ["<c-f>"] = cmp.mapping.complete(), ["<c-e>"] = cmp.mapping.close(), ["<c-p>"] = cmp.mapping.select_prev_item()}, snippet = {expand = _32_}, sources = cmp.config.sources({{name = "gh_source"}, {name = "nvim_lsp"}}), experimental = {ghost_text = true}, view = {entries = "native"}, formatting = {format = lspkind.cmp_format({with_text = false, maxwidth = 50})}})
   do end (require("colorbuddy")).setup()
   return nil
 end
