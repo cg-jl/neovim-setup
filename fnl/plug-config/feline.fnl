@@ -148,6 +148,7 @@
   }
   :gruvbox (gruvbox-colors)
   :monokai (gruvbox-colors)
+  :material (gruvbox-colors) ;; TODO: update with material colors
   :rose-pine {
         :black :#21202e
         :skyblue :#9ccfd8

@@ -53,11 +53,15 @@
 (packer.startup (fn packer-startup [use]
                   (use-pkg :wbthomason/packer.nvim)
                   ; theme
-                  (use-pkg (mutils.theme-toggle {
+                  (use (mutils.theme-toggle {
                     :nord :arcticicestudio/nord-vim
                     :gruvbox :morhetz/gruvbox
                     :monokai :sainnhe/sonokai
                     :rose-pine (pkg :rose-pine/neovim { :as :rose-pine :tag :v1.* })
+                    :material  (pkg :marko-cerovac/material.nvim { :config (fn [] 
+                          (tset vim.g :material_style :darker)
+                          (vim.cmd "colorscheme material")
+                                            )})
                   }))
                   (use-pkg :phaazon/hop.nvim)
                   (use-pkg :nvim-treesitter/nvim-treesitter)

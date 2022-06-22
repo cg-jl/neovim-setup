@@ -164,6 +164,12 @@ _G.packer_plugins = {
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
     url = "https://github.com/onsails/lspkind-nvim"
   },
+  ["material.nvim"] = {
+    config = { "\27LJ\2\n\\\0\0\3\0\6\0\b6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\4\0'\2\5\0D\0\2\0\25colorscheme material\bcmd\vdarker\19material_style\6g\bvim\0" },
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/material.nvim",
+    url = "https://github.com/marko-cerovac/material.nvim"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -204,11 +210,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
-  },
-  sonokai = {
-    loaded = true,
-    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/sonokai",
-    url = "https://github.com/sainnhe/sonokai"
   },
   ["trouble.nvim"] = {
     loaded = true,
@@ -267,6 +268,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for nvim-dap]], true)
 try_loadstring("\27LJ\2\nY\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0D\0\2\0\29fnl.plug-config.keys.dap\29fnl.plug-config.nvim-dap\frequire\0", "config", "nvim-dap")
 time([[Config for nvim-dap]], false)
+-- Config for: material.nvim
+time([[Config for material.nvim]], true)
+try_loadstring("\27LJ\2\n\\\0\0\3\0\6\0\b6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\4\0'\2\5\0D\0\2\0\25colorscheme material\bcmd\vdarker\19material_style\6g\bvim\0", "config", "material.nvim")
+time([[Config for material.nvim]], false)
 if should_profile then save_profiles() end
 
 end)
