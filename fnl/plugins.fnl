@@ -96,7 +96,6 @@
                   ;; using clang-tidy
 ;                  (use-pkg :emilienlemaire/clang-tidy.nvim { :requires :nvim-lua/plenary.nvim})
                   (use-pkg :ARM9/arm-syntax-vim)
-                  (use-pkg :tikhomirov/vim-glsl)
                   (use-pkg :harenome/vim-mipssyntax)
                   (use-pkg :petrbroz/vim-glsl)
                   (use-pkg :LnL7/vim-nix)
@@ -147,6 +146,5 @@
 (setup-keys :nvim-tree)
 (setup-keys :barbar)
 (setup-keys :git-worktree)
-(setup-config :theme)
 
 nil
