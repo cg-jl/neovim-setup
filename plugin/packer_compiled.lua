@@ -164,11 +164,22 @@ _G.packer_plugins = {
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
     url = "https://github.com/onsails/lspkind-nvim"
   },
+  ["lualine.nvim"] = {
+    config = { "\27LJ\2\n\28\0\0\2\1\1\0\3-\0\0\0009\0\0\0D\0\1\0\1¿\vstatus¡\1\1\0\b\0\r\0\0226\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\2\3\0B\2\1\0029\3\4\2'\4\6\0=\4\5\0033\3\a\0006\4\b\0009\4\t\0049\6\n\0029\6\v\6\18\a\3\0B\4\3\0019\4\f\0\18\6\2\0002\0\0ÄD\4\2\0\nsetup\14lualine_x\rsections\vinsert\ntable\0\vbase16\ntheme\foptions\15get_config\15lsp-status\flualine\frequire\0" },
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
   ["material.nvim"] = {
-    config = { "\27LJ\2\n\\\0\0\3\0\6\0\b6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\4\0'\2\5\0D\0\2\0\25colorscheme material\bcmd\vdarker\19material_style\6g\bvim\0" },
+    config = { "\27LJ\2\n_\0\0\3\0\6\0\b6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\4\0'\2\5\0D\0\2\0\25colorscheme material\bcmd\14palenight\19material_style\6g\bvim\0" },
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/material.nvim",
     url = "https://github.com/marko-cerovac/material.nvim"
+  },
+  ["nvim-base16"] = {
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/nvim-base16",
+    url = "https://github.com/RRethy/nvim-base16"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -211,6 +222,12 @@ _G.packer_plugins = {
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  ["symbols-outline.nvim"] = {
+    config = { "\27LJ\2\nn\0\0\6\0\a\0\b6\0\0\0009\0\1\0009\0\2\0'\2\3\0'\3\4\0'\4\5\0005\5\6\0D\0\5\0\1\0\2\fnoremap\2\vsilent\2\28<cmd>SymbolsOutline<cr>\14<leader>s\6n\bset\vkeymap\bvim\0" },
+    loaded = true,
+    path = "/home/gsus/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim",
+    url = "https://github.com/simrat39/symbols-outline.nvim"
+  },
   ["trouble.nvim"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/trouble.nvim",
@@ -224,7 +241,7 @@ _G.packer_plugins = {
   ["vim-glsl"] = {
     loaded = true,
     path = "/home/gsus/.local/share/nvim/site/pack/packer/start/vim-glsl",
-    url = "https://github.com/tikhomirov/vim-glsl"
+    url = "https://github.com/petrbroz/vim-glsl"
   },
   ["vim-mipssyntax"] = {
     loaded = true,
@@ -264,13 +281,21 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: symbols-outline.nvim
+time([[Config for symbols-outline.nvim]], true)
+try_loadstring("\27LJ\2\nn\0\0\6\0\a\0\b6\0\0\0009\0\1\0009\0\2\0'\2\3\0'\3\4\0'\4\5\0005\5\6\0D\0\5\0\1\0\2\fnoremap\2\vsilent\2\28<cmd>SymbolsOutline<cr>\14<leader>s\6n\bset\vkeymap\bvim\0", "config", "symbols-outline.nvim")
+time([[Config for symbols-outline.nvim]], false)
 -- Config for: nvim-dap
 time([[Config for nvim-dap]], true)
 try_loadstring("\27LJ\2\nY\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0D\0\2\0\29fnl.plug-config.keys.dap\29fnl.plug-config.nvim-dap\frequire\0", "config", "nvim-dap")
 time([[Config for nvim-dap]], false)
+-- Config for: lualine.nvim
+time([[Config for lualine.nvim]], true)
+try_loadstring("\27LJ\2\n\28\0\0\2\1\1\0\3-\0\0\0009\0\0\0D\0\1\0\1¿\vstatus¡\1\1\0\b\0\r\0\0226\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\2\3\0B\2\1\0029\3\4\2'\4\6\0=\4\5\0033\3\a\0006\4\b\0009\4\t\0049\6\n\0029\6\v\6\18\a\3\0B\4\3\0019\4\f\0\18\6\2\0002\0\0ÄD\4\2\0\nsetup\14lualine_x\rsections\vinsert\ntable\0\vbase16\ntheme\foptions\15get_config\15lsp-status\flualine\frequire\0", "config", "lualine.nvim")
+time([[Config for lualine.nvim]], false)
 -- Config for: material.nvim
 time([[Config for material.nvim]], true)
-try_loadstring("\27LJ\2\n\\\0\0\3\0\6\0\b6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\4\0'\2\5\0D\0\2\0\25colorscheme material\bcmd\vdarker\19material_style\6g\bvim\0", "config", "material.nvim")
+try_loadstring("\27LJ\2\n_\0\0\3\0\6\0\b6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\4\0'\2\5\0D\0\2\0\25colorscheme material\bcmd\14palenight\19material_style\6g\bvim\0", "config", "material.nvim")
 time([[Config for material.nvim]], false)
 if should_profile then save_profiles() end
 

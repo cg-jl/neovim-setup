@@ -70,10 +70,10 @@ package.preload["fnl.plug-config.nvim-cmp/main"] = package.preload["fnl.plug-con
   do end (require("cmp_nvim_lsp")).setup()
   local cmp = require("cmp")
   local lspkind = require("lspkind")
-  local function _33_(args)
+  local function _21_(args)
     return vim.fn["vsnip#anonymous"](args.body)
   end
-  cmp.setup({min_length = 0, mapping = {["<c-n>"] = cmp.mapping.select_next_item(), ["<c-f>"] = cmp.mapping.complete(), ["<c-e>"] = cmp.mapping.close(), ["<c-p>"] = cmp.mapping.select_prev_item()}, snippet = {expand = _33_}, sources = cmp.config.sources({{name = "gh_source"}, {name = "nvim_lsp"}}), experimental = {ghost_text = true}, view = {entries = "native"}, formatting = {format = lspkind.cmp_format({with_text = false, maxwidth = 50})}})
+  cmp.setup({min_length = 0, mapping = {["<c-n>"] = cmp.mapping.select_next_item(), ["<c-f>"] = cmp.mapping.complete(), ["<c-e>"] = cmp.mapping.close(), ["<c-p>"] = cmp.mapping.select_prev_item()}, snippet = {expand = _21_}, sources = cmp.config.sources({{name = "gh_source"}, {name = "nvim_lsp"}}), experimental = {ghost_text = true}, view = {entries = "native"}, formatting = {format = lspkind.cmp_format({with_text = false, maxwidth = 50})}})
   do end (require("colorbuddy")).setup()
   return nil
 end
@@ -82,75 +82,6 @@ package.preload["fnl.plug-config.nvim-tree"] = package.preload["fnl.plug-config.
   local nvim_tree = require("nvim-tree")
   nvim_tree.setup({disable_netrw = true, hijack_netrw = true})
   return nil
-end
-package.preload["fnl.plug-config.feline"] = package.preload["fnl.plug-config.feline"] or function(...)
-  local feline = require("feline")
-  local vi_mode_utils = require("feline.providers.vi_mode")
-  local feline_lsp = require("feline.providers.lsp")
-  local utils = require("fnl.utils")
-  local function vi_mode_provider()
-    local mode_alias = {n = "NORMAL", no = "NORMAL", i = "INSERT", v = "VISUAL", V = "V-LINE", ["\22"] = "V-BLOCK", c = "COMMAND", cv = "COMMAND", ce = "COMMAND", R = "REPLACE", Rv = "REPLACE", s = "SELECT", S = "SELECT", ["\19"] = "SELECT", t = "TERMINAL"}
-    return ("\238\152\171 " .. mode_alias[vim.fn.mode()])
-  end
-  local components = {active = {{}, {}, {}}}
-  local lsp_status = require("lsp-status")
-  do
-    local _18_ = components.active
-    do
-      local _19_ = (_18_)[1]
-      local function _20_()
-        return {name = vi_mode_utils.get_mode_highlight_name(), style = "bold", fg = vi_mode_utils.get_mode_color()}
-      end
-      table.insert(_19_, {provider = "vi_mode", hl = _20_, right_sep = "  ", left_sep = " "})
-      table.insert(_19_, {provider = "file_info", hl = {fg = "#ebdbb2", bg = "#3c3836", style = "bold"}, left_sep = {{str = "slant_left", hl = {fg = "#3c3836"}}, {str = " ", hl = {bg = "#3c3836"}}}})
-      local function _21_()
-        return (vim.fn.getfsize(vim.fn.expand("%:p")) > 0)
-      end
-      table.insert(_19_, {provider = "position", left_sep = {{str = "slant_left_thin", hl = {bg = "#3c3836"}}, {str = " ", hl = {bg = "#3c3836"}}}, right_sep = {{str = " ", hl = {bg = "#3c3836"}}, {str = "slant_right_2", hl = {bg = "#1d2021", fg = "#3c3836"}}}, hl = {fg = "white", bg = "#3c3836"}, enabled = _21_})
-      local function _22_()
-        return feline_lsp.diagnostics_exist("info")
-      end
-      table.insert(_19_, {enabled = _22_, hl = {bg = "#1d2021", fg = "green"}, left_sep = {hl = {bg = "#3c3836", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_info"})
-      local function _23_()
-        return feline_lsp.diagnostics_exist("hint")
-      end
-      table.insert(_19_, {enabled = _23_, hl = {bg = "#1d2021", fg = "white"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_hints"})
-      local function _24_()
-        return feline_lsp.diagnostics_exist("warn")
-      end
-      table.insert(_19_, {enabled = _24_, hl = {bg = "#1d2021", fg = "yellow"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_warnings"})
-      local function _25_()
-        return feline_lsp.diagnostics_exist("error")
-      end
-      table.insert(_19_, {enabled = _25_, hl = {bg = "#1d2021", fg = "red"}, left_sep = {hl = {bg = "#1d2021", fg = "#1d2021"}, str = "slant_left"}, provider = "diagnostic_errors"})
-    end
-    local _26_ = (_18_)[3]
-    local function _27_()
-      return utils.shorten(85, lsp_status.status())
-    end
-    local function _28_()
-      return (#vim.lsp.buf_get_clients() > 0)
-    end
-    table.insert(_26_, {provider = _27_, hl = {bg = "#1d2021", fg = "white"}, enabled = _28_})
-    local function _29_()
-      return {str = " ", hl = {bg = "#3c3836", fg = "NONE"}}
-    end
-    table.insert(_26_, {provider = "git_branch", hl = {fg = "white", bg = "#3c3836"}, right_sep = _29_, left_sep = {{str = "slant_left_2", hl = {bg = "#1d2021", fg = "#3c3836"}}}})
-    table.insert(_26_, {provider = "git_diff_added", hl = {fg = "green", bg = "#3c3836"}, right_sep = {str = " ", hl = {bg = "#3c3836"}}})
-    table.insert(_26_, {provider = "git_diff_changed", hl = {fg = "orange", bg = "#3c3836"}, right_sep = {str = " ", hl = {bg = "#3c3836"}}})
-    local function _30_()
-      local _31_
-      if vim.b.gitsigns_status_dict then
-        _31_ = " "
-      else
-        _31_ = ""
-      end
-      return {str = _31_, hl = {bg = "#3c3836"}}
-    end
-    table.insert(_26_, {provider = "git_diff_removed", hl = {fg = "red", bg = "#3c3836"}, right_sep = {_30_, {str = "slant_right_2", hl = {fg = "#3c3836"}}}})
-    table.insert(_26_, {provider = "line_percentage", hl = {style = "bold"}, right_sep = " ", left_sep = " "})
-  end
-  return feline.setup({colors = {bg = "#504945", black = "#282828", cyan = "#8ec07c", fg = "#fabd2f", green = "#b8bb26", magenta = "#d3869b", oceanblue = "#458588", orange = "#fe8019", red = "#fb4934", skyblue = "#83a598", violet = "#b16286", white = "#ebdbb2", yellow = "#fabd2f"}, vi_mode_colors = {NORMAL = nil, OP = "cyan", INSERT = nil, VISUAL = "green", BLOCK = "green", REPLACE = "yellow", ["V-REPLACE"] = "yellow", ENTER = "cyan", MORE = "cyan", SELECT = "magenta", COMMAND = "cyan", SHELL = "skyblue", TERM = "skyblue", NONE = "orange"}, components = components})
 end
 package.preload["fnl.plug-config.gitsigns"] = package.preload["fnl.plug-config.gitsigns"] or function(...)
   local gs = require("gitsigns")
@@ -173,8 +104,8 @@ package.preload["fnl.plug-config.nvim-lsp"] = package.preload["fnl.plug-config.n
   local coq = require("coq")
   local function on_attach(client)
     do
-      local _17_ = client
-      lsp_status.on_attach(_17_)
+      local _20_ = client
+      lsp_status.on_attach(_20_)
     end
     return nil
   end
@@ -185,7 +116,8 @@ package.preload["fnl.plug-config.nvim-lsp"] = package.preload["fnl.plug-config.n
   nvim_lsp.hls.setup(coq.lsp_ensure_capabilities(default_options))
   nvim_lsp.gopls.setup(coq.lsp_ensure_capabilities(default_options))
   nvim_lsp.clangd.setup(coq.lsp_ensure_capabilities(default_options))
-  return nvim_lsp.zls.setup(coq.lsp_ensure_capabilities(default_options))
+  nvim_lsp.zls.setup(coq.lsp_ensure_capabilities(default_options))
+  return nvim_lsp.tsserver.setup(coq.lsp_ensure_capabilities(default_options))
 end
 package.preload["fnl.plug-config.Comment"] = package.preload["fnl.plug-config.Comment"] or function(...)
   do
@@ -220,10 +152,10 @@ package.preload["fnl.plug-config.nvim-dap"] = package.preload["fnl.plug-config.n
   do
     local normal_config = {args = {}, cwd = "${workspaceFolder}", name = "Launch", program = ask_executable, request = "launch", runInTerminal = false, stopOnEntry = true, type = "lldb"}
     local rust_config = {args = {}, cwd = "${workspaceFolder}", name = "Launch", program = ask_executable, request = "launch", runInTerminal = false, stopOnEntry = true, type = "rust-lldb"}
-    local _16_ = dap.configurations
-    _16_["c"] = {normal_config}
-    _16_["cpp"] = {normal_config}
-    _16_["rust"] = {rust_config}
+    local _19_ = dap.configurations
+    _19_["c"] = {normal_config}
+    _19_["cpp"] = {normal_config}
+    _19_["rust"] = {rust_config}
   end
   return {set_args = set_args}
 end
@@ -244,7 +176,7 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   local function packer_startup(use)
     use("wbthomason/packer.nvim")
     local function _14_()
-      vim.g["material_style"] = "darker"
+      vim.g["material_style"] = "palenight"
       return vim.cmd("colorscheme material")
     end
     use({config = _14_, "marko-cerovac/material.nvim"})
@@ -261,6 +193,18 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use({run = vim.fn["fzf#install"], "junegunn/fzf"})
     use("junegunn/fzf.vim")
     use("nvim-lua/lsp-status.nvim")
+    local function _15_()
+      local lualine = require("lualine")
+      local lsp_status = require("lsp-status")
+      local config = lualine.get_config()
+      do end (config)["options"]["theme"] = "base16"
+      local function _16_()
+        return lsp_status.status()
+      end
+      table.insert(config.sections.lualine_x, _16_)
+      return lualine.setup(config)
+    end
+    use({config = _15_, requires = {{opt = true, "kyazdani42/nvim-web-devicons"}, "RRethy/nvim-base16"}, "nvim-lualine/lualine.nvim"})
     use("neovim/nvim-lspconfig")
     use("hrsh7th/vim-vsnip")
     use("hrsh7th/cmp-vsnip")
@@ -268,6 +212,10 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use({requires = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "nvim-lua/plenary.nvim"}, "hrsh7th/nvim-cmp"})
     use({requires = "kyazdani42/nvim-web-devicons", "folke/trouble.nvim"})
     use("folke/lsp-colors.nvim")
+    local function _17_()
+      return vim.keymap.set("n", "<leader>s", "<cmd>SymbolsOutline<cr>", {noremap = true, silent = true})
+    end
+    use({config = _17_, "simrat39/symbols-outline.nvim"})
     use("ARM9/arm-syntax-vim")
     use("harenome/vim-mipssyntax")
     use("petrbroz/vim-glsl")
@@ -279,11 +227,11 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
     use("onsails/lspkind-nvim")
     use("tjdevries/colorbuddy.nvim")
     use("ThePrimeagen/git-worktree.nvim")
-    local function _15_()
+    local function _18_()
       require("fnl.plug-config.nvim-dap")
       return require("fnl.plug-config.keys.dap")
     end
-    use({config = _15_, "mfussenegger/nvim-dap"})
+    use({config = _18_, "mfussenegger/nvim-dap"})
     return nil
   end
   packer.startup(packer_startup)
@@ -292,7 +240,6 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   require("fnl.plug-config.hop")
   require("fnl.plug-config.treesitter")
   require("fnl.plug-config.gitsigns")
-  require("fnl.plug-config.feline")
   require("fnl.plug-config.nvim-tree")
   require("fnl.plug-config.nvim-cmp/main")
   require("fnl.plug-config.git-worktree")
@@ -446,7 +393,7 @@ package.preload["fnl.options"] = package.preload["fnl.options"] or function(...)
   local utils = require("fnl.utils")
   utils.options("global", {hidden = true, encoding = "utf-8", ruler = true, pumheight = 10, cmdheight = 2, splitbelow = true, smarttab = true, wildmode = "list:longest", laststatus = 3, showtabline = 2, showmode = false, backup = false, writebackup = false, updatetime = 300, timeoutlen = 500, clipboard = "unnamedplus", mouse = "nicr", guicursor = "", hlsearch = false, ignorecase = true, smartcase = true, completeopt = "menuone,noinsert,noselect", termguicolors = true})
   utils.options("window", {wrap = false, conceallevel = 0, cursorline = true, number = true, relativenumber = true, signcolumn = "yes", list = false})
-  utils.options("buffer", {tabstop = 2, shiftwidth = 2, smartindent = true, autoindent = true, expandtab = true, swapfile = false})
+  utils.options("buffer", {tabstop = 4, shiftwidth = 4, smartindent = true, autoindent = true, expandtab = true, swapfile = false})
   return nil
 end
 package.preload["fnl.langs"] = package.preload["fnl.langs"] or function(...)

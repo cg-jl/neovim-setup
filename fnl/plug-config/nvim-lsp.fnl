@@ -46,6 +46,7 @@
 (setup-lsp :gopls)
 (setup-lsp :clangd)
 (setup-lsp :zls)
+(setup-lsp :tsserver)
 
 ;(nvim-lsp.rust_analyzer.setup default-options)
 

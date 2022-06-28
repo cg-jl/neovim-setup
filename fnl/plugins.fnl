@@ -59,7 +59,7 @@
                     :monokai :sainnhe/sonokai
                     :rose-pine (pkg :rose-pine/neovim { :as :rose-pine :tag :v1.* })
                     :material  (pkg :marko-cerovac/material.nvim { :config (fn [] 
-                          (tset vim.g :material_style :darker)
+                          (tset vim.g :material_style :palenight)
                           (vim.cmd "colorscheme material")
                                             )})
                   }))
@@ -82,6 +82,19 @@
                             })
                   (use-pkg :junegunn/fzf.vim)
                   (use-pkg :nvim-lua/lsp-status.nvim)
+                  (use-pkg :nvim-lualine/lualine.nvim {
+                           :requires [ (pkg :kyazdani42/nvim-web-devicons { :opt true })
+                                       :RRethy/nvim-base16
+                                      ]
+                           :config (fn []
+                            (local lualine (require :lualine))
+                            (local lsp-status (require :lsp-status))
+                            (var config (lualine.get_config))
+                            (tset config :options :theme :base16)
+                            (table.insert config.sections.lualine_x (fn [] (lsp_status.status)))
+                            (lualine.setup config)
+                        )
+                           })
                   (use-pkg :neovim/nvim-lspconfig)
                   (use-pkg :hrsh7th/vim-vsnip)
                   (use-pkg :hrsh7th/cmp-vsnip)
@@ -93,6 +106,11 @@
                            {:requires :kyazdani42/nvim-web-devicons
                             })
                   (use-pkg :folke/lsp-colors.nvim)
+                  (use-pkg :simrat39/symbols-outline.nvim {
+                           :config (fn []
+                              (mutils.nvim-mapcmd :n :<leader>s :SymbolsOutline)
+                            )
+                  })
                   ;; using clang-tidy
 ;                  (use-pkg :emilienlemaire/clang-tidy.nvim { :requires :nvim-lua/plenary.nvim})
                   (use-pkg :ARM9/arm-syntax-vim)
@@ -129,7 +147,7 @@
 (setup-config :hop)
 (setup-config :treesitter)
 (setup-config :gitsigns)
-(setup-config :feline)
+;(setup-config :feline)
 (setup-config :nvim-tree)
 (setup-config :nvim-cmp/main)
 (setup-config :git-worktree)

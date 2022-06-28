@@ -38,8 +38,8 @@
                         :list false
                         })
 
-(utils.options :buffer {:tabstop 2
-                        :shiftwidth 2
+(utils.options :buffer {:tabstop 4
+                        :shiftwidth 4
                         :smartindent true
                         :autoindent true
                         :expandtab true
