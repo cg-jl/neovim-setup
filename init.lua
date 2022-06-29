@@ -176,7 +176,9 @@ package.preload["fnl.plugins"] = package.preload["fnl.plugins"] or function(...)
   local function packer_startup(use)
     use("wbthomason/packer.nvim")
     local function _14_()
-      vim.g["material_style"] = "palenight"
+      local material = require("material")
+      material.setup({disable = {colored_cursor = true}})
+      do end (vim.g)["material_style"] = "palenight"
       return vim.cmd("colorscheme material")
     end
     use({config = _14_, "marko-cerovac/material.nvim"})

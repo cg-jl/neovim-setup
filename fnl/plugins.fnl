@@ -59,6 +59,10 @@
                     :monokai :sainnhe/sonokai
                     :rose-pine (pkg :rose-pine/neovim { :as :rose-pine :tag :v1.* })
                     :material  (pkg :marko-cerovac/material.nvim { :config (fn [] 
+                          (local material (require :material))
+                          (material.setup {
+                             :disable { :colored_cursor true } ; disable fancy cursor
+                          })
                           (tset vim.g :material_style :palenight)
                           (vim.cmd "colorscheme material")
                                             )})
