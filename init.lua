@@ -1,4 +1,4 @@
-local utils = require 'utils'
+local utils = require 'settings-utils'
 local keys = utils.keys
 local options = utils.options
 
@@ -125,7 +125,7 @@ require 'packer'.startup(function()
             run = vim.fn['fzf#install'],
         },
         config = function()
-            local utils = require 'utils'
+            local utils = require 'settings-utils'
             utils.keys {
                 normal = {
                     ['<leader>ff'] = { cmd = 'Files' },
@@ -139,7 +139,7 @@ require 'packer'.startup(function()
         'romgrk/barbar.nvim',
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
-            require 'utils'.keys {
+            require 'settings-utils'.keys {
                 normal = {
                     ['<leader>bp'] = { cmd = 'BufferPick' }
                 }
@@ -151,7 +151,7 @@ require 'packer'.startup(function()
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
-            local utils = require 'utils'
+            local utils = require 'settings-utils'
             require 'nvim-tree'.setup {
                 disable_netrw = true,
                 hijack_netrw = true
@@ -172,7 +172,7 @@ require 'packer'.startup(function()
             local status = require 'lsp-status'
             local util = require 'lspconfig/util'
             local coq = require 'coq'
-            local utils = require 'utils'
+            local utils = require 'settings-utils'
             status.config { current_function = true }
             status.register_progress()
             local options = coq.lsp_ensure_capabilities {
@@ -239,7 +239,7 @@ require 'packer'.startup(function()
     use { 'folke/trouble.nvim',
           requires = 'kyazdani42/nvim-web-devicons',
           config = function()
-              local utils = require 'utils'
+              local utils = require 'settings-utils'
               utils.keys {
                   normal = {
                       ['<leader>ll'] = { cmd = 'TroubleToggle' },
