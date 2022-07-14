@@ -1,3 +1,6 @@
+local utils = require 'utils'
+local keys = utils.keys
+local options = utils.options
 
 vim.cmd [[packadd packer.nvim]]
 vim.g.mapleader = ','
@@ -13,54 +16,6 @@ local function buffer_option(opt, value)
 	option(opt, value)
 end
 
-local function options(opts)
-	for key, value in pairs(opts.global) do
-		vim.api.nvim_set_option(key, value)
-	end
-	for key, value in pairs(opts.window) do
-		vim.api.nvim_set_option(key, value)
-		vim.wo[key] = value
-	end
-	for key, value in pairs(opts.buffer) do
-		vim.api.nvim_set_option(key, value)
-		vim.bo[key] = value
-	end
-end
-
-local function keys(opts)
-    local function map_key(mode, key, obj, opts)
-        local rhs = ''
-        if type(obj) == 'string' then
-            rhs = obj
-        elseif obj.expr ~= nil then
-            rhs = obj.expr
-            opts.expr = true
-        elseif obj.cmd ~= nil then
-            rhs = '<cmd>' .. obj.cmd .. '<cr>'
-            opts.silent = true
-        else
-            rhs = obj[1]
-        end
-
-        vim.keymap.set(mode, key, rhs, opts)
-    end
-
-    if opts.visual ~= nil then
-        for key, target in pairs(opts.visual) do
-            map_key('v', key, target, (type(target) == 'table' and target.opts) or {})
-        end
-    end
-    if opts.insert ~= nil then
-        for key, target in pairs(opts.insert) do
-            map_key('i', key, target, (type(target) == 'table' and target.opts) or {})
-        end
-    end
-    if opts.normal ~= nil then
-        for key, target in pairs(opts.normal) do
-            map_key('n', key, target, (type(target) == 'table' and target.opts) or {})
-        end
-    end
-end
 
 options {
 	global = {
@@ -168,8 +123,13 @@ require 'packer'.startup(function()
             run = vim.fn['fzf#install'],
         },
         config = function()
-            vim.keymap.set('n', '<leader>ff', '<cmd>Files<cr>')
-            vim.keymap.set('n', '<leader>rg', '<cmd>Rg<cr>')
+            local utils = require 'utils'
+            utils.keys {
+                normal = {
+                    ['<leader>ff'] = { cmd = 'Files' },
+                    ['<leader>rg'] = { cmd = 'Rg' },
+                }
+            }
         end
     }
 
@@ -177,11 +137,16 @@ require 'packer'.startup(function()
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
+            local utils = require 'utils'
             require 'nvim-tree'.setup {
                 disable_netrw = true,
                 hijack_netrw = true
             }
-            vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { silent = true})
+            utils.keys {
+                normal = {
+                    ['<leader>e'] = { cmd = 'NvimTreeToggle' }
+                }
+            }
         end
     }
 
@@ -193,6 +158,7 @@ require 'packer'.startup(function()
             local status = require 'lsp-status'
             local util = require 'lspconfig/util'
             local coq = require 'coq'
+            local utils = require 'utils'
             status.config { current_function = true }
             status.register_progress()
             local options = coq.lsp_ensure_capabilities {
@@ -209,16 +175,20 @@ require 'packer'.startup(function()
             lsp.rust_analyzer.setup(options)
             lsp.clangd.setup(options)
 
-            vim.keymap.set('n', '<space>,', vim.diagnostic.goto_prev)
-            vim.keymap.set('n', '<space>;', vim.diagnostic.goto_next)
+            utils.keys {
+                normal = {
+                    ['<space>,'] = vim.diagnostic.goto_prev,
+                    ['<space>;'] = vim.diagnostic.goto_next,
 
-            vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action)
-            vim.keymap.set('n', '<space>d', vim.lsp.buf.definition)
-            vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting)
-            vim.keymap.set('n', '<space>h', vim.lsp.buf.hover)
-            vim.keymap.set('n', '<space>m', vim.lsp.buf.rename)
-            vim.keymap.set('n', '<space>r', vim.lsp.buf.references)
-            vim.keymap.set('n', '<space>s', vim.lsp.buf.document_symbol)
+                    ['<space>a'] = vim.lsp.buf.code_action,
+                    ['<space>d'] = vim.lsp.buf.definition,
+                    ['<space>f'] = vim.lsp.buf.formatting,
+                    ['<space>h'] = vim.lsp.buf.hover,
+                    ['<space>m'] = vim.lsp.buf.rename,
+                    ['<space>r'] = vim.lsp.buf.references,
+                    ['<space>s'] = vim.lsp.buf.document_symbol,
+                }
+            }
         end
 
     }
@@ -253,7 +223,18 @@ require 'packer'.startup(function()
         end
     }
     use { 'folke/trouble.nvim',
-          requires = 'kyazdani42/nvim-web-devicons'}
+          requires = 'kyazdani42/nvim-web-devicons',
+          config = function()
+              local utils = require 'utils'
+              utils.keys {
+                  normal = {
+                      ['<leader>ll'] = { cmd = 'TroubleToggle' },
+                      ['<leader>lw'] = { cmd = 'TroubleWorkspaceToggle' },
+                      ['<leader>ld'] = { cmd = 'TroubleDocumentToggle' }
+                  }
+              }
+          end
+      }
 
     -- statusline
     use {
