@@ -193,6 +193,7 @@ require 'packer'.startup(function()
             local status = require 'lsp-status'
             local util = require 'lspconfig/util'
             local coq = require 'coq'
+            status.config { current_function = true }
             status.register_progress()
             local options = coq.lsp_ensure_capabilities {
                 on_attach = status.on_attach,
@@ -206,8 +207,6 @@ require 'packer'.startup(function()
             }
 
             lsp.rust_analyzer.setup(options)
-            lsp.hls.setup(options)
-            lsp.gopls.setup(options)
             lsp.clangd.setup(options)
 
             vim.keymap.set('n', '<space>,', vim.diagnostic.goto_prev)
@@ -255,6 +254,30 @@ require 'packer'.startup(function()
     }
     use { 'folke/trouble.nvim',
           requires = 'kyazdani42/nvim-web-devicons'}
+
+    -- statusline
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = {
+            'arkav/lualine-lsp-progress',
+            { 'kyazdani42/nvim-web-devicons', opt = true }
+        },
+        config = function()
+            local status = require 'lsp-status'
+            local lualine = require 'lualine'
+            require 'lualine'.setup {
+                sections = {
+                    lualine_c = {
+                        'filename',
+                        status.status,
+                        {'lsp_progress', spinner_symbols = { '⣾','⣽','⣻','⢿','⡿','⣟','⣯','⣷' } }
+                        },
+                    lualine_x = { 'encoding', 'fileformat', 'filetype'}
+                },
+                extensions = { 'fzf', 'nvim-tree', 'fugitive' }
+            }
+        end
+    }
 
     -- languages
     use 'ARM9/arm-syntax-vim'
