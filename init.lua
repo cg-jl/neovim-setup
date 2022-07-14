@@ -116,6 +116,8 @@ require 'packer'.startup(function()
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
     use 'tpope/vim-fugitive'
+
+    -- nav
     use {
         'junegunn/fzf.vim',
         requires = {
@@ -128,6 +130,18 @@ require 'packer'.startup(function()
                 normal = {
                     ['<leader>ff'] = { cmd = 'Files' },
                     ['<leader>rg'] = { cmd = 'Rg' },
+                }
+            }
+        end
+    }
+
+    use {
+        'romgrk/barbar.nvim',
+        requires = 'kyazdani42/nvim-web-devicons',
+        config = function()
+            require 'utils'.keys {
+                normal = {
+                    ['<leader>bp'] = { cmd = 'BufferPick' }
                 }
             }
         end
