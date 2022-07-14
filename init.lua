@@ -115,7 +115,16 @@ end
     use 'tpope/vim-commentary'
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
-    use 'tpope/vim-fugitive'
+    use {'tpope/vim-fugitive',
+        config = function()
+            require 'settings-utils'.keys {
+                normal = {
+                    ['<leader>gs'] = { cmd = 'G' },
+                    ['<leader>gp'] = { cmd = 'Git push' },
+                }
+            }
+        end
+    }
 
     -- nav
     use {
