@@ -36,7 +36,7 @@ options {
     },
     window = {
         conceallevel = 0,
-        cursorline = true,
+        cursorline = false,
         signcolumn = 'yes',
         list = false,
         number = true,
