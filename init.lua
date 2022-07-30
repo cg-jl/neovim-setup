@@ -59,10 +59,10 @@ keys {
         ['<m-h>'] = '<c-w>h',
         ['<m-l>'] = '<c-w>l',
         -- quickfix list
-        ['<c-j>'] = { cmd = 'cprev' },
-        ['<c-k>'] = { cmd = 'cnext' },
-        ['<leader>j'] = { cmd = 'lprev' },
-        ['<leader>k'] = { cmd = 'lnext' },
+        -- ['<c-j>'] = { cmd = 'cprev' },
+        -- ['<c-k>'] = { cmd = 'cnext' },
+        -- ['<leader>j'] = { cmd = 'lprev' },
+        -- ['<leader>k'] = { cmd = 'lnext' },
         -- :help update
         ['<leader>w'] = { cmd = 'update' }
     },
@@ -83,34 +83,52 @@ keys {
 require 'packer'.startup(function()
     use 'wbthomason/packer.nvim'
     use { 'sonph/onehalf',
-    rtp = 'vim',
-    config = function()
-        -- TODO: lightline
-        vim.cmd [[
-        colorscheme onehalfdark
-        hi! Normal guibg=NONE
-        ]]
-    end
-}
-use { 'nvim-treesitter/nvim-treesitter',
-run = function()
-    require 'nvim-treesitter.install'.update { with_sync = true }
-end,
-config = function()
-    require 'nvim-treesitter.configs'.setup {
-        ensure_installed = { 'c', 'lua' },
-        sync_install = false,
-        highlight = { enable = true }
+        rtp = 'vim',
+        config = function()
+            vim.cmd [[colorscheme onehalfdark]]
+        end,
+        disable = true,
     }
-end
+    use { 'Shatur/neovim-ayu',
+        config = function()
+            require 'ayu'.setup {
+                mirage = true,
+                overrides = {}
+            }
+            vim.cmd [[colorscheme ayu]]
+        end
+    }
+    use { 'nvim-treesitter/nvim-treesitter',
+        run = function()
+            require 'nvim-treesitter.install'.update { with_sync = true }
+        end,
+        config = function()
+            local parser_configs = require 'nvim-treesitter.parsers'.get_parser_configs()
+                parser_configs.jakt = {
+                install_info = {
+                    url = "https://github.com/demizer/tree-sitter-jakt",
+                    files = { "src/parser.c", "src/scanner.c" },
+                    revision = "4bc5972f3a687b9fe0c6c7647312170ef7a3b0c0",
+                },
+                filetype = "jakt",
+                maintainers = { "@demizer" }
+            }
+            require 'nvim-treesitter.configs'.setup {
+                ensure_installed = { 'c', 'lua' },
+                sync_install = false,
+                highlight = { enable = true }
+            }
+        end
     }
     -- make stuff transparent :)
     use { 'xiyaowong/nvim-transparent',
-    config = function()
-        require 'transparent'.setup {
-            enable = true,
-        }
-    end}
+        config = function()
+            require 'transparent'.setup {
+                enable = true,
+            }
+        end,
+--        disable = true
+    }
 
     use 'tpope/vim-commentary'
     use 'tpope/vim-surround'
@@ -121,6 +139,8 @@ end
                 normal = {
                     ['<leader>gs'] = { cmd = 'G' },
                     ['<leader>gp'] = { cmd = 'Git push' },
+                    ['<leader>gaa'] = { cmd = 'Git add %' },
+                    ['<leader>gap'] = { cmd = 'Git add --patch' }
                 }
             }
         end
@@ -197,6 +217,7 @@ end
 
         lsp.rust_analyzer.setup(options)
         lsp.clangd.setup(options)
+        lsp.zls.setup(options)
 
         utils.keys {
             normal = {
@@ -210,6 +231,9 @@ end
                 ['<space>m'] = vim.lsp.buf.rename,
                 ['<space>r'] = vim.lsp.buf.references,
                 ['<space>s'] = vim.lsp.buf.document_symbol,
+            },
+            visual = {
+                ['<space>a'] = vim.lsp.buf.range_code_action
             }
         }
     end
@@ -270,6 +294,7 @@ end
               local status = require 'lsp-status'
               local lualine = require 'lualine'
               require 'lualine'.setup {
+                  options = { theme = 'ayu' },
                   sections = {
                       lualine_c = {
                           'filename',
