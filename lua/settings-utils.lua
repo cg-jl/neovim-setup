@@ -15,6 +15,8 @@ end
 local function keys(opts)
     local function map_key(mode, key, obj, opts)
         local rhs = ''
+        opts.noremap = true
+
         if type(obj) ~= 'table' then
             rhs = obj
         elseif obj.expr ~= nil then
