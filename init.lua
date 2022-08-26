@@ -108,7 +108,7 @@ require 'packer'.startup(function()
                 install_info = {
                     url = "https://github.com/demizer/tree-sitter-jakt",
                     files = { "src/parser.c", "src/scanner.c" },
-                    revision = "4bc5972f3a687b9fe0c6c7647312170ef7a3b0c0",
+                    revision = "a65bffd7ab951081c50df41897e850f8b46e0eff",
                 },
                 filetype = "jakt",
                 maintainers = { "@demizer" }
@@ -312,4 +312,5 @@ end
       use 'ARM9/arm-syntax-vim'
       use { '~/contrib/jakt/editors/vim', as = 'jakt' }
       use 'fladson/vim-kitty'
+      use 'terminalnode/sway-vim-syntax'
   end)
