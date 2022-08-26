@@ -283,6 +283,22 @@ config = function()
 end
       }
 
+      -- mind: take notes to another level
+      use {
+          'phaazon/mind.nvim',
+          branch = 'v2',
+          config = function()
+              local mind = require 'mind'
+              mind.setup()
+              require 'settings-utils'.keys {
+                normal = { 
+                    ['<leader>mm'] = function() mind.open_main() end,
+                    ['<leader>mp'] = function() mind.open_project() end,
+                }
+              }
+          end
+      }
+
       -- statusline
       use {
           'nvim-lualine/lualine.nvim',
