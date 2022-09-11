@@ -16,7 +16,6 @@ local function buffer_option(opt, value)
     option(opt, value)
 end
 
-
 options {
     global = {
         guicursor = 'i:block',
@@ -96,7 +95,7 @@ require 'packer'.startup(function()
                 overrides = {}
             }
             vim.cmd [[colorscheme ayu]]
-        end
+        end,
     }
     use { 'nvim-treesitter/nvim-treesitter',
         run = function()
@@ -194,6 +193,7 @@ require 'packer'.startup(function()
     }
 
     -- lsp
+    use 'mfussenegger/nvim-jdtls'
     use { 'neovim/nvim-lspconfig',
     requires = { 'nvim-lua/lsp-status.nvim', 'ms-jpq/coq_nvim' },
     config = function()
@@ -218,6 +218,7 @@ require 'packer'.startup(function()
         lsp.rust_analyzer.setup(options)
         lsp.clangd.setup(options)
         lsp.zls.setup(options)
+        lsp.ocamllsp.setup(options)
 
         utils.keys {
             normal = {
@@ -326,7 +327,7 @@ end
 
       -- languages
       use 'ARM9/arm-syntax-vim'
-      use { '~/contrib/jakt/editors/vim', as = 'jakt' }
+      use { '~/contrib/jakt/vim', as = 'jakt' }
       use 'fladson/vim-kitty'
       use 'terminalnode/sway-vim-syntax'
   end)
