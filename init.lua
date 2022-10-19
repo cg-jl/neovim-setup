@@ -333,7 +333,7 @@ end
 
       -- languages
       use 'ARM9/arm-syntax-vim'
-      use { '~/contrib/jakt/vim', as = 'jakt' }
+      use { '~/contrib/jakt/editors/vim', as = 'jakt' }
       use 'fladson/vim-kitty'
       use 'terminalnode/sway-vim-syntax'
   end)
