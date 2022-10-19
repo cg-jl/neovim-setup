@@ -317,7 +317,7 @@ end
               local status = require 'lsp-status'
               local lualine = require 'lualine'
               require 'lualine'.setup {
-                  options = { theme = 'ayu' },
+                  options = { theme = 'auto' },
                   sections = {
                       lualine_c = {
                           'filename',
