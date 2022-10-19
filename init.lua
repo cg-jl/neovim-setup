@@ -88,6 +88,7 @@ require 'packer'.startup(function()
         end,
         disable = true,
     }
+
     use { 'Shatur/neovim-ayu',
         config = function()
             require 'ayu'.setup {
@@ -96,7 +97,10 @@ require 'packer'.startup(function()
             }
             vim.cmd [[colorscheme ayu]]
         end,
+        disable = false,
     }
+
+
     use { 'nvim-treesitter/nvim-treesitter',
         run = function()
             require 'nvim-treesitter.install'.update { with_sync = true }
@@ -119,6 +123,7 @@ require 'packer'.startup(function()
             }
         end
     }
+    use { 'nvim-treesitter/nvim-treesitter-context', requires = 'nvim-treesitter/nvim-treesitter', config = function() require 'treesitter-context'.setup() end }
     -- make stuff transparent :)
     use { 'xiyaowong/nvim-transparent',
         config = function()
@@ -219,6 +224,7 @@ require 'packer'.startup(function()
         lsp.clangd.setup(options)
         lsp.zls.setup(options)
         lsp.ocamllsp.setup(options)
+        lsp.jdtls.setup(options)
 
         utils.keys {
             normal = {
