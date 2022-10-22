@@ -90,7 +90,6 @@ require 'packer'.startup(function()
     }
 
     use { 'Shatur/neovim-ayu',
-        commit = 'bae6314522e47172564203d4f1c56dc1e39c1c14',
         config = function()
             require 'ayu'.setup {
                 mirage = true,
