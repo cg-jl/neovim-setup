@@ -90,6 +90,7 @@ require 'packer'.startup(function()
     }
 
     use { 'Shatur/neovim-ayu',
+        commit = 'bae6314522e47172564203d4f1c56dc1e39c1c14',
         config = function()
             require 'ayu'.setup {
                 mirage = true,
@@ -270,8 +271,8 @@ use {
                 { name = 'buffer' }
             },
             mapping = cmp.mapping.preset.insert {
-                ["<c-space>"] = cmp.mapping.complete(),
-                ["<cr>"] = cmp.mapping.confirm { select = true }
+                ["<c-f>"] = cmp.complete(),
+                ["<c-f>"] = cmp.mapping.confirm { select = true }
             }
         }
     end
