@@ -97,7 +97,38 @@ require 'packer'.startup(function()
             }
             vim.cmd [[colorscheme ayu]]
         end,
-        disable = false,
+        disable = true,
+    }
+
+    use { 'catppuccin/nvim',
+        as = 'catppuccin',
+        config = function()
+            require 'catppuccin'.setup {
+                flavour = 'macchiato',
+                transparent_background = true,
+                term_colors = true,
+                integrations = {
+                    fidget = true,
+                    treesitter = true,
+                    barbar = true,
+                    native_lsp = {
+                        enabled = true,
+                    },
+                    lsp_trouble = true,
+                    nvimtree = true,
+                    cmp = true,
+                }
+            }
+            vim.api.nvim_command "colorscheme catppuccin"
+        end,
+    }
+
+    use {'j-hui/fidget.nvim',
+        config = function()
+            require 'fidget'.setup {
+                window = { blend = 0 } -- required by catppuccin
+            }
+        end,
     }
 
 
@@ -203,19 +234,18 @@ require 'packer'.startup(function()
     requires = { 'nvim-lua/lsp-status.nvim', 'ms-jpq/coq_nvim' },
     config = function()
         local lsp = require 'lspconfig'
-        local status = require 'lsp-status'
         local util = require 'lspconfig/util'
         local coq = require 'coq'
+        local status = require 'lsp-status'
         local utils = require 'settings-utils'
-        status.config { current_function = true }
-        status.register_progress()
         local options = coq.lsp_ensure_capabilities {
             on_attach = status.on_attach,
             capabilities = status.capabilities,
             settings = {
                 rust_analyzer = {
                     checkOnSave = { command = 'clippy' },
-                    cargo = { allFeatures = true }
+                    cargo = { allFeatures = true },
+                    checkOnSave = { allFeatures = true, extraArgs = { '--all-features' } },
                 }
             }
         }
@@ -233,7 +263,7 @@ require 'packer'.startup(function()
 
                 ['<space>a'] = vim.lsp.buf.code_action,
                 ['<space>d'] = vim.lsp.buf.definition,
-                ['<space>f'] = vim.lsp.buf.formatting,
+                ['<space>f'] = function() vim.lsp.buf.format { async = true } end,
                 ['<space>h'] = vim.lsp.buf.hover,
                 ['<space>m'] = vim.lsp.buf.rename,
                 ['<space>r'] = vim.lsp.buf.references,
@@ -248,46 +278,46 @@ require 'packer'.startup(function()
 }
 
 -- completion
-use {
-    'hrsh7th/nvim-cmp',
-    requires = { 'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'nvim-lua/plenary.nvim'},
-    config = function()
-        local cmp = require 'cmp'
-        local luasnip = require 'luasnip'
-        cmp.setup {
-            snippet = {
-                expand = function(args)
-                    luasnip.lsp_expand(args.body)
-                end
-            },
-            sources = {
-                { name = 'nvim_lsp' },
-                { name = 'luasnip' },
-                { name = 'buffer' }
-            },
-            mapping = cmp.mapping.preset.insert {
-                ["<c-f>"] = cmp.complete(),
-                ["<c-f>"] = cmp.mapping.confirm { select = true }
+    use {
+        'hrsh7th/nvim-cmp',
+        requires = { 'L3MON4D3/LuaSnip',
+            'saadparwaiz1/cmp_luasnip',
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'nvim-lua/plenary.nvim'},
+        config = function()
+            local cmp = require 'cmp'
+            local luasnip = require 'luasnip'
+            cmp.setup {
+                snippet = {
+                    expand = function(args)
+                        luasnip.lsp_expand(args.body)
+                    end
+                },
+                sources = {
+                    { name = 'nvim_lsp' },
+                    { name = 'luasnip' },
+                    { name = 'buffer' }
+                },
+                mapping = cmp.mapping.preset.insert {
+                    ["<c-f>"] = cmp.complete(),
+                    ["<c-f>"] = cmp.mapping.confirm { select = true }
+                }
+            }
+        end
+    }
+    use { 'folke/trouble.nvim',
+        requires = 'kyazdani42/nvim-web-devicons',
+        config = function()
+        local utils = require 'settings-utils'
+        utils.keys {
+            normal = {
+                ['<leader>ll'] = { cmd = 'TroubleToggle' },
+                ['<leader>lw'] = { cmd = 'TroubleWorkspaceToggle' },
+                ['<leader>ld'] = { cmd = 'TroubleDocumentToggle' }
             }
         }
-    end
-}
-use { 'folke/trouble.nvim',
-requires = 'kyazdani42/nvim-web-devicons',
-config = function()
-    local utils = require 'settings-utils'
-    utils.keys {
-        normal = {
-            ['<leader>ll'] = { cmd = 'TroubleToggle' },
-            ['<leader>lw'] = { cmd = 'TroubleWorkspaceToggle' },
-            ['<leader>ld'] = { cmd = 'TroubleDocumentToggle' }
-        }
-    }
-end
+        end
       }
 
       -- mind: take notes to another level
@@ -310,30 +340,18 @@ end
       use {
           'nvim-lualine/lualine.nvim',
           requires = {
-              'arkav/lualine-lsp-progress',
               { 'kyazdani42/nvim-web-devicons', opt = true }
           },
           config = function()
-              local status = require 'lsp-status'
-              local lualine = require 'lualine'
-              require 'lualine'.setup {
-                  options = { theme = 'auto' },
-                  sections = {
-                      lualine_c = {
-                          'filename',
-                          status.status,
-                          {'lsp_progress', spinner_symbols = { '⣾','⣽','⣻','⢿','⡿','⣟','⣯','⣷' } }
-                      },
-                      lualine_x = { 'encoding', 'fileformat', 'filetype'}
-                  },
-                  extensions = { 'fzf', 'nvim-tree', 'fugitive' }
-              }
+            require 'lualine'.setup {
+                options = { theme = 'catppuccin' },
+            }
           end
       }
 
       -- languages
       use 'ARM9/arm-syntax-vim'
-      use { '~/contrib/jakt/editors/vim', as = 'jakt' }
+      --use { '~/contrib/jakt/editors/vim', as = 'jakt' }
       use 'fladson/vim-kitty'
       use 'terminalnode/sway-vim-syntax'
   end)
