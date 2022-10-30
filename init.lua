@@ -168,14 +168,14 @@ require 'packer'.startup(function()
     use 'tpope/vim-commentary'
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
-    use {'tpope/vim-fugitive',
+    use { 'TimUntersberger/neogit',
         config = function()
+            local neogit = require 'neogit'
+            neogit.setup{}
             require 'settings-utils'.keys {
                 normal = {
-                    ['<leader>gs'] = { cmd = 'G' },
-                    ['<leader>gp'] = { cmd = 'Git push' },
-                    ['<leader>gaa'] = { cmd = 'Git add %' },
-                    ['<leader>gap'] = { cmd = 'Git add --patch' }
+                    ['<leader>gsc'] = neogit.open,
+                    ['<leader>gsp'] = function() neogit.open { kind = 'split' } end,
                 }
             }
         end
