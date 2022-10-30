@@ -104,7 +104,7 @@ require 'packer'.startup(function()
         as = 'catppuccin',
         config = function()
             require 'catppuccin'.setup {
-                flavour = 'macchiato',
+                flavour = 'mocha',
                 transparent_background = true,
                 term_colors = true,
                 integrations = {
