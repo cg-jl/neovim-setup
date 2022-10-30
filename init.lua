@@ -251,10 +251,12 @@ require 'packer'.startup(function()
         }
 
         lsp.rust_analyzer.setup(options)
+        lsp.gopls.setup(options)
         lsp.clangd.setup(options)
         lsp.zls.setup(options)
         lsp.ocamllsp.setup(options)
         lsp.jdtls.setup(options)
+        lsp.ghdl_ls.setup(options)
 
         utils.keys {
             normal = {
