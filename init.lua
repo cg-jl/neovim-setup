@@ -2,6 +2,7 @@ local utils = require 'settings-utils'
 local keys = utils.keys
 local options = utils.options
 
+
 vim.cmd [[packadd packer.nvim]]
 vim.g.mapleader = ','
 vim.keymap.set('n', '<leader>w', '<cmd>update<cr>', { silent = true })
@@ -258,7 +259,7 @@ require 'packer'.startup(function()
         lsp.jdtls.setup(options)
         lsp.ghdl_ls.setup(options)
 
-        utils.keys {
+            utils.keys {
             normal = {
                 ['<space>,'] = vim.diagnostic.goto_prev,
                 ['<space>;'] = vim.diagnostic.goto_next,
@@ -286,10 +287,22 @@ require 'packer'.startup(function()
             'saadparwaiz1/cmp_luasnip',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
+            'kdheepak/cmp-latex-symbols',
             'nvim-lua/plenary.nvim'},
         config = function()
             local cmp = require 'cmp'
             local luasnip = require 'luasnip'
+            luasnip.config.set_config {
+                enable_autosnippets = true,
+            }
+
+            -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
+            local function has_words_before() 
+                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col,col):match("%s") == nil
+            end
+
+            require 'luasnip.loaders.from_lua'.load { paths = "~/.config/nvim/LuaSnip" }
             cmp.setup {
                 snippet = {
                     expand = function(args)
@@ -299,11 +312,24 @@ require 'packer'.startup(function()
                 sources = {
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
+                    { name = 'latex_symbols' },
                     { name = 'buffer' }
                 },
                 mapping = cmp.mapping.preset.insert {
-                    ["<c-f>"] = cmp.complete(),
-                    ["<c-f>"] = cmp.mapping.confirm { select = true }
+                    ["<c-f>"] = cmp.mapping.confirm { select = true },
+                    ["<c-n>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then cmp.select_next_item()
+                        elseif luasnip.expand_or_jumpable() then luasnip.expand_or_jump()
+                        elseif has_words_before() then cmp.complete()
+                        else fallback()
+                        end
+                    end, { 'i', 's' }),
+                    ["<c-p>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then luasnip.jump(-1)
+                        else fallback()
+                        end
+                    end, { 'i', 's' })
                 }
             }
         end
@@ -353,6 +379,17 @@ require 'packer'.startup(function()
 
       -- languages
       use 'ARM9/arm-syntax-vim'
+      -- Whoever made this blog, thanks a ton!
+      -- https://www.ejmastnak.com/tutorials/vim-latex/intro.html
+      use {'lervag/vimtex', 
+        config = function() 
+            local utils = require 'settings-utils'      
+            utils.vars {
+                vimtex_view_method = 'zathura',
+                vimtex_view_forward_search_on_start = 0
+            }
+        end
+      }
       --use { '~/contrib/jakt/editors/vim', as = 'jakt' }
       use 'fladson/vim-kitty'
       use 'terminalnode/sway-vim-syntax'

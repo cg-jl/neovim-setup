@@ -49,7 +49,14 @@ local function keys(opts)
     end
 end
 
+local function vars(tbl)
+    for key, val in pairs(tbl) do
+        vim.g[key] = val
+    end
+end
+
 return {
     keys = keys,
-    options = options
+    options = options,
+    vars = vars
 }
