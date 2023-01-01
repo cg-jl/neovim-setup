@@ -189,6 +189,7 @@ require 'packer'.startup(function()
             'junegunn/fzf',
             run = vim.fn['fzf#install'],
         },
+        disable = true,
         config = function()
             local utils = require 'settings-utils'
             utils.keys {
@@ -229,8 +230,12 @@ require 'packer'.startup(function()
         end
     }
 
-    -- lsp
-    use 'mfussenegger/nvim-jdtls'
+    -- lsp/dap
+    use { 'mfussenegger/nvim-jdtls',
+        config = function()
+            
+        end,
+    }
     use { 'neovim/nvim-lspconfig',
     requires = { 'nvim-lua/lsp-status.nvim', 'ms-jpq/coq_nvim' },
     config = function()
@@ -258,8 +263,9 @@ require 'packer'.startup(function()
         lsp.ocamllsp.setup(options)
         lsp.jdtls.setup(options)
         lsp.ghdl_ls.setup(options)
+        lsp.hls.setup(options)
 
-            utils.keys {
+        utils.keys {
             normal = {
                 ['<space>,'] = vim.diagnostic.goto_prev,
                 ['<space>;'] = vim.diagnostic.goto_next,
@@ -279,6 +285,95 @@ require 'packer'.startup(function()
     end
 
 }
+
+    -- dap
+    use 'mfussenegger/nvim-dap'
+    use { 'simrat39/rust-tools.nvim',
+        requires = 'nvim-lua/plenary.nvim',
+        config = function()
+            local rt = require("rust-tools")
+
+            rt.setup({
+              server = {
+                on_attach = function(_, bufnr)
+                  -- Hover actions
+                  vim.keymap.set("n", "<space>h", rt.hover_actions.hover_actions, { buffer = bufnr })
+                  -- Code action groups
+                  vim.keymap.set("n", "<space>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+                end,
+              },
+            })
+        end,
+    }
+
+    use {'nvim-telescope/telescope.nvim', config = function()
+        require 'telescope'.setup {
+            file_ignore_patterns = {"./toolchains/*", "zig-out", "zig-cache"}
+        }
+    end}
+
+    use { 'nvim-telescope/telescope-dap.nvim',
+        requires = { 'nvim-telescope/telescope.nvim', 'theHamsta/nvim-dap-virtual-text' },
+        config = function()
+            local utils = require 'settings-utils'
+            local builtin = require 'telescope.builtin'
+            local dap = require 'dap'
+            local ts = require 'telescope'
+            utils.keys {
+                normal = {
+                    -- telescope bindings
+                    ['<leader>ff'] = builtin.find_files,
+                    ['<leader>rg'] = builtin.live_grep,
+                    -- dap bindings
+                    ['<f5>'] = dap.continue,
+                    ['<f10>'] = dap.step_over,
+                    ['<f11>'] = dap.step_into,
+                    ['<s-f11>'] = dap.step_out,
+                    ['<leader>tb'] = dap.toggle_breakpoint,
+                    ['<leader>ctb'] = function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,
+                    ['<leader>repl'] = dap.repl.open,
+
+                    -- telescope-dap bindings
+                    ['<leader>dc'] = ts.extensions.dap.commands,
+                    ['<leader>dlb'] = ts.extensions.dap.list_breakpoints,
+                    ['<leader>var'] = ts.extensions.dap.variables,
+                }
+            }
+
+            require 'telescope'.setup()
+            require 'telescope'.load_extension 'dap'
+            require 'nvim-dap-virtual-text'.setup()
+
+            local dap = require 'dap'
+            dap.adapters.lldb = {
+                type = 'executable',
+                command = '/home/gsus/.local/bin/lldb-vscode',
+                name = 'lldb',
+            }
+
+            dap.configurations.rust = {{
+                name = 'Debug Rust',
+                type = 'lldb',
+                request = 'launch',
+                program = '${workspaceFolder}/target/debug/${workspaceFolderBasename}',
+                cwd = '${workspaceFolder}',
+                stopOnEntry = false,
+            }}
+
+            dap.configurations.zig = {{
+                name = 'Debug Zig Tests',
+                type = 'lldb',
+                request = 'launch',
+                program = function()
+                    local current_file = vim.api.nvim_buf_get_name(0)
+                    local basename = current_file:match '^.*/(.*).zig$'
+                    local name = 'zig-out/bin/' .. basename .. '-test'
+                    return name
+                end,
+                args = { '/home/gsus/.local/bin/zig' },
+            }}
+        end
+    }
 
 -- completion
     use {
@@ -379,6 +474,8 @@ require 'packer'.startup(function()
 
       -- languages
       use 'ARM9/arm-syntax-vim'
+      use 'tikhomirov/vim-glsl'
+      use 'LnL7/vim-nix'
       -- Whoever made this blog, thanks a ton!
       -- https://www.ejmastnak.com/tutorials/vim-latex/intro.html
       use {'lervag/vimtex', 
@@ -390,7 +487,7 @@ require 'packer'.startup(function()
             }
         end
       }
-      --use { '~/contrib/jakt/editors/vim', as = 'jakt' }
+      use { '~/jakt/editors/vim', as = 'jakt' }
       use 'fladson/vim-kitty'
       use 'terminalnode/sway-vim-syntax'
   end)
