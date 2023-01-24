@@ -1,14 +1,20 @@
 local function options(opts)
-    for key, value in pairs(opts.global) do
-        vim.api.nvim_set_option(key, value)
+    if opts.global ~= nil then
+        for key, value in pairs(opts.global) do
+            vim.api.nvim_set_option(key, value)
+        end
     end
-    for key, value in pairs(opts.window) do
-        vim.api.nvim_set_option(key, value)
-        vim.wo[key] = value
+    if opts.window ~= nil then
+        for key, value in pairs(opts.window) do
+            vim.api.nvim_set_option(key, value)
+            vim.wo[key] = value
+        end
     end
-    for key, value in pairs(opts.buffer) do
-        vim.api.nvim_set_option(key, value)
-        vim.bo[key] = value
+    if opts.buffer ~= nil then
+        for key, value in pairs(opts.buffer) do
+            vim.api.nvim_set_option(key, value)
+            vim.bo[key] = value
+        end
     end
 end
 
