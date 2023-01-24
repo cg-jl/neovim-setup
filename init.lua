@@ -32,7 +32,7 @@ options {
         laststatus = 3,
         writebackup = false,
         clipboard = 'unnamedplus',
-        mouse = 'nicr'
+        mouse = ''
     },
     window = {
         conceallevel = 0,
@@ -103,6 +103,7 @@ require 'packer'.startup(function()
 
     use { 'catppuccin/nvim',
         as = 'catppuccin',
+        disable = true,
         config = function()
             require 'catppuccin'.setup {
                 flavour = 'mocha',
@@ -121,6 +122,18 @@ require 'packer'.startup(function()
                 }
             }
             vim.api.nvim_command "colorscheme catppuccin"
+        end,
+    }
+
+    use { 'sainnhe/gruvbox-material',
+        config = function()
+            local options = require 'settings-utils'.options
+            options {
+                global = {
+                    bg = 'light'
+                }
+            }
+            vim.api.nvim_command [[colorscheme gruvbox-material]]
         end,
     }
 
@@ -467,7 +480,7 @@ require 'packer'.startup(function()
           },
           config = function()
             require 'lualine'.setup {
-                options = { theme = 'catppuccin' },
+                options = { theme = 'auto' },
             }
           end
       }
