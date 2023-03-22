@@ -2,7 +2,6 @@ local utils = require("settings-utils")
 local keys = utils.keys
 local options = utils.options
 
-vim.cmd([[packadd packer.nvim]])
 vim.g.mapleader = ","
 vim.keymap.set("n", "<leader>w", "<cmd>update<cr>", { silent = true })
 
