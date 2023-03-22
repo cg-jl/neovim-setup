@@ -95,6 +95,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
+		"f-person/git-blame.nvim",
+		pin = true,
+		config = function()
+			vim.g["gitblame_enabled"] = 0
+		end,
+	},
+	{
 		"sainnhe/gruvbox-material",
 		pin = true,
 		config = function()
