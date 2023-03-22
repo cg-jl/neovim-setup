@@ -140,6 +140,15 @@ require("lazy").setup({
 				filetype = "jakt",
 				maintainers = { "@demizer" },
 			}
+			parser_configs.x86asm = {
+				install_info = {
+					url = "https://github.com/bearcove/tree-sitter-x86asm",
+					files = { "src/parser.c" },
+					revision = "ca72933e74ea3b3f995bc4b245f03328554f1e65",
+				},
+				filetype = "asm",
+				maintainers = { "@fasterthanlime" },
+			}
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "c", "lua" },
 				sync_install = false,
