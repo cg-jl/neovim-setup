@@ -108,7 +108,7 @@ require("lazy").setup({
 			local options = require("settings-utils").options
 			options({
 				global = {
-					bg = "light",
+					bg = "dark",
 				},
 			})
 			vim.api.nvim_command([[colorscheme gruvbox-material]])
@@ -119,7 +119,7 @@ require("lazy").setup({
 		pin = true,
 		config = function()
 			require("fidget").setup({
-				window = { blend = 0 }, -- required by catppuccin
+				window = { blend = 10 }, -- required by catppuccin
 			})
 		end,
 	},
