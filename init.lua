@@ -63,6 +63,8 @@ keys({
 		-- ['<leader>k'] = { cmd = 'lnext' },
 		-- :help update
 		["<leader>w"] = { cmd = "update" },
+		gu = { cmd = "diffget //2" }, -- left hand
+		gh = { cmd = "diffget //3" }, -- right hand
 	},
 	insert = {
 		-- classic
