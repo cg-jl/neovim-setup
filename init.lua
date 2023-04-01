@@ -414,7 +414,7 @@ require("lazy").setup({
 							fallback()
 						end
 					end, { "i", "s" }),
-					["<c-p>"] = cmp.mapping(function(fallback)
+					["<c-t>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_prev_item()
 						elseif luasnip.jumpable(-1) then
