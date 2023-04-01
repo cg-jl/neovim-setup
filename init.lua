@@ -168,6 +168,16 @@ require("lazy").setup({
 	"tpope/vim-commentary",
 	"tpope/vim-surround",
 	"tpope/vim-repeat",
+	{
+		"tpope/vim-fugitive",
+		config = function()
+			require("settings-utils").keys({
+				normal = {
+					["<leader>gs"] = { cmd = "Git" },
+				},
+			})
+		end,
+	},
 
 	-- switch between open files with a couple keys
 	{
