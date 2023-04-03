@@ -110,7 +110,7 @@ require("lazy").setup({
 			local options = require("settings-utils").options
 			options({
 				global = {
-					bg = "dark",
+					bg = "light",
 				},
 			})
 			vim.api.nvim_command([[colorscheme gruvbox-material]])
