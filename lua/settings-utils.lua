@@ -30,6 +30,9 @@ local function keys(opts)
 			opts.expr = true
 		elseif obj.cmd ~= nil then
 			rhs = "<cmd>" .. obj.cmd .. "<cr>"
+			if mode == "v" then
+				rhs = "<esc>" .. rhs
+			end
 			opts.silent = true
 		else
 			rhs = obj[1]
