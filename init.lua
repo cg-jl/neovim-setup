@@ -125,6 +125,7 @@ require("lazy").setup({
 			})
 		end,
 	},
+
 	{
 		"nvim-treesitter/nvim-treesitter",
 		pin = true,
@@ -255,16 +256,37 @@ require("lazy").setup({
 					end,
 					["<space>h"] = vim.lsp.buf.hover,
 					["<space>m"] = vim.lsp.buf.rename,
-					["<space>r"] = vim.lsp.buf.references,
+					["<space>rr"] = vim.lsp.buf.references,
 					["<space>s"] = vim.lsp.buf.document_symbol,
 				},
 				visual = {
-					["<space>a"] = vim.lsp.buf.range_code_action,
+					["<space>a"] = vim.lsp.buf.code_action,
 				},
 			})
 		end,
 	},
 	{ "mfussenegger/nvim-jdtls", lazy = true, ft = "java" }, -- java language server
+	{
+		"ThePrimeagen/refactoring.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter", "nvim-telescope/telescope.nvim" },
+		pin = true,
+		config = function()
+			local r = require("refactoring")
+			r.setup({})
+
+			local t = require("telescope")
+			t.load_extension("refactoring")
+
+			require("settings-utils").keys({
+				visual = {
+					["<space>rf"] = { cmd = "lua require 'telescope'.extensions.refactoring.refactors()" },
+				},
+				normal = {
+					["<space>rf"] = { cmd = "lua require 'telescope'.extensions.refactoring.refactors()" },
+				},
+			})
+		end,
+	},
 	{
 		"simrat39/rust-tools.nvim",
 		lazy = true,
