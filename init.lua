@@ -243,6 +243,7 @@ require("lazy").setup({
 			lsp.jdtls.setup(options)
 			lsp.ghdl_ls.setup(options)
 			lsp.hls.setup(options)
+			lsp.arduino_language_server.setup(options)
 
 			utils.keys({
 				normal = {
