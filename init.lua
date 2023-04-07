@@ -195,6 +195,21 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"ThePrimeagen/harpoon",
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+		config = function()
+			require("telescope").load_extension("harpoon")
+			require("settings-utils").keys({
+				normal = {
+					["<a-n>"] = function()
+						require("harpoon.mark").add_file()
+					end,
+					["<a-t>"] = { cmd = "Telescope harpoon marks" },
+				},
+			})
+		end,
+	},
+	{
 		"kyazdani42/nvim-tree.lua",
 		dependencies = "kyazdani42/nvim-web-devicons",
 		config = function()
