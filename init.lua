@@ -186,17 +186,17 @@ require("lazy").setup({
 	},
 
 	-- switch between open files with a couple keys
-	{
-		"romgrk/barbar.nvim",
-		dependencies = "kyazdani42/nvim-web-devicons",
-		config = function()
-			require("settings-utils").keys({
-				normal = {
-					["<leader>bp"] = { cmd = "BufferPick" },
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"romgrk/barbar.nvim",
+	-- 	dependencies = "kyazdani42/nvim-web-devicons",
+	-- 	config = function()
+	-- 		require("settings-utils").keys({
+	-- 			normal = {
+	-- 				["<leader>bp"] = { cmd = "BufferPick" },
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"ThePrimeagen/harpoon",
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
@@ -516,8 +516,6 @@ require("lazy").setup({
 				options = {
 					icons_enabled = true,
 					theme = "auto",
-					component_separators = "|",
-					section_separators = "",
 				},
 				sections = {
 					lualine_a = {
