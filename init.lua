@@ -56,6 +56,9 @@ keys({
 		["<m-k>"] = "<c-w>k",
 		["<m-h>"] = "<c-w>h",
 		["<m-l>"] = "<c-w>l",
+		["t"] = { cmd = "bprev" },
+		["s"] = { cmd = "bnext" },
+
 		-- quickfix list
 		-- ['<c-j>'] = { cmd = 'cprev' },
 		-- ['<c-k>'] = { cmd = 'cnext' },
@@ -341,6 +344,7 @@ require("lazy").setup({
 					-- telescope bindings
 					["<leader>ff"] = builtin.find_files,
 					["<leader>rg"] = builtin.live_grep,
+					["<leader>bb"] = builtin.buffers,
 					-- dap bindings
 					["<f5>"] = dap.continue,
 					["<f10>"] = dap.step_over,
@@ -509,7 +513,19 @@ require("lazy").setup({
 		},
 		config = function()
 			require("lualine").setup({
-				options = { theme = "auto" },
+				options = {
+					icons_enabled = true,
+					theme = "auto",
+					component_separators = "|",
+					section_separators = "",
+				},
+				sections = {
+					lualine_a = {
+						{
+							"buffers",
+						},
+					},
+				},
 			})
 		end,
 	},
