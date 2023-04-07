@@ -523,6 +523,7 @@ require("lazy").setup({
 							"buffers",
 						},
 					},
+					lualine_c = {},
 				},
 			})
 		end,
