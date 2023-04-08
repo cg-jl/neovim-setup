@@ -345,6 +345,8 @@ require("lazy").setup({
 					["<leader>ff"] = builtin.find_files,
 					["<leader>rg"] = builtin.live_grep,
 					["<leader>bb"] = builtin.buffers,
+					["<leader>jl"] = builtin.jumplist,
+
 					-- dap bindings
 					["<f5>"] = dap.continue,
 					["<f10>"] = dap.step_over,
