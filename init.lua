@@ -346,6 +346,7 @@ require("lazy").setup({
 					["<leader>rg"] = builtin.live_grep,
 					["<leader>bb"] = builtin.buffers,
 					["<leader>jl"] = builtin.jumplist,
+					["<leader>m"] = builtin.marks,
 
 					-- dap bindings
 					["<f5>"] = dap.continue,
