@@ -116,7 +116,10 @@ require("lazy").setup({
 					bg = "light",
 				},
 			})
-			vim.api.nvim_command([[colorscheme gruvbox-material]])
+			vim.api.nvim_command([[
+let g:gruvbox_material_background = 'soft'
+colorscheme gruvbox-material
+]])
 		end,
 	},
 	{
