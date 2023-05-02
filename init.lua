@@ -227,22 +227,6 @@ colorscheme gruvbox-material
 			})
 		end,
 	},
-	{
-		"kyazdani42/nvim-tree.lua",
-		dependencies = "kyazdani42/nvim-web-devicons",
-		config = function()
-			local utils = require("settings-utils")
-			require("nvim-tree").setup({
-				disable_netrw = true,
-				hijack_netrw = true,
-			})
-			utils.keys({
-				normal = {
-					["<leader>e"] = { cmd = "NvimTreeToggle" },
-				},
-			})
-		end,
-	},
 
 	-- ----------------------------------------
 	-- lsp & dap
