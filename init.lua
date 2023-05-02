@@ -31,9 +31,11 @@ options({
 		writebackup = false,
 		clipboard = "unnamedplus",
 		mouse = "",
+        bg = 'light',
 	},
 	window = {
 		conceallevel = 0,
+		colorcolumn = "80",
 		cursorline = false,
 		signcolumn = "yes",
 		list = false,
@@ -42,7 +44,6 @@ options({
 	},
 	buffer = {
 		tabstop = 4,
-		textwidth = 80, -- wrap lines when I'm writing
 		shiftwidth = 4,
 		expandtab = true,
 		swapfile = false,
@@ -106,9 +107,20 @@ require("lazy").setup({
 			vim.g["gitblame_enabled"] = 0
 		end,
 	},
+    {
+        'rose-pine/neovim',
+        name = 'rose-pine',
+        config = function()
+            require 'rose-pine'.setup {
+                variant = 'auto',
+            }
+            vim.api.nvim_command('colorscheme rose-pine')
+        end
+    },
 	{
 		"sainnhe/gruvbox-material",
 		pin = true,
+        enabled = false,
 		config = function()
 			local options = require("settings-utils").options
 			options({
