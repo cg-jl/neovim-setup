@@ -31,7 +31,7 @@ options({
 		writebackup = false,
 		clipboard = "unnamedplus",
 		mouse = "",
-        bg = 'light',
+		bg = "dark",
 	},
 	window = {
 		conceallevel = 0,
@@ -45,7 +45,7 @@ options({
 	buffer = {
 		tabstop = 4,
 		shiftwidth = 4,
-		expandtab = true,
+		expandtab = false,
 		swapfile = false,
 	},
 })
@@ -107,20 +107,20 @@ require("lazy").setup({
 			vim.g["gitblame_enabled"] = 0
 		end,
 	},
-    {
-        'rose-pine/neovim',
-        name = 'rose-pine',
-        config = function()
-            require 'rose-pine'.setup {
-                variant = 'auto',
-            }
-            vim.api.nvim_command('colorscheme rose-pine')
-        end
-    },
+	{
+		"rose-pine/neovim",
+		name = "rose-pine",
+		config = function()
+			require("rose-pine").setup({
+				variant = "auto",
+			})
+			vim.api.nvim_command("colorscheme rose-pine")
+		end,
+	},
 	{
 		"sainnhe/gruvbox-material",
 		pin = true,
-        enabled = false,
+		enabled = false,
 		config = function()
 			local options = require("settings-utils").options
 			options({
@@ -152,11 +152,21 @@ colorscheme gruvbox-material
 		end,
 		config = function()
 			local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+
+			parser_configs.zig = {
+				install_info = {
+					url = "https://github.com/maxxnino/tree-sitter-zig",
+					files = { "src/parser.c" },
+					revision = "d1df4735c1d7ffc2b38d483347d6eaf7f42e5849",
+				},
+				filetype = "zig",
+				maintainers = { "@maxxnino" },
+			}
 			parser_configs.jakt = {
 				install_info = {
-					url = "https://github.com/demizer/tree-sitter-jakt",
+					url = "https://github.com/SerenityOS/tree-sitter-jakt",
 					files = { "src/parser.c", "src/scanner.c" },
-					revision = "a65bffd7ab951081c50df41897e850f8b46e0eff",
+					revision = "3d2c7e4b030644854fb3bfec05de2ee36716653b",
 				},
 				filetype = "jakt",
 				maintainers = { "@demizer" },
@@ -251,6 +261,7 @@ colorscheme gruvbox-material
 					},
 				},
 			})
+
 
 			lsp.rust_analyzer.setup(options)
 			lsp.gopls.setup(options)
@@ -549,7 +560,7 @@ colorscheme gruvbox-material
 			})
 		end,
 	},
-	{ dir = "~/jakt/editors/vim", as = "jakt", lazy = true, ft = "jakt" },
+    { dir = "~/jakt/editors/vim", as = "jakt", ft = "jakt", lazy = true },
 	"fladson/vim-kitty",
 	"terminalnode/sway-vim-syntax",
 })
