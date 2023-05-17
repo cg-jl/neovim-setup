@@ -31,7 +31,7 @@ options({
 		writebackup = false,
 		clipboard = "unnamedplus",
 		mouse = "",
-		bg = "dark",
+		bg = "light",
 	},
 	window = {
 		conceallevel = 0,
@@ -52,11 +52,6 @@ options({
 
 keys({
 	normal = {
-		-- alt navigation
-		["<m-j>"] = "<c-w>j",
-		["<m-k>"] = "<c-w>k",
-		["<m-h>"] = "<c-w>h",
-		["<m-l>"] = "<c-w>l",
 		["t"] = { cmd = "bprev" },
 		["s"] = { cmd = "bnext" },
 
