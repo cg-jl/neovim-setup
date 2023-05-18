@@ -246,7 +246,20 @@ colorscheme gruvbox-material
 			local status = require("lsp-status")
 			local utils = require("settings-utils")
 			local options = coq.lsp_ensure_capabilities({
-				on_attach = status.on_attach,
+				on_attach = function(client, bufnr)
+					local caps = client.server_capabilities
+					if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
+					  local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
+					  vim.api.nvim_create_autocmd("TextChanged", {
+						group = augroup,
+						buffer = bufnr,
+						callback = function()
+						  vim.lsp.semantic_tokens.force_refresh()
+						end,
+					  })
+					end
+					status.on_attach(client, bufnr)
+				end,
 				capabilities = status.capabilities,
 				settings = {
 					rust_analyzer = {
