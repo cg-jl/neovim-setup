@@ -31,7 +31,7 @@ options({
 		writebackup = false,
 		clipboard = "unnamedplus",
 		mouse = "",
-		bg = "light",
+		bg = "dark",
 	},
 	window = {
 		conceallevel = 0,
