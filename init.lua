@@ -176,7 +176,7 @@ colorscheme gruvbox-material
 				maintainers = { "@fasterthanlime" },
 			}
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "c", "lua" },
+				ensure_installed = {},
 				sync_install = false,
 				highlight = { enable = true },
 			})
