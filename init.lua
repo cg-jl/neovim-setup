@@ -96,12 +96,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"travisjeffery/vim-auto-mkdir"
+		"travisjeffery/vim-auto-mkdir",
 	},
 	{
 		"cocopon/iceberg.vim",
 		config = function()
-			vim.api.nvim_command [[colorscheme iceberg]]
+			vim.api.nvim_command([[colorscheme iceberg]])
 		end,
 	},
 	{
@@ -117,8 +117,8 @@ colorscheme gruvbox-material
 		end,
 	},
 	{
-	"kylelaker/riscv.vim"
-},
+		"kylelaker/riscv.vim",
+	},
 	{
 		"j-hui/fidget.nvim",
 		pin = true,
@@ -239,14 +239,14 @@ colorscheme gruvbox-material
 				on_attach = function(client, bufnr)
 					local caps = client.server_capabilities
 					if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-					  local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
-					  vim.api.nvim_create_autocmd("TextChanged", {
-						group = augroup,
-						buffer = bufnr,
-						callback = function()
-						  vim.lsp.semantic_tokens.force_refresh()
-						end,
-					  })
+						local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
+						vim.api.nvim_create_autocmd("TextChanged", {
+							group = augroup,
+							buffer = bufnr,
+							callback = function()
+								vim.lsp.semantic_tokens.force_refresh()
+							end,
+						})
 					end
 					status.on_attach(client, bufnr)
 				end,
@@ -259,7 +259,6 @@ colorscheme gruvbox-material
 					},
 				},
 			})
-
 
 			lsp.rust_analyzer.setup(options)
 			lsp.gopls.setup(options)
@@ -558,7 +557,7 @@ colorscheme gruvbox-material
 			})
 		end,
 	},
-    { dir = "~/jakt/editors/vim", as = "jakt", ft = "jakt", lazy = true },
+	{ dir = "~/jakt/editors/vim", as = "jakt", ft = "jakt", lazy = true },
 	"fladson/vim-kitty",
 	"terminalnode/sway-vim-syntax",
 })
