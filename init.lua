@@ -58,12 +58,15 @@ keys({
 		-- quickfix list
 		-- ['<c-j>'] = { cmd = 'cprev' },
 		-- ['<c-k>'] = { cmd = 'cnext' },
-		-- ['<leader>j'] = { cmd = 'lprev' },
-		-- ['<leader>k'] = { cmd = 'lnext' },
+		["<m-t>"] = { cmd = "cnext"},
+		["<m-h>"] = { cmd = "cprev"},
+		["<space>t"] = { cmd = "lnext"},
+		["<space>s"] = { cmd = "lprev" },
 		-- :help update
 		["<leader>w"] = { cmd = "update" },
 		gu = { cmd = "diffget //2" }, -- left hand
 		gh = { cmd = "diffget //3" }, -- right hand
+		
 	},
 	insert = {
 		-- classic
@@ -236,20 +239,7 @@ colorscheme gruvbox-material
 			local status = require("lsp-status")
 			local utils = require("settings-utils")
 			local options = coq.lsp_ensure_capabilities({
-				on_attach = function(client, bufnr)
-					local caps = client.server_capabilities
-					if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-						local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
-						vim.api.nvim_create_autocmd("TextChanged", {
-							group = augroup,
-							buffer = bufnr,
-							callback = function()
-								vim.lsp.semantic_tokens.force_refresh()
-							end,
-						})
-					end
-					status.on_attach(client, bufnr)
-				end,
+				on_attach = status.on_attach,
 				capabilities = status.capabilities,
 				settings = {
 					rust_analyzer = {
@@ -283,7 +273,6 @@ colorscheme gruvbox-material
 					["<space>h"] = vim.lsp.buf.hover,
 					["<space>m"] = vim.lsp.buf.rename,
 					["<space>rr"] = vim.lsp.buf.references,
-					["<space>s"] = vim.lsp.buf.document_symbol,
 				},
 				visual = {
 					["<space>a"] = vim.lsp.buf.code_action,
