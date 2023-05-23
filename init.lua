@@ -103,13 +103,12 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"rose-pine/neovim",
-		name = "rose-pine",
+		"travisjeffery/vim-auto-mkdir"
+	},
+	{
+		"cocopon/iceberg.vim",
 		config = function()
-			require("rose-pine").setup({
-				variant = "auto",
-			})
-			vim.api.nvim_command("colorscheme rose-pine")
+			vim.api.nvim_command [[colorscheme iceberg]]
 		end,
 	},
 	{
@@ -118,17 +117,15 @@ require("lazy").setup({
 		enabled = false,
 		config = function()
 			local options = require("settings-utils").options
-			options({
-				global = {
-					bg = "light",
-				},
-			})
 			vim.api.nvim_command([[
 let g:gruvbox_material_background = 'soft'
 colorscheme gruvbox-material
 ]])
 		end,
 	},
+	{
+	"kylelaker/riscv.vim"
+},
 	{
 		"j-hui/fidget.nvim",
 		pin = true,
@@ -536,7 +533,7 @@ colorscheme gruvbox-material
 			require("lualine").setup({
 				options = {
 					icons_enabled = true,
-					theme = "auto",
+					theme = "iceberg",
 				},
 				sections = {
 					lualine_a = {
