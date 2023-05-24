@@ -154,7 +154,10 @@ colorscheme gruvbox-material
 				install_info = {
 					url = "https://github.com/SerenityOS/tree-sitter-jakt",
 					files = { "src/parser.c", "src/scanner.c" },
-					revision = "3d2c7e4b030644854fb3bfec05de2ee36716653b",
+					branch = "main",
+					generate_requires_npm = false,
+					-- src/parser.c already generated
+					requires_generate_from_grammar = false,
 				},
 				filetype = "jakt",
 				maintainers = { "@demizer" },
