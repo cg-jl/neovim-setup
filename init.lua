@@ -58,15 +58,14 @@ keys({
 		-- quickfix list
 		-- ['<c-j>'] = { cmd = 'cprev' },
 		-- ['<c-k>'] = { cmd = 'cnext' },
-		["<m-t>"] = { cmd = "cnext"},
-		["<m-h>"] = { cmd = "cprev"},
-		["<space>t"] = { cmd = "lnext"},
+		["<m-t>"] = { cmd = "cnext" },
+		["<m-s>"] = { cmd = "cprev" },
+		["<space>t"] = { cmd = "lnext" },
 		["<space>s"] = { cmd = "lprev" },
 		-- :help update
 		["<leader>w"] = { cmd = "update" },
 		gu = { cmd = "diffget //2" }, -- left hand
 		gh = { cmd = "diffget //3" }, -- right hand
-		
 	},
 	insert = {
 		-- classic
@@ -108,15 +107,16 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"sainnhe/gruvbox-material",
-		pin = true,
-		enabled = false,
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {},
 		config = function()
-			local options = require("settings-utils").options
-			vim.api.nvim_command([[
-let g:gruvbox_material_background = 'soft'
-colorscheme gruvbox-material
-]])
+			require("todo-comments").setup()
+			require("settings-utils").keys({
+				normal = {
+					["<leader>lt"] = { cmd = "TodoLocList" },
+				},
+			})
 		end,
 	},
 	{
@@ -223,7 +223,7 @@ colorscheme gruvbox-material
 					["<a-n>"] = function()
 						require("harpoon.mark").add_file()
 					end,
-					["<a-t>"] = { cmd = "Telescope harpoon marks" },
+					["<a-m>"] = { cmd = "Telescope harpoon marks" },
 				},
 			})
 		end,
@@ -253,6 +253,19 @@ colorscheme gruvbox-material
 				},
 			})
 
+			do
+				local group = vim.api.nvim_create_augroup("JaktLsp", {})
+				vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+					pattern = { "*.jakt" },
+					callback = function()
+						vim.lsp.set_log_level("TRACE")
+						vim.lsp.start_client({
+							cmd = { "/home/gsus/testlsp/build/lsptest" },
+						})
+					end,
+				})
+			end
+
 			lsp.rust_analyzer.setup(options)
 			lsp.gopls.setup(options)
 			lsp.clangd.setup(options)
@@ -265,9 +278,7 @@ colorscheme gruvbox-material
 
 			utils.keys({
 				normal = {
-					["<space>,"] = vim.diagnostic.goto_prev,
-					["<space>;"] = vim.diagnostic.goto_next,
-
+					["<space>q"] = vim.diagnostic.setloclist,
 					["<space>a"] = vim.lsp.buf.code_action,
 					["<space>d"] = vim.lsp.buf.definition,
 					["<space>f"] = function()
@@ -294,6 +305,13 @@ colorscheme gruvbox-material
 
 			local t = require("telescope")
 			t.load_extension("refactoring")
+			t.setup({
+				mappings = {
+					n = {
+						["<c-l>"] = require("telescope.actions").send_to_loclist,
+					},
+				},
+			})
 
 			require("settings-utils").keys({
 				visual = {
