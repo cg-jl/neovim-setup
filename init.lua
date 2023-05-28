@@ -45,7 +45,7 @@ options({
 	buffer = {
 		tabstop = 4,
 		shiftwidth = 4,
-		expandtab = false,
+		expandtab = true,
 		swapfile = false,
 	},
 })
