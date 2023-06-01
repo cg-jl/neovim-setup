@@ -101,7 +101,19 @@ require("lazy").setup({
 		"travisjeffery/vim-auto-mkdir",
 	},
 	{
+		"catppuccin/nvim",
+		as = "catppuccin",
+		config = function()
+			require("catppuccin").setup({
+				flavour = "mocha",
+				show_end_of_buffer = true,
+			})
+			vim.api.nvim_command("colorscheme catppuccin")
+		end,
+	},
+	{
 		"cocopon/iceberg.vim",
+		enabled = false,
 		config = function()
 			vim.api.nvim_command([[colorscheme iceberg]])
 		end,
