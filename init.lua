@@ -200,7 +200,6 @@ require("lazy").setup({
 
 	-- classics
 	"tpope/vim-commentary",
-	"tpope/vim-surround",
 	"tpope/vim-repeat",
 	{
 		"tpope/vim-fugitive",
