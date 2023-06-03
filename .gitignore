@@ -2,3 +2,4 @@
 .ccls*
 /syntax
 /plugin
+.direnv
