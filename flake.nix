@@ -8,7 +8,7 @@
     in { 
       devShell = pkgs.mkShell {
         name = "nvim-lua";
-        buildInputs = with pkgs; [ stylua ];
+        buildInputs = with pkgs; [ stylua tokei ];
       };
     }
   );
