@@ -20,6 +20,7 @@ vim.wo.conceallevel = 0
 vim.wo.colorcolumn = "80"
 vim.wo.cursorline = false
 vim.wo.signcolumn = "yes"
+vim.wo.cursorline = true
 vim.wo.list = false
 vim.wo.number = true
 vim.wo.relativenumber = true
