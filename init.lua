@@ -106,15 +106,6 @@ require("lazy").setup({
 		config = function()
 			local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
-			parser_configs.zig = {
-				install_info = {
-					url = "https://github.com/maxxnino/tree-sitter-zig",
-					files = { "src/parser.c" },
-					revision = "d1df4735c1d7ffc2b38d483347d6eaf7f42e5849",
-				},
-				filetype = "zig",
-				maintainers = { "@maxxnino" },
-			}
 			parser_configs.jakt = {
 				install_info = {
 					url = "https://github.com/SerenityOS/tree-sitter-jakt",
