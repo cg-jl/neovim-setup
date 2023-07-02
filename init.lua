@@ -14,7 +14,7 @@ vim.go.laststatus = 3
 vim.go.writebackup = false
 vim.go.clipboard = "unnamedplus"
 vim.go.mouse = ""
-vim.go.bg = "dark"
+vim.go.bg = "light"
 
 vim.wo.conceallevel = 0
 vim.wo.colorcolumn = "80"
@@ -78,8 +78,9 @@ require("lazy").setup({
 	-- colorscheme
 	{
 		"cocopon/iceberg.vim",
+        dependencies = { "xiyaowong/transparent.nvim" },
 		config = function()
-			vim.api.nvim_command([[colorscheme iceberg]])
+			vim.cmd.colorscheme("iceberg")
 		end,
 	},
 	{
