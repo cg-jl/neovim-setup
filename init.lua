@@ -14,7 +14,7 @@ vim.go.laststatus = 3
 vim.go.writebackup = false
 vim.go.clipboard = "unnamedplus"
 vim.go.mouse = ""
-vim.go.bg = "light"
+vim.go.bg = "dark"
 
 vim.wo.conceallevel = 0
 vim.wo.colorcolumn = "80"
@@ -76,13 +76,14 @@ require("lazy").setup({
 	-- automkdir solves all my tree problems :)
 	"travisjeffery/vim-auto-mkdir",
 	-- colorscheme
-	{
-		"cocopon/iceberg.vim",
-        dependencies = { "xiyaowong/transparent.nvim" },
-		config = function()
-			vim.cmd.colorscheme("iceberg")
-		end,
-	},
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        config = function()
+            vim.cmd.colorscheme "catppuccin"
+        end
+    },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
