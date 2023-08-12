@@ -25,10 +25,10 @@ vim.wo.list = false
 vim.wo.number = true
 vim.wo.relativenumber = true
 
-vim.bo.tabstop = 4
-vim.bo.shiftwidth = 4
-vim.bo.expandtab = true
-vim.bo.swapfile = false
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.swapfile = false
 
 -- keys
 
@@ -77,13 +77,25 @@ require("lazy").setup({
 	"travisjeffery/vim-auto-mkdir",
 	-- colorscheme
     {
-        "catppuccin/nvim",
-        name = "catppuccin",
+        'rose-pine/neovim',
+        name = 'rose-pine',
         priority = 1000,
         config = function()
-            vim.cmd.colorscheme "catppuccin"
+            require 'rose-pine'.setup {
+                variant = 'auto',
+            }
+            vim.opt.background = 'light'
+            vim.api.nvim_command('colorscheme rose-pine')
         end
     },
+    -- {
+    --     "catppuccin/nvim",
+    --     name = "catppuccin",
+    --     priority = 1000,
+    --     config = function()
+    --         vim.cmd.colorscheme "catppuccin"
+    --     end
+    -- },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -213,8 +225,6 @@ require("lazy").setup({
 					on_attach = function(_, bufnr)
 						-- Hover actions
 						vim.keymap.set("n", "<space>h", rt.hover_actions.hover_actions, { buffer = bufnr })
-						-- Code action groups
-						vim.keymap.set("n", "<space>a", rt.code_action_group.code_action_group, { buffer = bufnr })
 					end,
 				},
 			})
@@ -223,6 +233,7 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		pin = true,
+        dependencies = {"nvim-telescope/telescope-ui-select.nvim"},
 		config = function()
 			local builtin = require("telescope.builtin")
 			local ts = require("telescope")
@@ -232,6 +243,8 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>bb", builtin.buffers)
 			vim.keymap.set("n", "<leader>jl", builtin.jumplist)
 			vim.keymap.set("n", "<leader>m", builtin.marks)
+
+            ts.load_extension("ui-select")
 
 			require("telescope").setup({
 				file_ignore_patterns = { "./toolchains/*", "zig-out", "zig-cache" },
@@ -328,7 +341,7 @@ require("lazy").setup({
 			require("lualine").setup({
 				options = {
 					icons_enabled = true,
-					theme = "auto",
+					theme = "rose-pine",
 				},
 				sections = {
 					lualine_a = { { "buffers" } },
