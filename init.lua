@@ -19,6 +19,7 @@ vim.go.bg = "dark"
 vim.wo.conceallevel = 0
 vim.wo.colorcolumn = "80"
 vim.wo.cursorline = false
+vim.wo.cursorlineopt = "number"
 vim.wo.signcolumn = "yes"
 vim.wo.cursorline = true
 vim.wo.list = false
@@ -76,26 +77,45 @@ require("lazy").setup({
 	-- automkdir solves all my tree problems :)
 	"travisjeffery/vim-auto-mkdir",
 	-- colorscheme
-    {
-        'rose-pine/neovim',
-        name = 'rose-pine',
-        priority = 1000,
-        config = function()
-            require 'rose-pine'.setup {
-                variant = 'auto',
-            }
-            vim.opt.background = 'light'
-            vim.api.nvim_command('colorscheme rose-pine')
-        end
-    },
-    -- {
-    --     "catppuccin/nvim",
-    --     name = "catppuccin",
-    --     priority = 1000,
-    --     config = function()
-    --         vim.cmd.colorscheme "catppuccin"
-    --     end
-    -- },
+	{
+		"folke/tokyonight.nvim",
+		priority = 1000,
+		lazy = false,
+		config = function()
+			vim.cmd.colorscheme("tokyonight-night")
+		end,
+	},
+	-- {
+	--     'projekt0n/github-nvim-theme',
+	--     priority = 1000,
+	--     lazy = false,
+	--     config = function()
+	--         require('github-theme').setup({
+	--         })
+
+	--         vim.cmd.colorscheme "github_dark_tritanopia"
+	--     end,
+	-- },
+	-- {
+	--     'rose-pine/neovim',
+	--     name = 'rose-pine',
+	--     priority = 1000,
+	--     config = function()
+	--         require 'rose-pine'.setup {
+	--             variant = 'auto',
+	--         }
+	--         vim.opt.background = 'dark'
+	--         vim.api.nvim_command('colorscheme rose-pine')
+	--     end
+	-- },
+	-- {
+	--     "catppuccin/nvim",
+	--     name = "catppuccin",
+	--     priority = 1000,
+	--     config = function()
+	--         vim.cmd.colorscheme "catppuccin"
+	--     end
+	-- },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -196,6 +216,8 @@ require("lazy").setup({
 			lsp.clangd.setup(options)
 			lsp.zls.setup(options)
 			lsp.jdtls.setup(options)
+			lsp.ocamllsp.setup(options)
+			lsp.ols.setup(options)
 
 			vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
 			vim.keymap.set("n", "<space>a", vim.lsp.buf.code_action)
@@ -233,7 +255,7 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		pin = true,
-        dependencies = {"nvim-telescope/telescope-ui-select.nvim"},
+		dependencies = { "nvim-telescope/telescope-ui-select.nvim" },
 		config = function()
 			local builtin = require("telescope.builtin")
 			local ts = require("telescope")
@@ -244,7 +266,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>jl", builtin.jumplist)
 			vim.keymap.set("n", "<leader>m", builtin.marks)
 
-            ts.load_extension("ui-select")
+			ts.load_extension("ui-select")
 
 			require("telescope").setup({
 				file_ignore_patterns = { "./toolchains/*", "zig-out", "zig-cache" },
@@ -341,7 +363,7 @@ require("lazy").setup({
 			require("lualine").setup({
 				options = {
 					icons_enabled = true,
-					theme = "rose-pine",
+					theme = "tokyonight",
 				},
 				sections = {
 					lualine_a = { { "buffers" } },
@@ -351,11 +373,47 @@ require("lazy").setup({
 		end,
 	},
 
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = { "rcarriga/nvim-dap-ui" },
+		config = function()
+			local dap = require("dap")
+			require("dapui").setup()
+
+			dap.adapters.lldb = {
+				type = "executable",
+				command = "/etc/profiles/per-user/gsus/bin/lldb-vscode",
+				name = "lldb",
+			}
+			dap.configurations.cpp = {
+				{
+					name = "launch",
+					type = "lldb",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+					end,
+					cwd = "${workspaceFolder}",
+					stopOnEntry = false,
+					args = {},
+				},
+			}
+		end,
+	},
+
 	-- more language support
 	"ARM9/arm-syntax-vim",
 	"tikhomirov/vim-glsl",
 	"LnL7/vim-nix",
 	"kylelaker/riscv.vim",
+	{
+		"tjdevries/ocaml.nvim",
+		ft = "ocaml",
+		priority = 2, -- XXX: make sure this happens before tree-sitter
+		config = function()
+			require("ocaml").setup()
+		end,
+	},
 	-- Whoever made this blog, thanks a ton!
 	-- https://www.ejmastnak.com/tutorials/vim-latex/intro.html
 	{
