@@ -85,39 +85,9 @@ require("lazy").setup({
 			vim.cmd.colorscheme("tokyonight-night")
 		end,
 	},
-	-- {
-	--     'projekt0n/github-nvim-theme',
-	--     priority = 1000,
-	--     lazy = false,
-	--     config = function()
-	--         require('github-theme').setup({
-	--         })
-
-	--         vim.cmd.colorscheme "github_dark_tritanopia"
-	--     end,
-	-- },
-	-- {
-	--     'rose-pine/neovim',
-	--     name = 'rose-pine',
-	--     priority = 1000,
-	--     config = function()
-	--         require 'rose-pine'.setup {
-	--             variant = 'auto',
-	--         }
-	--         vim.opt.background = 'dark'
-	--         vim.api.nvim_command('colorscheme rose-pine')
-	--     end
-	-- },
-	-- {
-	--     "catppuccin/nvim",
-	--     name = "catppuccin",
-	--     priority = 1000,
-	--     config = function()
-	--         vim.cmd.colorscheme "catppuccin"
-	--     end
-	-- },
 	{
 		"folke/todo-comments.nvim",
+		lazy = true,
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("todo-comments").setup()
@@ -126,6 +96,7 @@ require("lazy").setup({
 	},
 	{
 		"j-hui/fidget.nvim",
+		lazy = true,
 		pin = true,
 		config = function()
 			require("fidget").setup({
@@ -136,6 +107,7 @@ require("lazy").setup({
 
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
 		pin = false,
 		config = function()
 			local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
@@ -169,6 +141,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
+		lazy = true,
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			require("treesitter-context").setup()
@@ -180,6 +153,7 @@ require("lazy").setup({
 	"tpope/vim-repeat",
 	{
 		"tpope/vim-fugitive",
+		lazy = true,
 		config = function()
 			vim.keymap.set("n", "<leader>gs", ":Git<cr>")
 		end,
@@ -187,6 +161,7 @@ require("lazy").setup({
 
 	{
 		"ThePrimeagen/harpoon",
+		lazy = true,
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
 		config = function()
 			require("telescope").load_extension("harpoon")
@@ -201,6 +176,7 @@ require("lazy").setup({
 	-- lsp
 	{
 		"neovim/nvim-lspconfig",
+		lazy = false,
 		pin = true,
 		dependencies = { "nvim-lua/lsp-status.nvim" },
 		config = function()
@@ -254,6 +230,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-telescope/telescope.nvim",
+		lazy = false,
 		pin = true,
 		dependencies = { "nvim-telescope/telescope-ui-select.nvim" },
 		config = function()
@@ -278,6 +255,7 @@ require("lazy").setup({
 	-- completion
 	{
 		"hrsh7th/nvim-cmp",
+		lazy = false,
 		dependencies = {
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
@@ -344,6 +322,7 @@ require("lazy").setup({
 	-- misc
 	{
 		"phaazon/mind.nvim",
+		lazy = false,
 		branch = "v2",
 		config = function()
 			local mind = require("mind")
@@ -356,6 +335,8 @@ require("lazy").setup({
 	-- statusline
 	{
 		"nvim-lualine/lualine.nvim",
+		lazy = false,
+		priority = 100,
 		dependencies = {
 			"kyazdani42/nvim-web-devicons",
 		},
@@ -373,34 +354,6 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"mfussenegger/nvim-dap",
-		dependencies = { "rcarriga/nvim-dap-ui" },
-		config = function()
-			local dap = require("dap")
-			require("dapui").setup()
-
-			dap.adapters.lldb = {
-				type = "executable",
-				command = "/etc/profiles/per-user/gsus/bin/lldb-vscode",
-				name = "lldb",
-			}
-			dap.configurations.cpp = {
-				{
-					name = "launch",
-					type = "lldb",
-					request = "launch",
-					program = function()
-						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-					end,
-					cwd = "${workspaceFolder}",
-					stopOnEntry = false,
-					args = {},
-				},
-			}
-		end,
-	},
-
 	-- more language support
 	"ARM9/arm-syntax-vim",
 	"tikhomirov/vim-glsl",
@@ -409,7 +362,7 @@ require("lazy").setup({
 	{
 		"tjdevries/ocaml.nvim",
 		ft = "ocaml",
-		priority = 2, -- XXX: make sure this happens before tree-sitter
+		lazy = true,
 		config = function()
 			require("ocaml").setup()
 		end,
