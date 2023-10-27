@@ -92,7 +92,7 @@ require("lazy").setup({
 		lazy = false,
 		config = function()
 			require("catppuccin").setup({
-				flavour = "mocha",
+				flavour = "macchiato",
 				term_colors = true,
 			})
 
