@@ -1,56 +1,52 @@
 vim.g.mapleader = ","
 
-vim.go.guicursor = "i:block"
-vim.go.showmode = false -- using lualine (below)
-vim.go.wildmode = "list:longest"
-vim.go.backup = false
+-- how I want to see vim
+vim.cmd.colorscheme("habamax")
+vim.wo.wrap = true
+vim.go.showmode = true -- currently, until I set up airline
+vim.go.termguicolors = true
+vim.go.laststatus = 3
 vim.go.hlsearch = false
+vim.wo.signcolumn = "yes:1"
+-- number, relativenumber
+vim.wo.nu = true
+vim.wo.rnu = true
+
+-- splitting
+vim.go.splitright = true
+
+-- basic code style
+vim.bo.expandtab = true
+vim.bo.tabstop = 4
+vim.bo.shiftwidth = 4
+vim.bo.textwidth = 80
+
+vim.go.mouse = ""
+vim.go.clipboard = "unnamedplus"
+vim.go.laststatus = 3
+
+-- no backup files
+vim.go.writebackup = false
+vim.go.backup = false
+
+-- search & completion from wildmenu
 vim.go.smartcase = true
 vim.go.ignorecase = true
-vim.go.termguicolors = true
+vim.go.wildmode = "list:longest"
 vim.go.completeopt = "menuone,noinsert,noselect"
-vim.go.splitright = true
-vim.go.laststatus = 3
-vim.go.writebackup = false
-vim.go.clipboard = "unnamedplus"
-vim.go.mouse = ""
-vim.go.bg = "dark"
-
-vim.wo.conceallevel = 0
-vim.wo.colorcolumn = "80"
-vim.wo.cursorline = false
-vim.wo.cursorlineopt = "number"
-vim.wo.signcolumn = "yes"
-vim.wo.cursorline = true
-vim.wo.list = false
-vim.wo.number = true
-vim.wo.relativenumber = true
-
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.swapfile = false
-
--- keys
 
 -- navigation
--- -- buffers
-vim.keymap.set("n", "t", ":bprev<cr>")
-vim.keymap.set("n", "s", ":bnext<cr>")
--- -- qflist
-vim.keymap.set("n", "<m-t>", ":cnext<cr>")
-vim.keymap.set("n", "<m-s>", ":cprev<cr>")
--- -- loclist
-vim.keymap.set("n", "<space>t", "lcnext<cr>")
-vim.keymap.set("n", "<space>s", ":lprev<cr>")
--- :help update
-vim.keymap.set("n", "<leader>w", ":update<cr>")
+--   between buffers
+vim.keymap.set("n", "t", vim.cmd.bprev)
+vim.keymap.set("n", "s", vim.cmd.bnext)
+--  qflist
+vim.keymap.set("n", "<m-t>", vim.cmd.cprev)
+vim.keymap.set("n", "<m-s>", vim.cmd.cnext)
+--  loc list
+vim.keymap.set("n", "<space>t", vim.cmd.lprev)
+vim.keymap.set("n", "<space>s", vim.cmd.lnext)
 
--- merge tooling
-vim.keymap.set("n", "gu", ":diffget //2<cr>") -- left hand
-vim.keymap.set("n", "gh", ":diffget //3<cr>") -- right hand
-
--- exit normal/visual mode
+-- exit normal/visual node
 vim.keymap.set("i", "jk", "<esc>")
 vim.keymap.set("v", "jk", "<esc>")
 
@@ -58,7 +54,21 @@ vim.keymap.set("v", "jk", "<esc>")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
--- lazy.nvim
+-- save file
+vim.keymap.set("n", "<leader>w", vim.cmd.update)
+
+-- lsp keymaps
+vim.keymap.set("n", "<space>h", vim.lsp.buf.hover)
+vim.keymap.set("n", "<space>d", vim.lsp.buf.definition)
+vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<space>a", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<space>f", function()
+	vim.lsp.buf.format({ async = true })
+end)
+vim.keymap.set("n", "<space>m", vim.lsp.buf.rename)
+vim.keymap.set("n", "<space>rr", vim.lsp.buf.references)
+
+-- load lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -74,202 +84,94 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	-- automkdir solves all my tree problems :)
-	"travisjeffery/vim-auto-mkdir",
-	-- colorscheme
+	{ "travisjeffery/vim-auto-mkdir" },
 	{
-		"folke/tokyonight.nvim",
+		"catppuccin/nvim",
+		as = "catppuccin",
 		priority = 1000,
 		lazy = false,
 		config = function()
-			vim.cmd.colorscheme("tokyonight-night")
-		end,
-	},
-	{
-		"folke/todo-comments.nvim",
-		lazy = true,
-		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("todo-comments").setup()
-			vim.keymap.set("n", "<leader>lt", ":TodoLocList<cr>")
-		end,
-	},
-	{
-		"j-hui/fidget.nvim",
-		lazy = true,
-		pin = true,
-		config = function()
-			require("fidget").setup({
-				window = { blend = 10 }, -- required by catppuccin
+			require("catppuccin").setup({
+				flavour = "mocha",
+				term_colors = true,
 			})
+
+			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
-
-	{
-		"nvim-treesitter/nvim-treesitter",
-		lazy = false,
-		pin = false,
-		config = function()
-			local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-
-			parser_configs.jakt = {
-				install_info = {
-					url = "https://github.com/SerenityOS/tree-sitter-jakt",
-					files = { "src/parser.c", "src/scanner.c" },
-					branch = "main",
-					generate_requires_npm = false,
-					-- src/parser.c already generated
-					requires_generate_from_grammar = false,
-				},
-				filetype = "jakt",
-				maintainers = { "@demizer" },
-			}
-			parser_configs.x86asm = {
-				install_info = {
-					url = "https://github.com/bearcove/tree-sitter-x86asm",
-					files = { "src/parser.c" },
-					revision = "ca72933e74ea3b3f995bc4b245f03328554f1e65",
-				},
-				filetype = "asm",
-				maintainers = { "@fasterthanlime" },
-			}
-			require("nvim-treesitter.configs").setup({
-				highlight = { enable = true },
-				indent = { enable = true },
-			})
-		end,
-	},
-	{
-		"nvim-treesitter/nvim-treesitter-context",
-		lazy = true,
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			require("treesitter-context").setup()
-		end,
-	},
-
-	-- classics
+	{ "nvim-treesitter/nvim-treesitter" },
+	{ "nvim-treesitter/nvim-treesitter-context", dependencies = "nvim-treesitter/nvim-treesitter" },
 	"tpope/vim-commentary",
 	"tpope/vim-repeat",
-	{
-		"tpope/vim-fugitive",
-		lazy = true,
-		config = function()
-			vim.keymap.set("n", "<leader>gs", ":Git<cr>")
+	{ "tpope/vim-fugitive", keys = { {
+		"<leader>gs",
+		function()
+			vim.cmd.Git()
 		end,
-	},
-
-	{
-		"ThePrimeagen/harpoon",
-		lazy = true,
-		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
-		config = function()
-			require("telescope").load_extension("harpoon")
-			vim.keymap.set("n", "<a-n>", function()
-				require("harpoon.mark").add_file()
-			end)
-			vim.keymap.set("n", "<a-m>", ":Telescope harpoon marks<cr>")
-		end,
-	},
-
-	-- ----------------------------------------
-	-- lsp
-	{
-		"neovim/nvim-lspconfig",
-		lazy = false,
-		pin = true,
-		dependencies = { "nvim-lua/lsp-status.nvim" },
-		config = function()
-			local lsp = require("lspconfig")
-			local status = require("lsp-status")
-			local options = {
-				on_attach = status.on_attach,
-				capabilities = status.capabilities,
-			}
-
-			lsp.rust_analyzer.setup(options)
-			lsp.gopls.setup(options)
-			lsp.clangd.setup(options)
-			lsp.zls.setup(options)
-			lsp.jdtls.setup(options)
-			lsp.ocamllsp.setup(options)
-			lsp.ols.setup(options)
-
-			vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
-			vim.keymap.set("n", "<space>a", vim.lsp.buf.code_action)
-			vim.keymap.set("v", "<space>a", vim.lsp.buf.code_action)
-			vim.keymap.set("n", "<space>d", vim.lsp.buf.definition)
-			vim.keymap.set("n", "<space>f", function()
-				vim.lsp.buf.format({ async = true })
-			end)
-			vim.keymap.set("n", "<space>h", vim.lsp.buf.hover)
-			vim.keymap.set("n", "<space>m", vim.lsp.buf.rename)
-			vim.keymap.set("n", "<space>rr", vim.lsp.buf.references)
-		end,
-	},
-	-- java language server
-	{ "mfussenegger/nvim-jdtls", lazy = true, ft = "java" },
-	{
-		"simrat39/rust-tools.nvim",
-		lazy = true,
-		ft = "rust",
-		pin = true,
-		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			local rt = require("rust-tools")
-
-			rt.setup({
-				server = {
-					on_attach = function(_, bufnr)
-						-- Hover actions
-						vim.keymap.set("n", "<space>h", rt.hover_actions.hover_actions, { buffer = bufnr })
-					end,
-				},
-			})
-		end,
-	},
+	} } },
 	{
 		"nvim-telescope/telescope.nvim",
-		lazy = false,
 		pin = true,
-		dependencies = { "nvim-telescope/telescope-ui-select.nvim" },
+		dependencies = { "nvim-telescope/telescope-ui-select.nvim", "nvim-lua/plenary.nvim" },
+		keys = {
+			{ "<space>a", vim.lsp.buf.code_action },
+			{
+				"<leader>ff",
+				function()
+					require("telescope.builtin").find_files()
+				end,
+			},
+			{
+				"<leader>rg",
+				function()
+					require("telescope.builtin").live_grep()
+				end,
+			},
+			{
+				"<leader>bb",
+				function()
+					require("telescope.builtin").buffers()
+				end,
+			},
+			{
+				"<leader>jl",
+				function()
+					require("telescope.builtin").jumplist()
+				end,
+			},
+			{
+				"<leader>m",
+				function()
+					require("telescope.builtin").marks()
+				end,
+			},
+		},
 		config = function()
-			local builtin = require("telescope.builtin")
 			local ts = require("telescope")
-
-			vim.keymap.set("n", "<leader>ff", builtin.find_files)
-			vim.keymap.set("n", "<leader>rg", builtin.live_grep)
-			vim.keymap.set("n", "<leader>bb", builtin.buffers)
-			vim.keymap.set("n", "<leader>jl", builtin.jumplist)
-			vim.keymap.set("n", "<leader>m", builtin.marks)
-
 			ts.load_extension("ui-select")
-
-			require("telescope").setup({
+			ts.setup({
+				-- FIXME: maybe this should go in a different place?
 				file_ignore_patterns = { "./toolchains/*", "zig-out", "zig-cache" },
 			})
 		end,
 	},
-
-	-- ------------------------------
-	-- completion
+	-- completion & lsp
 	{
 		"hrsh7th/nvim-cmp",
-		lazy = false,
+		event = "InsertEnter",
 		dependencies = {
 			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
+			"saadparwi1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
-			"kdheepak/cmp-latex-symbols", -- μ δ in signals it's really cool
+			"kdheepak/cmp-latex-symbols",
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
-			luasnip.config.set_config({
-				enable_autosnippets = true,
-			})
+
+			luasnip.config.set_config({ enable_autosnippets = true })
 
 			-- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
 			local function has_words_before()
@@ -318,65 +220,49 @@ require("lazy").setup({
 		end,
 	},
 
-	-- -------------------------------
-	-- misc
 	{
 		"phaazon/mind.nvim",
-		lazy = false,
 		branch = "v2",
-		config = function()
-			local mind = require("mind")
-			mind.setup()
-			vim.keymap.set("n", "<leader>mm", mind.open_main)
-			vim.keymap.set("n", "<leader>mp", mind.open_project)
-		end,
-	},
-
-	-- statusline
-	{
-		"nvim-lualine/lualine.nvim",
-		lazy = false,
-		priority = 100,
-		dependencies = {
-			"kyazdani42/nvim-web-devicons",
+		keys = {
+			{
+				"<leader>mm",
+				function()
+					require("mind").open_main()
+				end,
+			},
+			{
+				"<leader>mp",
+				function()
+					require("mind").open_project()
+				end,
+			},
 		},
-		config = function()
-			require("lualine").setup({
-				options = {
-					icons_enabled = true,
-					theme = "tokyonight",
-				},
-				sections = {
-					lualine_a = { { "buffers" } },
-					lualine_c = {},
-				},
-			})
-		end,
 	},
 
-	-- more language support
-	"ARM9/arm-syntax-vim",
-	"tikhomirov/vim-glsl",
-	"LnL7/vim-nix",
-	"kylelaker/riscv.vim",
-	{
-		"tjdevries/ocaml.nvim",
-		ft = "ocaml",
-		lazy = true,
-		config = function()
-			require("ocaml").setup()
-		end,
-	},
-	-- Whoever made this blog, thanks a ton!
-	-- https://www.ejmastnak.com/tutorials/vim-latex/intro.html
+	{ "kylelaker/riscv.vim", ft = "riscv" },
+	{ "tjdevries/ocaml.nvim", ft = "ocaml" },
+
 	{
 		"lervag/vimtex",
-		lazy = true,
-		ft = { "latex", "tex" },
-		config = function()
+		ft = { "tex", "latex" },
+		init = function()
 			vim.g.vimtex_view_method = "zathura"
 			vim.g.vimtex_view_forward_search_on_start = 0
 		end,
 	},
-	{ dir = "~/jakt/editors/vim", as = "jakt", ft = "jakt", lazy = true },
+	{ dir = "~/jakt/editors/vim", ft = "jakt", as = "jakt" },
+
+	{
+		"neovim/nvim-lspconfig",
+		init = function()
+			local lsp = require("lspconfig")
+			lsp.clangd.setup({})
+			lsp.zls.setup({})
+			lsp.gopls.setup({})
+		end,
+	},
 })
+
+-- FIXME: this could probably be somewhere else
+require("nvim-treesitter.configs").setup({ highlight = { enable = true, indent = { enable = true } } })
+require("treesitter-context").setup()
