@@ -94,6 +94,7 @@ require("lazy").setup({
 			require("catppuccin").setup({
 				flavour = "macchiato",
 				term_colors = true,
+				transparent_background = true,
 			})
 
 			vim.cmd.colorscheme("catppuccin")
