@@ -155,6 +155,9 @@ require("lazy").setup({
 			})
 		end,
 	},
+
+	"chrisbra/unicode.vim",
+
 	-- completion & lsp
 	{
 		"hrsh7th/nvim-cmp",
@@ -164,8 +167,10 @@ require("lazy").setup({
 			"saadparwi1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-emoji",
 			"kdheepak/cmp-latex-symbols",
 			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -178,6 +183,23 @@ require("lazy").setup({
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0
 					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+			end
+			-- https://github.com/hrsh7th/nvim-cmp/discussions/702
+			do
+				local devicons = require("nvim-web-devicons")
+				cmp.register_source("devicons", {
+					complete = function(self, params, callback)
+						local items = {}
+						for _, icon in pairs(devicons.get_icons()) do
+							table.insert(items, {
+								label = icon.icon .. "  " .. icon.name,
+								insertText = icon.icon,
+								filterText = icon.name,
+							})
+						end
+						callback({ items = items })
+					end,
+				})
 			end
 
 			require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/LuaSnip" })
@@ -192,9 +214,12 @@ require("lazy").setup({
 					{ name = "luasnip" },
 					{ name = "latex_symbols" },
 					{ name = "buffer" },
+					{ name = "emoji" },
+					{ name = "devicons" },
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<c-f>"] = cmp.mapping.confirm({ select = true }),
+					["<c-space>"] = cmp.mapping.complete(),
 					["<c-n>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
