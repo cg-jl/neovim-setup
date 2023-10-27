@@ -3,7 +3,7 @@ vim.g.mapleader = ","
 -- how I want to see vim
 vim.cmd.colorscheme("habamax")
 vim.wo.wrap = true
-vim.go.showmode = true -- currently, until I set up airline
+vim.go.showmode = false
 vim.go.termguicolors = true
 vim.go.laststatus = 3
 vim.go.hlsearch = false
