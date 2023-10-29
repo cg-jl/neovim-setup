@@ -19,7 +19,8 @@ vim.go.splitright = true
 vim.bo.expandtab = true
 vim.bo.tabstop = 4
 vim.bo.shiftwidth = 4
-vim.bo.textwidth = 80
+vim.cmd([[set tw=80]])
+--vim.bo.textwidth = 80
 
 vim.go.mouse = ""
 vim.go.clipboard = "unnamedplus"
@@ -157,11 +158,11 @@ require("lazy").setup({
 		end,
 	},
 
-    {
-        'folke/todo-comments.nvim',
-        dependencies = {'nvim-lua/plenary.nvim'},
-        opts = {},
-    },
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {},
+	},
 
 	"chrisbra/unicode.vim",
 
@@ -171,7 +172,7 @@ require("lazy").setup({
 		event = "InsertEnter",
 		dependencies = {
 			"L3MON4D3/LuaSnip",
-			"saadparwi1/cmp_luasnip",
+			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-emoji",
@@ -293,6 +294,37 @@ require("lazy").setup({
 			lsp.gopls.setup({})
 		end,
 	},
+
+	{
+		"nvim-neorg/neorg",
+		build = ":Neorg sync-parsers",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("neorg").setup({
+				load = {
+					["core.defaults"] = {},
+					["core.concealer"] = {},
+					["core.dirman"] = {
+						config = {
+							workspaces = {
+								notes = "~/todo",
+							},
+							default_workspace = "notes",
+						},
+					},
+				},
+			})
+
+			vim.wo.foldlevel = 99
+			vim.wo.conceallevel = 2
+		end,
+	},
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		vim.bo[args.buf].formatexpr = nil
+	end,
 })
 
 -- FIXME: this could probably be somewhere else
