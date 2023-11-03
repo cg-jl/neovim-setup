@@ -292,6 +292,7 @@ require("lazy").setup({
 			lsp.clangd.setup({})
 			lsp.zls.setup({})
 			lsp.gopls.setup({})
+			lsp.rust_analyzer.setup({})
 		end,
 	},
 
