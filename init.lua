@@ -223,6 +223,7 @@ require("lazy").setup({
 					{ name = "latex_symbols" },
 					{ name = "buffer" },
 					{ name = "emoji" },
+					{ name = "neorg" },
 					{ name = "devicons" },
 				},
 				mapping = cmp.mapping.preset.insert({
@@ -304,6 +305,13 @@ require("lazy").setup({
 				load = {
 					["core.defaults"] = {},
 					["core.concealer"] = {},
+					["core.integrations.nvim-cmp"] = {},
+					["core.completion"] = {
+						config = {
+							engine = "nvim-cmp",
+							name = "neorg",
+						},
+					},
 					["core.dirman"] = {
 						config = {
 							workspaces = {
