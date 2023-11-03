@@ -16,11 +16,10 @@ vim.wo.rnu = true
 vim.go.splitright = true
 
 -- basic code style
-vim.bo.expandtab = true
-vim.bo.tabstop = 4
-vim.bo.shiftwidth = 4
-vim.cmd([[set tw=80]])
---vim.bo.textwidth = 80
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.textwidth = 80
 
 vim.go.mouse = ""
 vim.go.clipboard = "unnamedplus"
