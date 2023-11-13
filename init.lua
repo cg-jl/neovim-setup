@@ -110,7 +110,27 @@ require("lazy").setup({
 			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
-	{ "nvim-treesitter/nvim-treesitter" },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			local ts = require("nvim-treesitter.configs")
+			ts.setup({
+				highlight = { enable = true },
+				ident = { enable = true },
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						init_selection = "-",
+						node_incremental = "-",
+						scope_incremental = false,
+						node_decremental = "\\",
+					},
+				},
+			})
+		end,
+	},
 	{ "nvim-treesitter/nvim-treesitter-context", dependencies = "nvim-treesitter/nvim-treesitter" },
 	"tpope/vim-commentary",
 	"tpope/vim-repeat",
@@ -346,5 +366,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- FIXME: this could probably be somewhere else
-require("nvim-treesitter.configs").setup({ highlight = { enable = true, indent = { enable = true } } })
 require("treesitter-context").setup()
