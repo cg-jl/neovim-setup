@@ -86,8 +86,18 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	{ "travisjeffery/vim-auto-mkdir" },
 	{
+		"ellisonleao/gruvbox.nvim",
+		--'morhetz/gruvbox',
+		priority = 1000,
+		lazy = false,
+		config = function()
+			vim.cmd.colorscheme("gruvbox")
+		end,
+	},
+	{
 		"catppuccin/nvim",
 		as = "catppuccin",
+		enabled = false,
 		priority = 1000,
 		lazy = false,
 		config = function()

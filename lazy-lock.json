@@ -5,6 +5,7 @@
   "cmp-latex-symbols": { "branch": "main", "commit": "165fb66afdbd016eaa1570e41672c4c557b57124" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "44b16d11215dce86f253ce0c30949813c0a90765" },
   "cmp_luasnip": { "branch": "master", "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843" },
+  "gruvbox.nvim": { "branch": "main", "commit": "517b012757fbe7a4d6e507baf5cc75837e62734f" },
   "lazy.nvim": { "branch": "main", "commit": "16603c6917435d8446f7357cb61095138a417085" },
   "mind.nvim": { "branch": "v2", "commit": "79e0ca131d5e37dfa65f3f0e725d99742e4ff783" },
   "neorg": { "branch": "main", "commit": "9ffc5ac49dbb5ea6f008b6fbc6e3c1e85e66911c" },
