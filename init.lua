@@ -95,6 +95,12 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"nvim-lualine/lualine.nvim",
+		config = function()
+			require("lualine").setup({})
+		end,
+	},
+	{
 		"catppuccin/nvim",
 		as = "catppuccin",
 		enabled = false,
@@ -119,7 +125,7 @@ require("lazy").setup({
 			local ts = require("nvim-treesitter.configs")
 			ts.setup({
 				highlight = { enable = true },
-				ident = { enable = true },
+				indent = { enable = true },
 				incremental_selection = {
 					enable = true,
 					keymaps = {
