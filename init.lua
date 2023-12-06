@@ -1,9 +1,10 @@
 vim.g.mapleader = ","
 
 -- how I want to see vim
-vim.cmd.colorscheme("habamax")
+vim.cmd.colorscheme("torte")
 vim.wo.wrap = true
 vim.go.showmode = false
+vim.go.guicursor = ""
 vim.go.termguicolors = true
 vim.go.laststatus = 3
 vim.go.hlsearch = false
@@ -91,6 +92,9 @@ require("lazy").setup({
 		priority = 1000,
 		lazy = false,
 		config = function()
+			require("gruvbox").setup({
+				invert_selection = true,
+			})
 			vim.cmd.colorscheme("gruvbox")
 		end,
 	},
