@@ -359,6 +359,7 @@ require("lazy").setup({
 			lsp.zls.setup({})
 			lsp.gopls.setup({})
 			lsp.rust_analyzer.setup({})
+			lsp.ocamllsp.setup({})
 		end,
 	},
 
