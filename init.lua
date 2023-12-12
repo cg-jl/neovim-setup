@@ -1,11 +1,9 @@
 vim.g.mapleader = ","
 
 -- how I want to see vim
-vim.cmd.colorscheme("torte")
+vim.go.termguicolors = true
 vim.wo.wrap = true
 vim.go.showmode = false
-vim.go.guicursor = ""
-vim.go.termguicolors = true
 vim.go.laststatus = 3
 vim.go.hlsearch = false
 vim.wo.signcolumn = "yes:1"
@@ -86,11 +84,37 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{ "travisjeffery/vim-auto-mkdir" },
+
+	{
+		"Luxed/ayu-vim",
+		priority = 1000,
+		lazy = false,
+		config = function(_, opts)
+			vim.g.ayucolor = "mirage"
+			vim.wo.cursorline = true
+
+			vim.cmd.colorscheme("ayu")
+		end,
+	},
+	{
+		"maxmx03/solarized.nvim",
+		priority = 1000,
+		lazy = false,
+		enabled = false,
+		config = function()
+			vim.o.background = "dark"
+			require("solarized").setup({
+				theme = "neo",
+			})
+			vim.cmd.colorscheme("solarized")
+		end,
+	},
 	{
 		"ellisonleao/gruvbox.nvim",
 		--'morhetz/gruvbox',
 		priority = 1000,
 		lazy = false,
+		enabled = false,
 		config = function()
 			require("gruvbox").setup({
 				invert_selection = true,
@@ -101,7 +125,12 @@ require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		config = function()
-			require("lualine").setup({})
+			require("lualine").setup({
+				options = {
+					component_separators = { left = "|", right = "|" },
+					section_separators = { left = "", right = "" },
+				},
+			})
 		end,
 	},
 	{
