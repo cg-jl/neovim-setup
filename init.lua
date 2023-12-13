@@ -332,9 +332,9 @@ require("lazy").setup({
 					{ name = "devicons" },
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<c-f>"] = cmp.mapping.confirm({ select = true }),
-					["<c-space>"] = cmp.mapping.complete(),
-					["<c-n>"] = cmp.mapping(function(fallback)
+					["<m-i>"] = cmp.mapping.confirm({ select = true }),
+					["<m-space>"] = cmp.mapping.complete(),
+					["<m-n>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
 						elseif luasnip.expand_or_jumpable() then
@@ -345,7 +345,7 @@ require("lazy").setup({
 							fallback()
 						end
 					end, { "i", "s" }),
-					["<c-t>"] = cmp.mapping(function(fallback)
+					["<m-t>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_prev_item()
 						elseif luasnip.jumpable(-1) then
