@@ -3,6 +3,7 @@ vim.g.mapleader = ","
 -- how I want to see vim
 vim.go.termguicolors = true
 vim.wo.wrap = true
+vim.wo.cursorline = true
 vim.go.showmode = false
 vim.go.laststatus = 3
 vim.go.hlsearch = false
@@ -92,7 +93,6 @@ require("lazy").setup({
 		enabled = false,
 		config = function(_, opts)
 			vim.o.background = "dark"
-			vim.wo.cursorline = true
 			vim.g.ayucolor = "mirage"
 
 			vim.cmd.colorscheme("ayu")
@@ -161,6 +161,7 @@ require("lazy").setup({
             -- Swap background/foreground with these ones
             vim.cmd.hi('@text.danger', 'guibg=#24273a', 'guifg=#ed8796')
             vim.cmd.hi('@text.warning', 'guibg=#24273a', 'guifg=#eed49f')
+            vim.cmd.hi('@text.todo', 'guibg=#24273a', 'guifg=#eed49f')
             vim.cmd.hi('@text.note', 'guibg=#24273a', 'guifg=#8aadf4')
 		end,
 	},
