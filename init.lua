@@ -89,24 +89,26 @@ require("lazy").setup({
 		"Luxed/ayu-vim",
 		priority = 1000,
 		lazy = false,
+		enabled = false,
 		config = function(_, opts)
-			vim.g.ayucolor = "mirage"
+			vim.o.background = "dark"
 			vim.wo.cursorline = true
+			vim.g.ayucolor = "mirage"
 
 			vim.cmd.colorscheme("ayu")
 		end,
 	},
 	{
 		"maxmx03/solarized.nvim",
+		as = "solarized-shaun",
 		priority = 1000,
 		lazy = false,
 		enabled = false,
 		config = function()
-			vim.o.background = "dark"
+			vim.o.background = "light"
 			require("solarized").setup({
 				theme = "neo",
 			})
-			vim.cmd.colorscheme("solarized")
 		end,
 	},
 	{
@@ -116,6 +118,7 @@ require("lazy").setup({
 		lazy = false,
 		enabled = false,
 		config = function()
+			vim.o.background = "light"
 			require("gruvbox").setup({
 				invert_selection = true,
 			})
@@ -133,20 +136,32 @@ require("lazy").setup({
 			})
 		end,
 	},
+
 	{
 		"catppuccin/nvim",
 		as = "catppuccin",
-		enabled = false,
+		enabled = true,
 		priority = 1000,
 		lazy = false,
 		config = function()
 			require("catppuccin").setup({
 				flavour = "macchiato",
-				term_colors = true,
-				transparent_background = true,
+				show_end_of_buffer = true,
+
+                styles = {
+                    {'a', 'b', 'c'},
+                },
+
+				-- transparent_background = true,
 			})
 
+
 			vim.cmd.colorscheme("catppuccin")
+
+            -- Swap background/foreground with these ones
+            vim.cmd.hi('@text.danger', 'guibg=#24273a', 'guifg=#ed8796')
+            vim.cmd.hi('@text.warning', 'guibg=#24273a', 'guifg=#eed49f')
+            vim.cmd.hi('@text.note', 'guibg=#24273a', 'guifg=#8aadf4')
 		end,
 	},
 	{
@@ -157,7 +172,7 @@ require("lazy").setup({
 		config = function()
 			local ts = require("nvim-treesitter.configs")
 			ts.setup({
-				highlight = { enable = true },
+				highlight = { enable = true, additional_vim_regex_highlighting = false },
 				indent = { enable = true },
 				incremental_selection = {
 					enable = true,
@@ -168,6 +183,7 @@ require("lazy").setup({
 						node_decremental = "<bs>",
 					},
 				},
+				ensure_instaled = { "comment" },
 			})
 			local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 			parser_config.jakt = {
@@ -265,6 +281,7 @@ require("lazy").setup({
 
 	{
 		"folke/todo-comments.nvim",
+		enabled = false,
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {},
 	},
@@ -332,7 +349,7 @@ require("lazy").setup({
 					{ name = "devicons" },
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<m-i>"] = cmp.mapping.confirm({ select = true }),
+					["<m-m>"] = cmp.mapping.confirm({ select = true }),
 					["<m-space>"] = cmp.mapping.complete(),
 					["<m-n>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
@@ -398,8 +415,21 @@ require("lazy").setup({
 			lsp.clangd.setup({})
 			lsp.zls.setup({})
 			lsp.gopls.setup({})
+			lsp.ols.setup({})
 			lsp.rust_analyzer.setup({})
+			lsp.jdtls.setup({})
 			lsp.ocamllsp.setup({})
+		end,
+	},
+
+	{
+		"mfussenegger/nvim-jdtls",
+		ft = "java",
+		config = function()
+			require("jdtls").start_or_attach({
+				cmd = { "/opt/jdtls/bin/jdtls" },
+				root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnv" }, { upward = true })[1]),
+			})
 		end,
 	},
 
