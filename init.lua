@@ -132,15 +132,15 @@ require("lazy").setup({
 				options = {
 					component_separators = { left = "|", right = "|" },
 					section_separators = { left = "", right = "" },
-                    globalstatus = true,
+					globalstatus = true,
 				},
-                sections = {
-                    lualine_a = {'mode'},
-                    lualine_b = {'branch', 'diff'},
-                    lualine_x = {},
-                    lualine_y = {'diagnostics'},
-                    lualine_z = {'location'},
-                }
+				sections = {
+					lualine_a = { "mode" },
+					lualine_b = { "branch", "diff" },
+					lualine_x = {},
+					lualine_y = { "diagnostics" },
+					lualine_z = { "location" },
+				},
 			})
 		end,
 	},
@@ -156,21 +156,20 @@ require("lazy").setup({
 				flavour = "macchiato",
 				show_end_of_buffer = true,
 
-                styles = {
-                    {'a', 'b', 'c'},
-                },
+				styles = {
+					{ "a", "b", "c" },
+				},
 
 				-- transparent_background = true,
 			})
 
-
 			vim.cmd.colorscheme("catppuccin")
 
-            -- Swap background/foreground with these ones
-            vim.cmd.hi('@text.danger', 'guibg=#24273a', 'guifg=#ed8796')
-            vim.cmd.hi('@text.warning', 'guibg=#24273a', 'guifg=#eed49f')
-            vim.cmd.hi('@text.todo', 'guibg=#24273a', 'guifg=#eed49f')
-            vim.cmd.hi('@text.note', 'guibg=#24273a', 'guifg=#8aadf4')
+			-- Swap background/foreground with these ones
+			vim.cmd.hi("@text.danger", "guibg=#24273a", "guifg=#ed8796")
+			vim.cmd.hi("@text.warning", "guibg=#24273a", "guifg=#eed49f")
+			vim.cmd.hi("@text.todo", "guibg=#24273a", "guifg=#eed49f")
+			vim.cmd.hi("@text.note", "guibg=#24273a", "guifg=#8aadf4")
 		end,
 	},
 	{
