@@ -132,7 +132,15 @@ require("lazy").setup({
 				options = {
 					component_separators = { left = "|", right = "|" },
 					section_separators = { left = "", right = "" },
+                    globalstatus = true,
 				},
+                sections = {
+                    lualine_a = {'mode'},
+                    lualine_b = {'branch', 'diff'},
+                    lualine_x = {},
+                    lualine_y = {'diagnostics'},
+                    lualine_z = {'location'},
+                }
 			})
 		end,
 	},
