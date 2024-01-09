@@ -8,9 +8,15 @@ vim.go.showmode = false
 vim.go.laststatus = 3
 vim.go.hlsearch = false
 vim.wo.signcolumn = "yes:1"
+
+-- default, with insert changed to underline
+vim.go.guicursor = 'n-v-c-sm:block,i-ci-ve:hor20,r-cr-o:hor20'
+
 -- number, relativenumber
 vim.wo.nu = true
 vim.wo.rnu = true
+
+vim.o.exrc = true
 
 -- splitting
 vim.go.splitright = true
@@ -59,9 +65,9 @@ vim.keymap.set("n", "<leader>w", vim.cmd.update)
 
 -- lsp keymaps
 vim.keymap.set("n", "<space>h", vim.lsp.buf.hover)
-vim.keymap.set("n", "<space>d", vim.lsp.buf.definition)
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
 vim.keymap.set("n", "<space>a", vim.lsp.buf.code_action)
+vim.keymap.set("v", "<space>a", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<space>f", function()
 	vim.lsp.buf.format({ async = true })
 end)
@@ -145,15 +151,46 @@ require("lazy").setup({
 		end,
 	},
 
+    {
+        -- disabled: seems to not support highlights for disabled C++ code from
+        -- macros.
+        'rose-pine/neovim',
+        as = 'rose-pine',
+        enabled = ture,
+        priority = 1000,
+        lazy = false,
+        opts = {
+            variant = 'moon'
+        },
+        config = function(_, opts)
+            require 'rose-pine'.setup(opts)
+            vim.cmd.colorscheme 'rose-pine'
+        end,
+    },
+
+    {
+        'folke/tokyonight.nvim',
+        enabled = false,
+        priority = 1000,
+        lazy = false,
+        opts = {
+            style = "moon",
+        },
+        config = function(_, opts) 
+            require 'tokyonight'.setup(opts)
+            vim.cmd.colorscheme 'tokyonight'
+        end,
+    },
+
 	{
 		"catppuccin/nvim",
 		as = "catppuccin",
-		enabled = true,
+		enabled = false,
 		priority = 1000,
 		lazy = false,
 		config = function()
 			require("catppuccin").setup({
-				flavour = "macchiato",
+				flavour = "mocha",
 				show_end_of_buffer = true,
 
 				styles = {
@@ -220,11 +257,11 @@ require("lazy").setup({
 						keymaps = {
 							["af"] = "@function.outer",
 							["if"] = "@function.inner",
-							-- useful for changing parameter; cpg
-							["pg"] = "@parameter.inner",
-							-- useful for deleting paarmeters: dp, (for delete
+							-- useful for changing parameter; cgp
+							["gp"] = "@parameter.inner",
+							-- useful for deleting paarmeters: d,p (for delete
 							-- parameter with comma)
-							["p,"] = "@parameter.outer",
+							[",p"] = "@parameter.outer",
 						},
 					},
 				},
@@ -428,6 +465,7 @@ require("lazy").setup({
 			lsp.rust_analyzer.setup({})
 			lsp.jdtls.setup({})
 			lsp.ocamllsp.setup({})
+            lsp.tsserver.setup({})
 		end,
 	},
 
