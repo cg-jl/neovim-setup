@@ -1,0 +1,4 @@
+
+
+all:
+	stylua init.lua

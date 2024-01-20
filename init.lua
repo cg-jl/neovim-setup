@@ -9,8 +9,10 @@ vim.go.laststatus = 3
 vim.go.hlsearch = false
 vim.wo.signcolumn = "yes:1"
 
+vim.bo.swapfile = false
+
 -- default, with insert changed to underline
-vim.go.guicursor = 'n-v-c-sm:block,i-ci-ve:hor20,r-cr-o:hor20'
+vim.go.guicursor = "n-v-c-sm:block,i-ci-ve:ver20,r-cr-o:hor20"
 
 -- number, relativenumber
 vim.wo.nu = true
@@ -28,7 +30,7 @@ vim.opt.shiftwidth = 4
 vim.opt.textwidth = 80
 
 vim.go.mouse = ""
-vim.go.clipboard = "unnamedplus"
+--vim.go.clipboard = "unnamedplus"
 vim.go.laststatus = 3
 
 -- no backup files
@@ -67,7 +69,7 @@ vim.keymap.set("n", "<leader>w", vim.cmd.update)
 vim.keymap.set("n", "<space>h", vim.lsp.buf.hover)
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
 vim.keymap.set("n", "<space>a", vim.lsp.buf.code_action)
-vim.keymap.set("v", "<space>a", vim.lsp.buf.code_action)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 vim.keymap.set("n", "<space>f", function()
 	vim.lsp.buf.format({ async = true })
 end)
@@ -93,122 +95,17 @@ require("lazy").setup({
 	{ "travisjeffery/vim-auto-mkdir" },
 
 	{
-		"Luxed/ayu-vim",
+		"kepano/flexoki-neovim",
+		name = "flexoki",
+		enabled = true,
 		priority = 1000,
 		lazy = false,
-		enabled = false,
-		config = function(_, opts)
-			vim.o.background = "dark"
-			vim.g.ayucolor = "mirage"
 
-			vim.cmd.colorscheme("ayu")
-		end,
-	},
-	{
-		"maxmx03/solarized.nvim",
-		as = "solarized-shaun",
-		priority = 1000,
-		lazy = false,
-		enabled = false,
 		config = function()
-			vim.o.background = "light"
-			require("solarized").setup({
-				theme = "neo",
-			})
-		end,
-	},
-	{
-		"ellisonleao/gruvbox.nvim",
-		--'morhetz/gruvbox',
-		priority = 1000,
-		lazy = false,
-		enabled = false,
-		config = function()
-			vim.o.background = "light"
-			require("gruvbox").setup({
-				invert_selection = true,
-			})
-			vim.cmd.colorscheme("gruvbox")
-		end,
-	},
-	{
-		"nvim-lualine/lualine.nvim",
-		config = function()
-			require("lualine").setup({
-				options = {
-					component_separators = { left = "|", right = "|" },
-					section_separators = { left = "", right = "" },
-					globalstatus = true,
-				},
-				sections = {
-					lualine_a = { "mode" },
-					lualine_b = { "branch", "diff" },
-					lualine_x = {},
-					lualine_y = { "diagnostics" },
-					lualine_z = { "location" },
-				},
-			})
+			vim.cmd.colorscheme("flexoki-dark")
 		end,
 	},
 
-    {
-        -- disabled: seems to not support highlights for disabled C++ code from
-        -- macros.
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        enabled = ture,
-        priority = 1000,
-        lazy = false,
-        opts = {
-            variant = 'moon'
-        },
-        config = function(_, opts)
-            require 'rose-pine'.setup(opts)
-            vim.cmd.colorscheme 'rose-pine'
-        end,
-    },
-
-    {
-        'folke/tokyonight.nvim',
-        enabled = false,
-        priority = 1000,
-        lazy = false,
-        opts = {
-            style = "moon",
-        },
-        config = function(_, opts) 
-            require 'tokyonight'.setup(opts)
-            vim.cmd.colorscheme 'tokyonight'
-        end,
-    },
-
-	{
-		"catppuccin/nvim",
-		as = "catppuccin",
-		enabled = false,
-		priority = 1000,
-		lazy = false,
-		config = function()
-			require("catppuccin").setup({
-				flavour = "mocha",
-				show_end_of_buffer = true,
-
-				styles = {
-					{ "a", "b", "c" },
-				},
-
-				-- transparent_background = true,
-			})
-
-			vim.cmd.colorscheme("catppuccin")
-
-			-- Swap background/foreground with these ones
-			vim.cmd.hi("@text.danger", "guibg=#24273a", "guifg=#ed8796")
-			vim.cmd.hi("@text.warning", "guibg=#24273a", "guifg=#eed49f")
-			vim.cmd.hi("@text.todo", "guibg=#24273a", "guifg=#eed49f")
-			vim.cmd.hi("@text.note", "guibg=#24273a", "guifg=#8aadf4")
-		end,
-	},
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
@@ -270,6 +167,7 @@ require("lazy").setup({
 	},
 
 	{ "nvim-treesitter/nvim-treesitter-context", dependencies = "nvim-treesitter/nvim-treesitter" },
+
 	"tpope/vim-commentary",
 	"tpope/vim-repeat",
 	{ "tpope/vim-fugitive", keys = { {
@@ -278,14 +176,14 @@ require("lazy").setup({
 			vim.cmd.Git()
 		end,
 	} } },
+
 	{
 		"nvim-telescope/telescope.nvim",
 		pin = true,
 		dependencies = { "nvim-telescope/telescope-ui-select.nvim", "nvim-lua/plenary.nvim" },
 		keys = {
-			{ "<space>a", vim.lsp.buf.code_action },
 			{
-				"<leader>ff",
+				"<leader>f",
 				function()
 					require("telescope.builtin").find_files()
 				end,
@@ -297,13 +195,13 @@ require("lazy").setup({
 				end,
 			},
 			{
-				"<leader>bb",
+				"<leader>b",
 				function()
 					require("telescope.builtin").buffers()
 				end,
 			},
 			{
-				"<leader>jl",
+				"<leader>l",
 				function()
 					require("telescope.builtin").jumplist()
 				end,
@@ -325,60 +223,24 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"folke/todo-comments.nvim",
-		enabled = false,
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {},
-	},
-
-	"chrisbra/unicode.vim",
-
 	-- completion & lsp
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
-			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-emoji",
 			"kdheepak/cmp-latex-symbols",
 			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
 			local cmp = require("cmp")
-			local luasnip = require("luasnip")
+			-- local luasnip = require("luasnip")
 
-			luasnip.config.set_config({ enable_autosnippets = true })
+			-- luasnip.config.set_config({ enable_autosnippets = true })
 
-			-- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
-			local function has_words_before()
-				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0
-					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-			end
-			-- https://github.com/hrsh7th/nvim-cmp/discussions/702
-			do
-				local devicons = require("nvim-web-devicons")
-				cmp.register_source("devicons", {
-					complete = function(self, params, callback)
-						local items = {}
-						for _, icon in pairs(devicons.get_icons()) do
-							table.insert(items, {
-								label = icon.icon .. "  " .. icon.name,
-								insertText = icon.icon,
-								filterText = icon.name,
-							})
-						end
-						callback({ items = items })
-					end,
-				})
-			end
+			-- require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/LuaSnip" })
 
-			require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/LuaSnip" })
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -390,13 +252,11 @@ require("lazy").setup({
 					{ name = "luasnip" },
 					{ name = "latex_symbols" },
 					{ name = "buffer" },
-					{ name = "emoji" },
 					{ name = "neorg" },
-					{ name = "devicons" },
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<m-m>"] = cmp.mapping.confirm({ select = true }),
-					["<m-space>"] = cmp.mapping.complete(),
+					["<m-n>"] = cmp.mapping.complete(),
 					["<m-n>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
@@ -422,27 +282,7 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"phaazon/mind.nvim",
-		branch = "v2",
-		keys = {
-			{
-				"<leader>mm",
-				function()
-					require("mind").open_main()
-				end,
-			},
-			{
-				"<leader>mp",
-				function()
-					require("mind").open_project()
-				end,
-			},
-		},
-	},
-
 	{ "kylelaker/riscv.vim", ft = "riscv" },
-	{ "tjdevries/ocaml.nvim", ft = "ocaml" },
 
 	{
 		"lervag/vimtex",
@@ -460,55 +300,9 @@ require("lazy").setup({
 			local lsp = require("lspconfig")
 			lsp.clangd.setup({})
 			lsp.zls.setup({})
-			lsp.gopls.setup({})
 			lsp.ols.setup({})
-			lsp.rust_analyzer.setup({})
-			lsp.jdtls.setup({})
-			lsp.ocamllsp.setup({})
-            lsp.tsserver.setup({})
-		end,
-	},
-
-	{
-		"mfussenegger/nvim-jdtls",
-		ft = "java",
-		config = function()
-			require("jdtls").start_or_attach({
-				cmd = { "/opt/jdtls/bin/jdtls" },
-				root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnv" }, { upward = true })[1]),
-			})
-		end,
-	},
-
-	{
-		"nvim-neorg/neorg",
-		build = ":Neorg sync-parsers",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("neorg").setup({
-				load = {
-					["core.defaults"] = {},
-					["core.concealer"] = {},
-					["core.integrations.nvim-cmp"] = {},
-					["core.completion"] = {
-						config = {
-							engine = "nvim-cmp",
-							name = "neorg",
-						},
-					},
-					["core.dirman"] = {
-						config = {
-							workspaces = {
-								notes = "~/todo",
-							},
-							default_workspace = "notes",
-						},
-					},
-				},
-			})
-
-			vim.wo.foldlevel = 99
-			vim.wo.conceallevel = 2
+			-- NOTE: for primeagen's DSA course
+			lsp.tsserver.setup({})
 		end,
 	},
 })
