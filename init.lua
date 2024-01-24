@@ -5,7 +5,7 @@ vim.go.termguicolors = true
 vim.wo.wrap = true
 vim.wo.cursorline = true
 vim.go.showmode = false
-vim.go.laststatus = 3
+vim.go.laststatus = 0 -- do not show statusline
 vim.go.hlsearch = false
 vim.wo.signcolumn = "yes:1"
 
@@ -13,6 +13,9 @@ vim.bo.swapfile = false
 
 -- default, with insert changed to underline
 vim.go.guicursor = "n-v-c-sm:block,i-ci-ve:ver20,r-cr-o:hor20"
+
+vim.go.winbar = "%<%f %h%m%r%=%-14.(%l,%c%V%) %P"
+vim.go.ruler = false
 
 -- number, relativenumber
 vim.wo.nu = true
@@ -31,7 +34,6 @@ vim.opt.textwidth = 80
 
 vim.go.mouse = ""
 --vim.go.clipboard = "unnamedplus"
-vim.go.laststatus = 3
 
 -- no backup files
 vim.go.writebackup = false
@@ -235,6 +237,7 @@ require("lazy").setup({
 		},
 		config = function()
 			local cmp = require("cmp")
+
 			-- local luasnip = require("luasnip")
 
 			-- luasnip.config.set_config({ enable_autosnippets = true })
