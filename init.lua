@@ -10,6 +10,7 @@ vim.go.hlsearch = false
 vim.wo.signcolumn = "yes:1"
 
 vim.bo.swapfile = false
+vim.go.backup = false
 
 -- default, with insert changed to underline
 vim.go.guicursor = "n-v-c-sm:block,i-ci-ve:ver20,r-cr-o:hor20"
@@ -97,9 +98,21 @@ require("lazy").setup({
 	{ "travisjeffery/vim-auto-mkdir" },
 
 	{
+		"Mofiqul/vscode.nvim",
+		enabled = true,
+		priority = 1000,
+		lazy = false,
+
+		config = function()
+			require("vscode").setup({})
+			require("vscode").load()
+		end,
+	},
+
+	{
 		"kepano/flexoki-neovim",
 		name = "flexoki",
-		enabled = true,
+		enabled = false,
 		priority = 1000,
 		lazy = false,
 
