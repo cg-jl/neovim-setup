@@ -97,9 +97,21 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	{ "travisjeffery/vim-auto-mkdir" },
 
+
+	{
+		"sainnhe/gruvbox-material",
+		priority = 1000,
+		lazy = false,
+		config = function()
+			vim.g.gruvbox_material_foreground = "mix"
+			vim.g.gruvbox_material_better_performance = 1
+			vim.cmd.colorscheme("gruvbox-material")
+		end,
+	},
+
 	{
 		"Mofiqul/vscode.nvim",
-		enabled = true,
+		enabled = false,
 		priority = 1000,
 		lazy = false,
 
@@ -257,6 +269,8 @@ require("lazy").setup({
 
 			-- require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/LuaSnip" })
 
+
+
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -272,7 +286,7 @@ require("lazy").setup({
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<m-m>"] = cmp.mapping.confirm({ select = true }),
-					["<m-n>"] = cmp.mapping.complete(),
+					["<m-space>"] = cmp.mapping.complete(),
 					["<m-n>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
@@ -314,9 +328,22 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 		init = function()
 			local lsp = require("lspconfig")
-			lsp.clangd.setup({})
+			lsp.clangd.setup({
+				cmd = {
+					-- see clangd --help-hidden
+					"clangd",
+					-- by default, clang-tidy use -checks=clang-diagnostic-*,clang-analyzer-*
+					-- to add more checks, create .clang-tidy file in the root directory
+					-- and add Checks key, see https://clang.llvm.org/extra/clang-tidy/
+					"--clang-tidy",
+					"--cross-file-rename",
+					"--header-insertion=iwyu",
+				},
+			})
 			lsp.zls.setup({})
 			lsp.ols.setup({})
+			lsp.gopls.setup({})
+			lsp.rust_analyzer.setup({})
 			-- NOTE: for primeagen's DSA course
 			lsp.tsserver.setup({})
 		end,
